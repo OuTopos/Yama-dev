@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="test" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/test.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="257" name="hyptosis_tile-art-batch-1" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/hyptosis_tile-art-batch-1.png" width="960" height="960"/>
+ </tileset>
+ <tileset firstgid="1157" name="hyptosis_til-art-batch-2" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/hyptosis_til-art-batch-2.png" width="960" height="960"/>
+ </tileset>
+ <layer name="0.0" width="25" height="25">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxbwsDAsGQUU4zxgVE7Bpcd1LJv1A7q2TEc0hW17BjFo3gUj2JiMQCXAVbM
+  </data>
+ </layer>
+ <layer name="0.1" width="25" height="25">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAHgzCcQAAQ==
+  </data>
+ </layer>
+ <layer name="1.0" width="25" height="25">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzbxMDAsIkITAkgxnxK7RlsdiyC4sU0tAOGNw9SOwKBOAgHppYdiUCchANTI25Abp0ExLZAbIeE7QnYgewnSRYGBikglmbBbgfMvb5A7IeE/Ymw4xAQHwZic6DZFkBsicOOJjzhhG4HIxAzQ9kgsy8B8WUiwgpfXMDsAJnNBMROQCwMDR9izIaBQjx+gblfEIiFgNgQiJWhfiAFwOKcGDvI8QMDDrPR7UG3g1RATL4eCDueAvEzIH4OxC+oZAcyANnxFYi/AfF3IP5BIztIBaN20M4OcsBwsQMAROfAIg==
+  </data>
+ </layer>
+ <layer name="1.1" width="25" height="25">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBg8YBUQr8aC11DRjl1AfBQL3kNFO04B8Wk0TG070AHMX6N2EGfHVRrbQQvAzwzByGA7iWbkAnEeEs4nQs9xEu0gB9wE4ltAfBuI79DIjpdA/AqIXwPxGxrZQSswGj4jD4zG+SggBgAAWFYxdA==
+  </data>
+ </layer>
+ <layer name="2.0" width="25" height="25">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYKAvWEZj8wNobD69wVIgXj7QjqAi6ALibiDuoaEds4B4NhKfmZ1yM+9B6f8gghG3OlcWyuypBeIVQLySMmNGwSgYBaNgFIwAAABN5wkY
+  </data>
+ </layer>
+ <objectgroup name="Test" width="25" height="25"/>
+ <layer name="3.0" width="25" height="25">
+  <properties>
+   <property name="z" value="3"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2Bog3NQ+jwQXxhIh4yCUTAKRsEoGAV0BAD1fAJu
+  </data>
+ </layer>
+ <layer name="4.0" width="25" height="25">
+  <properties>
+   <property name="z" value="4"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B2YB+U3g/EBwbQHaNgFIyCUTAKRsFwAwCGkAI+
+  </data>
+ </layer>
+ <objectgroup name="block2" width="25" height="25">
+  <object x="96" y="288" width="32" height="32"/>
+  <object x="192" y="192" width="64" height="64"/>
+  <object x="256" y="192" width="32" height="32"/>
+ </objectgroup>
+</map>

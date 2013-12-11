@@ -1,0 +1,917 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ca",
+				"capsule"
+			],
+			[
+				"caps",
+				"capsules"
+			],
+			[
+				"get",
+				"getWidth"
+			],
+			[
+				"test",
+				"testtest"
+			],
+			[
+				"load",
+				"loadImage"
+			],
+			[
+				"de",
+				"debug"
+			],
+			[
+				"depth",
+				"depthmode"
+			],
+			[
+				"Depth",
+				"depthmode"
+			],
+			[
+				"add",
+				"addToGrid"
+			],
+			[
+				"tiles",
+				"tiles"
+			],
+			[
+				"til",
+				"tilewidth"
+			],
+			[
+				"tile",
+				"tiley"
+			],
+			[
+				"resi",
+				"resize"
+			],
+			[
+				"th",
+				"th"
+			],
+			[
+				"vert",
+				"vertices"
+			],
+			[
+				"mesh",
+				"mesh"
+			],
+			[
+				"vertex",
+				"vertexmap"
+			],
+			[
+				"vetr",
+				"vertexCount1"
+			],
+			[
+				"set",
+				"setVertexMap"
+			],
+			[
+				"testV",
+				"testVertexMap"
+			],
+			[
+				"vertice",
+				"vertices"
+			],
+			[
+				"i",
+				"i"
+			],
+			[
+				"w",
+				"w"
+			],
+			[
+				"dt",
+				"dt"
+			],
+			[
+				"jo",
+				"joysticks"
+			],
+			[
+				"SERV",
+				"SERVER"
+			],
+			[
+				"hr",
+				"header	Tag"
+			],
+			[
+				"spr",
+				"spritebatch"
+			],
+			[
+				"pri",
+				"print"
+			],
+			[
+				"tilese",
+				"tileset"
+			],
+			[
+				"im",
+				"image"
+			],
+			[
+				"sp",
+				"spritebatches"
+			],
+			[
+				"sprite",
+				"spritebatches"
+			],
+			[
+				"terrain",
+				"terrainD"
+			],
+			[
+				"star",
+				"start_time"
+			],
+			[
+				"end",
+				"end_time"
+			],
+			[
+				"tilewidth",
+				"tilewidth"
+			],
+			[
+				"qu",
+				"quad"
+			],
+			[
+				"ima",
+				"imagename"
+			],
+			[
+				"bo",
+				"boundingbox"
+			],
+			[
+				"tileset",
+				"tilesets"
+			],
+			[
+				"di",
+				"div	Tag"
+			],
+			[
+				"sortmo",
+				"sortmode"
+			],
+			[
+				"so",
+				"sortmodes"
+			],
+			[
+				"d",
+				"destroy"
+			],
+			[
+				"play",
+				"player2"
+			],
+			[
+				"colo",
+				"colormode"
+			],
+			[
+				"x",
+				"x"
+			],
+			[
+				"wa",
+				"weapon"
+			],
+			[
+				"reset",
+				"resetViewports"
+			],
+			[
+				"pr",
+				"private"
+			],
+			[
+				"cs",
+				"csy"
+			],
+			[
+				"c",
+				"canvas"
+			],
+			[
+				"map",
+				"mapview"
+			],
+			[
+				"ent",
+				"entity"
+			],
+			[
+				"ark",
+				"arkanosPlayer"
+			],
+			[
+				"vi",
+				"view"
+			],
+			[
+				"ne",
+				"newEntity"
+			],
+			[
+				"new",
+				"newMap"
+			],
+			[
+				"body",
+				"bodyType"
+			],
+			[
+				"tiel",
+				"tileset"
+			],
+			[
+				"fun",
+				"function	function"
+			],
+			[
+				"en",
+				"entity"
+			],
+			[
+				"p",
+				"public"
+			],
+			[
+				"view",
+				"viewports"
+			],
+			[
+				"fu",
+				"function	function"
+			],
+			[
+				"in",
+				"insert"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "tail -f /cygdrive/c/Users/jonas.martensson/Documents/Rogue\\ World\\ Server/Debug/Rogue\\ World\\ Server_MSV-WKS-AA439_debug.txt | grep -i $1",
+			"file": "/C/cygwin64/home/jonas.martensson/poop",
+			"file_size": 137,
+			"file_write_time": 130288278912680104,
+			"settings":
+			{
+				"buffer_size": 137,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Kyoto Royal Hills \n10 Higashikujo Minamisanno-cho,Minami-ku,Kyoto,JAPAN\nTEL：075-661-4388    /    Dial Free0120-391915\nhttp://goo.gl/maps/JcQRb\nOwener:Mr Kiyokawa\n(Japanese)\n株式会社京都ロイヤルヒルズ\n京都府京都市南区東九条南山王町10\nフリーダイヤル：0120-391915\nTEL：075-661-4388\n担当：清川",
+			"settings":
+			{
+				"buffer_size": 247,
+				"line_ending": "Windows",
+				"name": "Kyoto Royal Hills"
+			}
+		},
+		{
+			"contents": "235-3905375237",
+			"settings":
+			{
+				"buffer_size": 14,
+				"line_ending": "Windows",
+				"name": "235-3905375237"
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/LOVE (nightly).sublime-build",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/jonas.martensson/AppData/Roaming/Sublime Text 3/Packages/User/Default.sublime-theme",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_assets.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_hud.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_gui.lua",
+		"/C/Program Files (x86)/Sauerbraten/server-init.cfg",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/capsules/dev/entities/player.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/capsules/dev/main.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/boot.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/entities.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_viewports.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/main.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama.sublime-project",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_entities.lua",
+		"/C/Users/jonas.martensson/Google Drive/Wedding/Movie - Profiles/Movie Intro.wlmp",
+		"/C/Users/jonas.martensson/Google Drive/Wedding/Movie - Profiles/JONASMOE.wlmp",
+		"/C/Users/jonas.martensson/Downloads/shitv/main.lua",
+		"/C/Users/jonas.martensson/AppData/Roaming/Sublime Text 3/Packages/User/Jonokai.sublime-theme",
+		"/C/Program Files/Sublime Text 3/Packages/Color Scheme - Default.sublime-package",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_animations.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_buffers.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/GeometryTest/main.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/gamelogic/default.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/entities/camera.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_screen.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/entities/player.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_c.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/tilesets/debug.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_maps.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/custom.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/entities_camera.lua",
+		"/C/Users/jonas.martensson/Desktop/net/main.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/entities/entitiesBase.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/entities_player.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/geoimage9/main.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/conf.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/images/terrain.tsx",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/maps/test/start.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/Yama_0.9.0/yama_grid.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/main.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/conf.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/GeometryTest/yama_assets.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/maps/test/start.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/GeometryTest/tilesets/debug.lua",
+		"/C/Users/jonas.martensson/Google Drive/Projects/Love2D_0.9.0/GeometryTest/tilesets/terrain.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_gui.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_hud.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_assets.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_viewports.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama.lua",
+		"/C/Users/jonas.martensson/AppData/Roaming/Sublime Text 3/Packages/User/LOVE.sublime-build",
+		"/C/Users/jonas.martensson/AppData/Roaming/Sublime Text 3/Packages/User/LOVE (nightly).sublime-build",
+		"/C/p4ws/jonas.martensson-aa439-rogue/rogue/dev/MAIN/data/rogue/maps/10E279585118E646000001C4DCC53B5A/Entities/D6726E78524FD6EF000003E8B6B023C1/layerData.mlayer",
+		"/C/Users/jonas.martensson/AppData/Roaming/Sublime Text 3/Packages/User/LOVE.0.9.0.sublime-build",
+		"/C/Users/jonas.martensson/Desktop/Love2D_0.9.0/GeometryTest/conf.lua",
+		"/C/Users/jonas.martensson/Desktop/Love2D_0.9.0/GeometryTest/main.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_maps.lua",
+		"/C/Program Files (x86)/VideoLAN/VLC/lua/http/custom.lua",
+		"/C/Program Files (x86)/VideoLAN/VLC/lua/metacut/metacut.lua",
+		"/C/Users/jonas.martensson/Downloads/biengineer2/main.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_buffers.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_g.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/entities_sprite.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/entities_player.lua",
+		"/C/Users/jonas.martensson/Desktop/Love2D_0.9.0/GeometryTest/client.lua",
+		"/C/Program Files (x86)/VideoLAN/VLC/lua/sd/metachannels.luac",
+		"/C/Users/jonas.martensson/Downloads/biengineer/main.lua",
+		"/C/Users/jonas.martensson/Downloads/biengineer/client.lua",
+		"/C/Users/jonas.martensson/Downloads/biengineer/server.lua",
+		"/C/Users/jonas.martensson/Desktop/net/client.lua",
+		"/C/Users/jonas.martensson/Desktop/net/conf.lua",
+		"/C/Users/jonas.martensson/Desktop/net/server.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/entities_monster.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_animations.lua",
+		"/C/Users/jonas.martensson/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/entities_humanoid.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_ai_patrols.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_patrols.lua",
+		"/C/Users/jonas.martensson/Desktop/pyglet-1.2alpha1/README",
+		"/C/Users/jonas.martensson/Desktop/pyglet-1.2alpha1/setup.py",
+		"/C/Users/jonas.martensson/AppData/Roaming/Sublime Text 3/Packages/User/Py.sublime-build",
+		"/C/Users/jonas.martensson/Desktop/piggie/test.py",
+		"/C/Users/jonas.martensson/Desktop/pyglet-1.2alpha1/examples/graphics.py",
+		"/C/Users/jonas.martensson/Desktop/pyglet-1.2alpha1/examples/image_display.py",
+		"/C/Users/jonas.martensson/AppData/Roaming/Sublime Text 3/Packages/User/Node.js.sublime-build",
+		"/C/Users/jonas.martensson/Desktop/canvas/index.html",
+		"/C/Users/jonas.martensson/Desktop/lovetest/main.lua",
+		"/C/Users/jonas.martensson/Desktop/lovetest/conf.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/maps/test/test.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/maps/test/arkanos.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_c.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/weather.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/images.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_character.lua",
+		"/C/Users/jonas.martensson/Desktop/benchmark/main.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/poop.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/maps/test/random.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/entities.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/physics.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/maps/test/house1_room1.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/entities_bullet.lua",
+		"/C/Users/jonas.martensson/Desktop/GetSimpleCMS_3.2.1/theme/Innovation/header.inc.php",
+		"/C/Users/jonas.martensson/Desktop/Vlad/template.php",
+		"/C/Users/jonas.martensson/Desktop/Jarpestam/template.php",
+		"/C/Users/jonas.martensson/ownCloud/Yamazaki.txt",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/entities_mplayer.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/maps/test/random.tmx",
+		"/C/Users/jonas.martensson/Desktop/shadows/main.lua",
+		"/C/Users/jonas.martensson/Desktop/shadows/lighting.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_cameras.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_entities.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_game.lua",
+		"/C/Users/jonas.martensson/Desktop/shadows/conf.lua",
+		"/C/Users/jonas.martensson/Desktop/testtrap/js/iyen.js",
+		"/C/Users/jonas.martensson/Desktop/testtrap/index.html",
+		"/C/Users/jonas.martensson/Desktop/bootstrap/test/index.html",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/entities_planet.lua",
+		"/C/Users/jonas.martensson/Desktop/love_tiledmap/main.lua",
+		"/C/Users/jonas.martensson/ownCloud/ProjectsTemp/Strayer/index.html",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_players.lua",
+		"/C/Users/jonas.martensson/Desktop/Demos/particles/main.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/maps/space/planets.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/maps/space/planets.tmx",
+		"/C/Users/jonas.martensson/Desktop/hw.cpp",
+		"/C/Users/jonas.martensson/Desktop/node.js",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_swarms.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_maps2.lua",
+		"/C/Users/jonas.martensson/Documents/GitHub/Yama/yama_hooks.lua"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"yama.root",
+			"C:\\Users\\jonas.martensson\\Google Drive\\",
+			"boot",
+			"command",
+			"boot",
+			"boot.line",
+			"tab",
+			"sidebar",
+			"numberOfTilesets",
+			"addMeshesToBuffer",
+			"rotate",
+			"time",
+			"private.",
+			"depth_",
+			"depth",
+			"depth_sorts",
+			"self.depthmode",
+			"self.depth_sort",
+			"depthmodes",
+			"private.depthmode",
+			"self.sortmode",
+			"sortmode",
+			"generateGrid",
+			"addToGrid",
+			"tilewidth",
+			"addMeshesToBuffer",
+			"private.sortmode",
+			"newdata",
+			"self.imagedata",
+			"imagedata",
+			"newheight",
+			"newwidth",
+			"self.ycount",
+			"self.xcount",
+			"vTileCount",
+			"hTileCount",
+			"tilewidth",
+			"self.tilewidth",
+			"self.meshes",
+			"self.tiles",
+			"self.tilesv",
+			"vtiles",
+			"htiles",
+			"scale",
+			"linear",
+			"self.batches",
+			"sort",
+			"z",
+			"self.meshes[image][depth]",
+			"addToBuffer",
+			"optimize",
+			"getTileset",
+			"self.meshdata",
+			"meshdata[\"tileset\"]",
+			"batchkey",
+			"[l]",
+			"testMesh",
+			"private",
+			"public",
+			"screen",
+			"resize",
+			"view",
+			"size",
+			"spawn",
+			"image",
+			"terra",
+			"sw",
+			"x2",
+			"newg",
+			"geom",
+			"imagepath",
+			"png",
+			"tileset",
+			"self",
+			"fps",
+			"server",
+			"stick1distance",
+			"map.getData()",
+			"self.world",
+			"private.entities",
+			"private",
+			"public",
+			"private.viewports",
+			"swarm",
+			"private.data",
+			"private.world",
+			"get",
+			"private.spawns",
+			"private.patrols",
+			"public.public.buffer",
+			"private.patrols",
+			")\n",
+			">\n",
+			"spritebatches",
+			"sprite.spritebatch",
+			"debug",
+			"private.buffer",
+			"Terrain",
+			"terrain",
+			"layerkey",
+			"for i",
+			"getTileSprite",
+			"optimi",
+			"getY",
+			"addToBu",
+			"private.terrain",
+			"getSprite",
+			"geSprite",
+			"addToBu",
+			"addTO",
+			"addTo",
+			"loadTiles",
+			"imagename",
+			"{}\n",
+			"tileset",
+			"private",
+			"public",
+			"animation",
+			"public",
+			"self.box",
+			"public",
+			"private",
+			"boundingbox",
+			"public",
+			"private",
+			"public",
+			"private",
+			"public"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"yama.paths.capsule",
+			"C:\\Users\\山崎　萌\\Google ドライブ\\",
+			"boot.command",
+			"self.",
+			"depthsorts",
+			"self.depth_mode",
+			"self.depth_sorts",
+			"depth_sort",
+			"self.depthmode",
+			"private.depthmode",
+			"self.imagedata",
+			"self.srcimagedata",
+			"self.imagedata",
+			"self.imageheight",
+			"self.imagewidth",
+			"self.height",
+			"self.width",
+			"self.ycount",
+			"self.xcount",
+			"tileWidth",
+			"self.tiles",
+			"self.meshes",
+			"self.vertices",
+			"vTileCount",
+			"hTileCount",
+			"self.bufferbatches",
+			"depth",
+			"self.meshes[depth][image]",
+			"self.meshes",
+			"meshdata[image]",
+			"[layer]",
+			"self",
+			"iw",
+			"vxiw",
+			"vx",
+			"imagePath",
+			"self",
+			"leftStickDistance",
+			"map.data",
+			"map.world",
+			"self.entities",
+			"self",
+			"public.viewports",
+			"public.data",
+			"public.world",
+			"public.spawns",
+			"public.patrols",
+			"public.public.buffer",
+			"public.buffer",
+			"public.terrain",
+			"imagepath",
+			"self",
+			"self.boundingbox",
+			"self",
+			"box",
+			"self",
+			"public",
+			"self",
+			"spritesheets",
+			"self",
+			"private.tiles",
+			"joystick.getAxis(public.joystick",
+			"private.fixtures.anchor",
+			"private.fixtures.weapon",
+			"private.weapon.fixture",
+			"private.world",
+			"private.anchor",
+			"aoy",
+			"aox",
+			"category",
+			"private.boundaries",
+			"private.camera",
+			"resize",
+			"private.view",
+			"private.weapon",
+			"private.current.points",
+			"private.spawns",
+			"private.patrols",
+			"public.tilesInMap",
+			"private.entities.visible[vp]",
+			"maps.makeFixture",
+			"private.entities.insert",
+			"private.entities.list",
+			"map.getData()",
+			"swarm",
+			"swarms",
+			"private.swarm",
+			"private.world",
+			"private.data",
+			"buffer",
+			"world",
+			"buffer",
+			"world"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/cygwin64/home/jonas.martensson/poop",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 137,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								137,
+								137
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 247,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								247,
+								247
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Kyoto Royal Hills",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "235-3905375237",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 211.0
+	},
+	"project": "yama.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
