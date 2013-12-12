@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="terrain_atlas" tilewidth="32" tileheight="32">
+  <image source="../../images/LPC_Atlas/Atlas_0/terrain_atlas.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="0:1" width="100" height="100">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMA6DBk6x/ycFzKNhLqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq/gGS9X6M
+  </data>
+ </layer>
+ <layer name="1:1" width="100" height="100">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzrENACAQA7FA9t8ZRqB50djS9ZcAAC9Wk31rf58AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkw5YLgAQ
+  </data>
+ </layer>
+ <layer name="2:1" width="100" height="100">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzsEJACAMBMEj/TdlbEy7UMgM7H8TAH61KunbrtcnAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHMclZgCTQ==
+  </data>
+ </layer>
+ <objectgroup color="#ff0000" name="Collision" width="100" height="100">
+  <properties>
+   <property name="type" value="collision"/>
+  </properties>
+  <object x="1952" y="128" width="96" height="32"/>
+ </objectgroup>
+ <objectgroup color="#ffff7f" name="Spawns" width="100" height="100">
+  <properties>
+   <property name="type" value="spawns"/>
+  </properties>
+  <object name="arkanos" x="1824" y="32" width="64" height="32"/>
+ </objectgroup>
+ <objectgroup color="#55ffff" name="Portals" width="100" height="100">
+  <properties>
+   <property name="type" value="portals"/>
+  </properties>
+  <object x="1824" y="0" width="64" height="32">
+   <properties>
+    <property name="map" value="test/arkanos"/>
+    <property name="spawn" value="entrance"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

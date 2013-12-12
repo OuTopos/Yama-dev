@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="30" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="sx" value="4"/>
+ </properties>
+ <tileset firstgid="1" name="mininicular" tilewidth="16" tileheight="16">
+  <image source="../../images/tilesets/mininicular.png" width="128" height="128"/>
+ </tileset>
+ <layer name="background_1" width="30" height="30">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztlEsKwCAMBXOtmka9/6mKUEGKpi6eunnCgMHFmI+qiKhD+DlHUTz27u9N3uqJjtcOeeNCb3K8GeS6Ot5RrM2dEN4w4UX3deS1T4zKs1fnutp80TPkzdWKtzLjLTXNB7zW9HPXP0kIIYQQguYBYyfPHg==
+  </data>
+ </layer>
+ <layer name="background_2" width="30" height="30">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztkzsKgDAQRKcRK42Nn8rSTju9/9HchZWkzQqL4DyYcnhJhgDkD7SWIdjbFFF/H+ieJYdkl0yBXphT77w6+wn+rbzeZN3F0e2sG+lURuSNa1Dn5nQCed/aO5d/QfdNL85Qy/POp+QK9BJCCCHk29yGIANR
+  </data>
+ </layer>
+ <layer name="ground" width="30" height="30">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztlMEOgjAMhkv0gnDBccEb3PQG7/9wbnFNarNunWZ66Z/0wPjTr+0KHQB0mRihjThnjue7j8OH83HycWnIvQmewL425M4Z367Mt8Rcpfkgc1PmRYUZpOpcY77SfFz0PSq5pXoOhRd36FP1IO9GS00gz2uA1/fAlfpmz+xZ2pGBeFP9DiRHjhvuJcz8zs7pjmD9vFa+lz17L3FpT4Ht4L0eFK9J4k5KLvaE/eD8+L2toOM60HGl4PcmcVP/cuqt5fI+loJ/FLzfckt+yqazruX+439gMplMJtOv9ATa7wcu
+  </data>
+ </layer>
+ <layer name="foreground_1" width="30" height="30">
+  <properties>
+   <property name="z" value="3"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYCAOaBOpbqQBYyDWGcLmD3aA7HfDAXMFYQBypwmUjRxnIDFtqNhgAkM9TRkNoN2DLS5HwSgYBaNgFIyCUTAKKAEAV10DKQ==
+  </data>
+ </layer>
+ <objectgroup name="Collision" width="30" height="30" visible="0">
+  <object x="0" y="128" width="160" height="32"/>
+  <object x="0" y="160" width="144" height="32"/>
+  <object x="144" y="176">
+   <polygon points="0,0 16,-16 0,-16"/>
+  </object>
+  <object x="48" y="64">
+   <polygon points="0,0 16,-16 16,-32 32,-48 32,-64 0,-64"/>
+  </object>
+  <object x="0" y="0" width="48" height="96"/>
+  <object x="80" y="0" width="48" height="16"/>
+  <object x="128" y="16">
+   <polygon points="0,0 32,32 48,32 48,0 16,0 0,-16"/>
+  </object>
+  <object x="240" y="144">
+   <polygon points="0,0 16,-16 16,48 -48,48 -48,16 -32,0"/>
+  </object>
+  <object x="256" y="128" width="16" height="64"/>
+  <object x="272" y="96" width="16" height="96"/>
+  <object x="320" y="48" width="48" height="32"/>
+  <object x="320" y="80">
+   <polygon points="0,0 16,16 32,0"/>
+  </object>
+  <object x="224" y="64">
+   <polygon points="0,0 16,16 32,0"/>
+  </object>
+ </objectgroup>
+</map>

@@ -1,0 +1,3 @@
+local logic = {}
+
+return logic

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="name" value="Gravity Fall"/>
+  <property name="player_entity" value="mplayer"/>
+  <property name="sx" value="1"/>
+  <property name="sy" value="1"/>
+  <property name="yg" value="10"/>
+ </properties>
+ <tileset firstgid="1" name="goblin_cave" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/lorestrome/goblin_cave.png" width="256" height="837"/>
+ </tileset>
+ <tileset firstgid="209" name="test" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/test.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="465" name="hyptosis_tile-art-batch-1" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/hyptosis_tile-art-batch-1.png" width="960" height="960"/>
+ </tileset>
+ <tileset firstgid="1365" name="goblin2" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/lorestrome/goblin2.png" width="256" height="837"/>
+ </tileset>
+ <layer name="Background" width="100" height="100">
+  <properties>
+   <property name="type" value="spritebatch"/>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwzEJAAAMA7Ae82+xVgrTkUB6SVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV1T/ocKUv
+  </data>
+ </layer>
+ <layer name="Tiles Layer 2" width="100" height="100">
+  <properties>
+   <property name="type" value="spritebatch"/>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt0TEKwCAQRUEbz+h5c7MUIlhESLWuOAOvFdzfagEAAAAAAAAAAAAAAAAAAA711B452CMXe+RijxzGDnM73rjBn9vYI07Ufeyx9nUbe+xz6x6rf0uSpHMCAAAAAAAAAAAAAAAAAAAAAACASC9vh7GM
+  </data>
+ </layer>
+ <objectgroup color="#ff0000" name="Ground" width="100" height="100">
+  <properties>
+   <property name="type" value="collision"/>
+  </properties>
+  <object type="floor" x="0" y="1504" width="3200" height="160">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1280" y="1856">
+   <polyline points="0,0 64,0"/>
+  </object>
+  <object type="floor" x="1344" y="1888">
+   <polyline points="0,0 32,0"/>
+  </object>
+  <object type="floor" x="1536" y="1856">
+   <polyline points="0,0 32,0"/>
+  </object>
+  <object type="floor" x="1568" y="1824">
+   <polyline points="0,0 64,0"/>
+  </object>
+  <object type="floor" x="1632" y="1696">
+   <polyline points="0,0 64,0"/>
+  </object>
+  <object type="floor" x="1696" y="1824">
+   <polyline points="0,0 32,0"/>
+  </object>
+  <object type="floor" x="1184" y="1920">
+   <polyline points="0,0 96,0"/>
+  </object>
+  <object type="floor" x="2112" y="1824">
+   <polyline points="0,0 160,0"/>
+  </object>
+  <object type="floor" x="2144" y="1504">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+   <polygon points="0,32 0,-160 160,-160 160,32"/>
+  </object>
+  <object type="floor" x="1216" y="1440" width="96" height="96">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1312" y="1376" width="64" height="160">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1376" y="1408" width="32" height="128">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1600" y="1344" width="160" height="64">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1664" y="1216" width="64" height="160">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Walls" width="100" height="100">
+  <properties>
+   <property name="type" value="collision"/>
+  </properties>
+  <object type="wall" x="1696" y="1696">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="1632" y="1696">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="1728" y="1824">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object type="wall" x="2112" y="1824">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object type="wall" x="2272" y="1824">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object x="1376" y="1888">
+   <polyline points="0,0 0,96"/>
+  </object>
+  <object type="wall" x="1280" y="1856">
+   <polyline points="0,0 0,64"/>
+  </object>
+  <object type="wall" x="1344" y="1856">
+   <polyline points="0,0 0,32"/>
+  </object>
+  <object type="wall" x="1184" y="1920">
+   <polyline points="0,0 0,64"/>
+  </object>
+  <object type="wall" x="1568" y="1824">
+   <polyline points="0,0 0,32"/>
+  </object>
+  <object type="wall" x="1536" y="1856">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="2176" y="2208">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object type="wall" x="1344" y="2240">
+   <polyline points="0,0 0,64"/>
+  </object>
+  <object type="wall" x="1792" y="2208">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object type="wall" x="1600" y="2240">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="1408" y="2240">
+   <polyline points="0,0 0,32"/>
+  </object>
+  <object type="wall" x="1760" y="2080">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="1248" y="2304">
+   <polyline points="0,0 0,64"/>
+  </object>
+  <object type="wall" x="1696" y="2080">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object x="1440" y="2272">
+   <polyline points="0,0 0,96"/>
+  </object>
+  <object type="wall" x="2336" y="2208">
+   <polyline points="0,0 0,160"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffff7f" name="Spawns" width="100" height="100">
+  <properties>
+   <property name="type" value="spawns"/>
+  </properties>
+  <object name="start" x="704" y="1440" width="32" height="32">
+   <ellipse/>
+  </object>
+  <object name="start2" x="2080" y="1440" width="32" height="32">
+   <ellipse/>
+  </object>
+ </objectgroup>
+</map>

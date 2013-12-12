@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="96" tileheight="96">
+ <properties>
+  <property name="logic" value="default"/>
+  <property name="yg" value="1"/>
+ </properties>
+ <tileset firstgid="1" name="stoneblocks" tilewidth="96" tileheight="96">
+  <image source="../../images/tilesets/stoneblocks.png" width="480" height="384"/>
+  <tile id="6">
+   <properties>
+    <property name="ja" value="såklart"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Background" width="100" height="100">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt1TEKgDAMBdDsFYvY+5/VtRSkTjboGx4kZPmQQEpEFFLZunqfzHnPuIu+rwny/cEx2cmdliD7Vz29/TNBVgDyGn88AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACsdgEI1a3z
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="100" height="100">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt0cEKgCAMAFCzLOv/PzgjDxJ4Szr0HoxN3GBoCMCb5hKxRPp6Ebr8zRjTIz/rnmPALn+0hvu9t1rHmvcSuTlf93OtU9Ofa16a+dz0AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwJ+cc0wAnw==
+  </data>
+ </layer>
+ <objectgroup color="#ff0000" name="Collision" width="100" height="100">
+  <properties>
+   <property name="type" value="collision"/>
+  </properties>
+  <object x="0" y="480" width="2304" height="96">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object x="384" y="384" width="96" height="96">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object x="576" y="384" width="96" height="96"/>
+  <object x="864" y="384" width="96" height="96"/>
+  <object x="1248" y="192" width="288" height="96"/>
+  <object x="1728" y="288" width="96" height="192"/>
+  <object x="1632" y="1248"/>
+ </objectgroup>
+ <objectgroup color="#ffff00" name="Spawns" width="100" height="100">
+  <properties>
+   <property name="type" value="spawns"/>
+  </properties>
+  <object name="start" x="192" y="192" width="96" height="96"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 3" width="100" height="100">
+  <properties>
+   <property name="type" value="entities"/>
+  </properties>
+  <object gid="7" x="738" y="243"/>
+  <object gid="7" x="976" y="207"/>
+  <object gid="1" x="411" y="196"/>
+  <object gid="1" x="430" y="96"/>
+  <object gid="1" x="407" y="309"/>
+ </objectgroup>
+</map>
