@@ -41,9 +41,79 @@ function maps.load(path)
 				self.data.properties.yg = self.data.properties.yg or 0
 				self.data.properties.meter = self.data.properties.meter or self.data.tileheight
 
+
+				local beginContact, endContact, preSolve, postSolve
+				function beginContact(a, b, contact)
+					if a:getUserData() then
+						if a:getUserData().callback then
+							if a:getUserData().callback.beginContact then
+								a:getUserData().callback.beginContact(a, b, contact)
+							end
+						end
+					end
+					if b:getUserData() then
+						if b:getUserData().callback then
+							if b:getUserData().callback.beginContact then
+								b:getUserData().callback.beginContact(b, a, contact)
+							end
+						end
+					end
+				end
+
+				function endContact(a, b, contact)
+					if a:getUserData() then
+						if a:getUserData().callback then
+							if a:getUserData().callback.endContact then
+								a:getUserData().callback.endContact(a, b, contact)
+							end
+						end
+					end
+					if b:getUserData() then
+						if b:getUserData().callback then
+							if b:getUserData().callback.endContact then
+								b:getUserData().callback.endContact(b, a, contact)
+							end
+						end
+					end
+				end
+
+				function preSolve(a, b, contact)
+					if a:getUserData() then
+						if a:getUserData().callback then
+							if a:getUserData().callback.preSolve then
+								a:getUserData().callback.preSolve(a, b, contact)
+							end
+						end
+					end
+					if b:getUserData() then
+						if b:getUserData().callback then
+							if b:getUserData().callback.preSolve then
+								b:getUserData().callback.preSolve(b, a, contact)
+							end
+						end
+					end
+				end
+
+				function postSolve(a, b, contact)
+					if a:getUserData() then
+						if a:getUserData().entity then
+							if a:getUserData().entity.postSolve then
+								a:getUserData().entity.postSolve(a, b, contact)
+							end
+						end
+					end
+					if b:getUserData() then
+						if b:getUserData().entity then
+							if b:getUserData().entity.postSolve then
+								b:getUserData().entity.postSolve(b, a, contact)
+							end
+						end
+					end
+				end
+
 				self.world = love.physics.newWorld()
 				self.world:setGravity(self.data.properties.xg * self.data.properties.meter, self.data.properties.yg * self.data.properties.meter)
-				self.world:setCallbacks(self.logic.beginContact, self.logic.endContact, self.logic.preSolve, self.logic.postSolve)
+				self.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 				love.physics.setMeter(self.data.properties.meter)
 			end
 		end
@@ -546,7 +616,7 @@ function maps.load(path)
 				self.entities.update(dt)
 
 				-- Update the game logic
-				self.logic.update(dt)
+				--self.logic.update(dt)
 
 				-- Update viewports
 				for i=1, #self.viewports do

@@ -11,7 +11,7 @@ function assets.load()
 
 	-- LOADING TILESETS
 	if love.filesystem.exists(yama.paths.capsule .. "tilesets") then
-		local files = love.filesystem.enumerate(yama.paths.capsule .. "tilesets")
+		local files = love.filesystem.getDirectoryItems(yama.paths.capsule .. "tilesets")
 		for k, file in ipairs(files) do
 			print("INFO: ASSETS -> Autoloading tileset #" .. k .. ": " .. file)
 			local tilesets = dofile(yama.paths.capsule .. "tilesets/" .. file)
