@@ -50,9 +50,9 @@ function viewports.new()
 			self.camera.x = x
 			self.camera.y = y
 		end
-		--self.camera.x = math.floor(self.camera.x * self.camera.sx + 0.5) / self.camera.sx
-		--self.camera.y = math.floor(self.camera.y * self.camera.sy + 0.5) / self.camera.sy
 		self.boundaries.apply()
+		self.camera.x = math.floor(self.camera.x * self.camera.sx + 0.5) / self.camera.sx
+		self.camera.y = math.floor(self.camera.y * self.camera.sy + 0.5) / self.camera.sy
 	end
 
 	-- BOUNDARIES
