@@ -62,9 +62,9 @@ function capsule.load()
 			arkanos = yama.maps.load("test/start")
 			if arkanosPlayer == 0 then
 				local player1 = arkanos.spawn("player", "start")
-				--local camera = arkanos.spawn("camera", "start")
-				--camera.follow(player1)
-				vp1.view(arkanos, player1)
+				local camera = arkanos.spawn("camera", "start")
+				camera.follow(player1)
+				vp1.view(arkanos, camera)
 				vp1.setScale(4, 4)
 				arkanosPlayer = 1
 			elseif arkanosPlayer == 1 then

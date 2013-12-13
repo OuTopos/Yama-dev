@@ -204,17 +204,9 @@ function maps.load(path)
 		function self.removeViewport(vp)
 			for i=#self.viewports, 1, -1 do
 				if self.viewports[i] == vp then
-					--self.entities.visible[self.viewports[i]] = nil
 					table.remove(self.viewports, i)
 				end
 			end
-		end
-
-		function self.resetViewports()
-			print("Don't resetViewports")
-			--for i=1, #self.viewports do
-			--	self.viewports[i].reset()
-			--end
 		end
 
 		-- MISC
@@ -605,9 +597,9 @@ function maps.load(path)
 			if #self.viewports > 0 then
 				self.cooldown = 10
 			end
+			
 			if self.cooldown > 0 then
 				self.cooldown = self.cooldown - dt
-
 
 				-- Update physics world
 				self.world:update(dt)
@@ -615,13 +607,13 @@ function maps.load(path)
 				-- Update entities.
 				self.entities.update(dt)
 
-				-- Update the game logic
-				--self.logic.update(dt)
-
 				-- Update viewports
 				for i=1, #self.viewports do
 					self.viewports[i].update(dt)
-					self.addToBuffer(self.viewports[i])
+
+					for ii = 1, #self.bufferbatches do
+						self.viewports[i].addToBuffer(self.bufferbatches[ii])
+					end
 				end
 			end
 		end
@@ -630,12 +622,6 @@ function maps.load(path)
 			for i=1, #self.viewports do
 				-- Draw the viewport.
 				self.viewports[i].draw()
-			end
-		end
-
-		function self.addToBuffer(vp)
-			for i = 1, #self.bufferbatches do
-				vp.addToBuffer(self.bufferbatches[i])
 			end
 		end
 

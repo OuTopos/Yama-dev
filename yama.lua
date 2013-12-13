@@ -47,10 +47,10 @@ function yama.start(capsule)
 end
 
 function yama.load()
-	yama.capsule.load()
 	yama.assets.load()
 	yama.gui.load()
 	yama.entities.load()
+	yama.capsule.load()
 end
 
 function yama.update(dt)
