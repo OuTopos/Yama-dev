@@ -160,7 +160,7 @@ function maps.load(path)
 		end
 
 		function self.spawnXYZ(type, x, y, z, data)
-			local entity = yama.entities.new(self, type, x, y, z)
+			local entity = yama.entities[type].new(self, type, x, y, z)
 			if entity.initialize then
 				entity.initialize(data)
 			end
