@@ -51,8 +51,8 @@ function viewports.new()
 			self.camera.y = y
 		end
 		self.boundaries.apply()
-		self.camera.x = math.floor(self.camera.x * self.camera.sx + 0.5) / self.camera.sx
-		self.camera.y = math.floor(self.camera.y * self.camera.sy + 0.5) / self.camera.sy
+		--self.camera.x = math.floor(self.camera.x * self.camera.sx + 0.5) / self.camera.sx
+		--self.camera.y = math.floor(self.camera.y * self.camera.sy + 0.5) / self.camera.sy
 	end
 
 	-- BOUNDARIES
@@ -200,6 +200,11 @@ function viewports.new()
 		self.mapview.height = math.ceil(self.camera.height / self.mapview.tilewidth) + 1
 	end
 
+	-- PARALLAX
+	self.parallax = {}
+	self.parallax.enabled = true
+	self.parallax.x = 0.01
+	self.parallax.y = 0.01
 
 	-- UPDATE
 	function self.update(dt)
@@ -284,10 +289,24 @@ function viewports.new()
 		-- THE ACTUAL DRAW
 		if object.type == "drawable" then
 			-- DRAWABLE
-			love.graphics.draw(object.drawable, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)
+			--print(object.x, object.y)
+			if self.parallax.enabled then
+				-- UGLY WIDTH AND HEIGHT
+				local w, h = self.map.data.width * self.map.data.tilewidth, self.map.data.height * self.map.data.tileheight
+				
+
+				local x = object.x - self.camera.cx * self.parallax.x * object.z
+				local y = object.y - self.camera.cy * self.parallax.y * object.z
+				local sx = object.sx + self.parallax.x * object.z
+				local sy = object.sy + self.parallax.y * object.z
+				love.graphics.draw(object.drawable, x, y, object.r, sx, sy, object.ox, object.oy, object.kx, object.ky)
+			else
+				love.graphics.draw(object.drawable, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)
+			end
 			self.debug.drawcalls = self.debug.drawcalls + 1
 		elseif object.type == "sprite" then
 			-- SPRITE
+			print("THEW FUCK? SPRITES SHOULD NOT BE!")
 			love.graphics.draw(object.quad, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)
 			self.debug.drawcalls = self.debug.drawcalls + 1
 		end
