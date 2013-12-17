@@ -10,6 +10,7 @@ yama.buffers      	= require("yama_buffers")
 yama.entities       = require("entities")
 yama.viewports      = require("yama_viewports")
 yama.maps           = require("yama_maps")
+yama.newmaps		= require("maps")
 yama.gui            = require("yama_gui")
 yama.hud            = require("yama_hud")
 yama.animations     = require("yama_animations")
@@ -20,6 +21,9 @@ yama.joystick       = require("yama_joystick")
 yama.physics        = require("yama_physics")
 
 yama.g              = require("yama_g")
+
+
+yama.tools		    = require("tools")
 
 -- PATHS
 yama.paths = {}

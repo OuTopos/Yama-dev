@@ -44,8 +44,8 @@ function viewports.new()
 
 	function self.camera.setPosition(x, y, center)
 		if center then
-			self.camera.x = x - self.camera.width / 2
-			self.camera.y = y - self.camera.height / 2
+			self.camera.x = x - self.camera.width / 2 / self.camera.sx
+			self.camera.y = y - self.camera.height / 2 / self.camera.sy
 		else
 			self.camera.x = x
 			self.camera.y = y
@@ -54,6 +54,11 @@ function viewports.new()
 		--self.camera.x = math.floor(self.camera.x * self.camera.sx + 0.5) / self.camera.sx
 		--self.camera.y = math.floor(self.camera.y * self.camera.sy + 0.5) / self.camera.sy
 	end
+
+	-- CURSOR
+	self.cursor = {}
+	self.cursor.x = 0
+	self.cursor.y = 0
 
 	-- BOUNDARIES
 	self.boundaries = {}
@@ -202,9 +207,8 @@ function viewports.new()
 
 	-- PARALLAX
 	self.parallax = {}
-	self.parallax.enabled = true
-	self.parallax.x = 0.01
-	self.parallax.y = 0.01
+	self.parallax.enabled = false
+	self.parallax.factor = 0.1
 
 	-- UPDATE
 	function self.update(dt)
@@ -216,6 +220,10 @@ function viewports.new()
 		self.camera.cx = self.camera.x + self.camera.width / 2
 		self.camera.cy = self.camera.y + self.camera.height / 2
 		self.camera.radius = yama.g.getDistance(self.camera.cx, self.camera.cy, self.camera.x, self.camera.y)
+
+		-- UPDATE CURSOR
+		self.cursor.x = love.mouse.getX() + self.camera.x
+		self.cursor.y = love.mouse.getY() + self.camera.y
 
 		-- UPDATE MAP VIEW
 		-- Get the new map view coordinates in tiles (not pixels).
@@ -292,13 +300,29 @@ function viewports.new()
 			--print(object.x, object.y)
 			if self.parallax.enabled then
 				-- UGLY WIDTH AND HEIGHT
-				local w, h = self.map.data.width * self.map.data.tilewidth, self.map.data.height * self.map.data.tileheight
-				
+				local factor = object.z / self.map.data.tileheight * self.parallax.factor
 
-				local x = object.x - self.camera.cx * self.parallax.x * object.z
-				local y = object.y - self.camera.cy * self.parallax.y * object.z
-				local sx = object.sx + self.parallax.x * object.z
-				local sy = object.sy + self.parallax.y * object.z
+			--	local w, h = self.map.data.width * self.map.data.tilewidth, self.map.data.height * self.map.data.tileheight
+			--	local cox = self.camera.cx - w / 2
+			--	print("NEW OBJECT, factor: ", factor)
+				--print((w * (object.sx + factor) - w) / 2)
+				--print(object.z, factor, cox * factor)
+			--	local testx = (w * (object.sx + factor) - w) / 2 -- self.camera.cx * factor
+			--	local coxpercent = cox / w * (object.sx + factor) / 2
+			--	print(testx, coxpercent, coxpercent * testx)
+				--local cameraox = self.camera.cx / w / 2
+				--print(testx, object.z, factor, cameraox * testx)
+
+				local x = object.x - self.camera.cx * factor
+				local y = object.y - self.camera.cy * factor
+				local sx = object.sx + factor
+				local sy = object.sy + factor
+				if sx < 0 then
+					sx = 0
+				end
+				if sy < 0 then
+					sy = 0
+				end
 				love.graphics.draw(object.drawable, x, y, object.r, sx, sy, object.ox, object.oy, object.kx, object.ky)
 			else
 				love.graphics.draw(object.drawable, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)

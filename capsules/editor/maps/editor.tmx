@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="debug" tilewidth="32" tileheight="32" spacing="10" margin="20">
+  <image source="../images/debug.png" width="156" height="156"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="100">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztw8EJAAAMA6H7Zf+NC51DwVVTVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/AfE3EYA=
+  </data>
+ </layer>
+</map>

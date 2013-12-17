@@ -220,7 +220,7 @@ function maps.load(path)
 		-- LOAD - Tilesets
 		function self.loadTilesets()
 			for i,tileset in ipairs(self.data.tilesets) do
-				tileset.image = string.match(tileset.image, "../../images/(.*).png")
+				tileset.image = string.match(tileset.image, "../../images/(.*).png") or string.match(tileset.image, "../images/(.*).png") 
 				local pad = false
 				if tileset.properties.pad == "true" then
 					pad = true
