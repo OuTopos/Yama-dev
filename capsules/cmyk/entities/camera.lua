@@ -29,7 +29,7 @@ function camera.new(map, x, y, z)
 
 	-- Movement variables
 	local mass = 1
-	local velocity = 75
+	local velocity = 200
 	local direction = math.atan2(math.random(-1, 1), math.random(-1, 1))
 	local move = false
 

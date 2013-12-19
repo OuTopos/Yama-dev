@@ -34,8 +34,6 @@ function assets.load()
 
 				assets.loadTileset(tilesets[i].name, tilesets[i].imagepath, tilesets[i].tilewidth, tilesets[i].tileheight, tilesets[i].spacing, tilesets[i].margin)
 
-
-
 			end
 		end
 		--]]

@@ -13,8 +13,10 @@ function capsule.load()
 	})
 	capsule.map = yama.maps.load("test/gravityfall")
 	capsule.p1 = capsule.map.spawn("player", "start")
+	capsule.cam1 = capsule.map.spawn("camera", "start")
+	capsule.cam1.follow(capsule.p1)
 	capsule.vp1 = yama.viewports.new()
-	capsule.vp1.view(capsule.map, capsule.p1)
+	capsule.vp1.view(capsule.map, capsule.cam1)
 
 	function love.keypressed(key)
 		if key == "escape" then
@@ -44,25 +46,31 @@ function capsule.load()
 		end
 
 		if key == "n" then
-			vp1.camera.r = vp1.camera.r + 0.1
+			capsule.vp1.camera.r = capsule.vp1.camera.r + 0.1
 		end
 
 		if key == "m" then
-			vp1.camera.r = vp1.camera.r - 0.1
+			capsule.vp1.camera.r = capsule.vp1.camera.r - 0.1
 		end
-
+		if key == "k" then
+			if capsule.vp1.parallax.enabled then
+				capsule.vp1.parallax.enabled = false
+			else
+				capsule.vp1.parallax.enabled = true
+			end
+		end
 		if key == "z" then
-			capsule.p2 = capsule.map.spawn("mplayer", "start2")
+			capsule.p2 = capsule.map.spawn("player", "start2")
 			capsule.vp2 = yama.viewports.new()
 			capsule.vp2.view(capsule.map, capsule.p2)
 
 			--vp2.setScale(4, 4)
 
-			vp1.setSize(yama.screen.width / 2, yama.screen.height)
-			vp2.setSize(yama.screen.width / 2, yama.screen.height)
-			vp2.setPosition(yama.screen.width / 2)
-			gravityfallPlayer = 2
-			player2.joystick = 2
+			capsule.vp1.setSize(love.window.getWidth() / 2, love.window.getHeight())
+			capsule.vp2.setSize(love.window.getWidth() / 2, love.window.getHeight())
+			capsule.vp2.setPosition(love.window.getWidth() / 2)
+			capsule.p2.joystick = love.joystick.getJoysticks()[2]
+
 		end
 	end
 end
