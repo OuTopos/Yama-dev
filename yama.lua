@@ -14,10 +14,7 @@ yama.hud            = require("yama_hud")
 yama.animations     = require("yama_animations")
 yama.ai             = require("yama_ai")
 yama.ai.patrols     = require("yama_ai_patrols")
-yama.input          = require("yama_input")
-yama.joystick       = require("yama_joystick")
 yama.physics        = require("yama_physics")
-
 
 yama.tools		    = require("tools")
 
