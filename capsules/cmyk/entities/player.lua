@@ -94,7 +94,9 @@ function player.new( map, x, y, z )
 	local meleeWeaponMaskP2 = nil
 	local meleeWeaponGroupIndexP2 = nil
 	local meleeTimer = 0
-	local meleeMaxTimer = 0.25
+	local meleeMaxTimer = 0.2
+	local meleeCoolDownTimer = 0
+	local meleeCoolDownMaxTimer = 0.1
 
 	-- SHIELD--
 	local shieldMaxHealth = 140
@@ -196,6 +198,7 @@ function player.new( map, x, y, z )
 	sword:setUserData( swordUserdata )
 	sword:getBody( ):setMass( 1 )
 	sword:setMask( 1 )
+
 
 	local shield = love.physics.newFixture( anchor:getBody(), love.physics.newCircleShape( 26 ), 0 )
 	shield:setUserData( shieldUserdata )
@@ -380,19 +383,47 @@ function player.new( map, x, y, z )
 	function self.melee( dt )
 		--print( 'FUNC MELEE' )
 		if meleeTimer < meleeMaxTimer and allowMelee and self.joystick:isDown( ctrlMelee ) then
-			meleeTimer = meleeTimer + dt
-			--print( 'MELEE' )
-			sword:setMask( )
-			sword:setGroupIndex( 2 )
-			meleeing = true
-			self.refreshBufferBatch()
-		elseif sword:getMask() ~= 1 then
-			--print( 'NOTMELEE' )
-			sword:setGroupIndex( -2 )
-			sword:setMask( 1 )
-			meleeing = false
-			self.refreshBufferBatch()
+			print('whopp')
+			if meleeTimer == 0 then
+				print('WHAM')
+				sword:setMask( )
+				sword:setGroupIndex( 2 )
+				meleeing = true
+				self.refreshBufferBatch()
+				allowMelee = false
+				meleeCoolDownTimer = 0
+			end
 		end
+		if meleeing then
+			print('meleeing')
+			meleeTimer = meleeTimer + dt
+			if meleeTimer > meleeMaxTimer then
+				print( 'NOTMELEE' )
+				sword:setGroupIndex( -2 )
+				sword:setMask( 1 )
+				meleeing = false
+				self.refreshBufferBatch()
+				meleeTimer = 0
+			end
+		end
+		if not meleeing and meleeCoolDownTimer < meleeCoolDownMaxTimer then
+			print('coolioo')
+			meleeCoolDownTimer = meleeCoolDownTimer + dt
+			if meleeCoolDownTimer > meleeCoolDownMaxTimer then
+				print('reset')
+				allowMelee = true
+			end
+		end
+
+		
+
+		--if meleeTimer > meleeMaxTimer then
+
+				
+			--print( 'MELEE' )
+		--elseif sword:getMask() ~= 1 and meleeTimer > meleeMaxTimer then
+
+	--	end
 	end
 
 	function self.jumping(dt)
@@ -567,15 +598,16 @@ function player.new( map, x, y, z )
 				--ptcSpark:start( )
 			end
 			if userdata2 then
-				if userdata2.type == 'mplayer' and userdata.type == 'bullet' then
-					self.bodyEnergy( bulletStandardBodyDamage )
-				end
-				if userdata2.type == 'mplayer' and userdata.type == 'melee' then
-					self.bodyEnergy( meleeStandardBodyDamage )
-				end
 				if userdata.type == 'shield' and userdata2.type == 'melee' then
 					self.shieldPower( meleeStandardShieldDamage )
 				end
+				if userdata.type == 'bullet' and userdata2.type == 'mplayer' then
+					self.bodyEnergy( bulletStandardBodyDamage )
+				end
+				if userdata.type == 'melee' and userdata2.type == 'mplayer' then
+					self.bodyEnergy( meleeStandardBodyDamage )
+				end
+
 			end
 		end
 
