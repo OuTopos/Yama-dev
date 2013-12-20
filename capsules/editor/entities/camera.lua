@@ -47,7 +47,7 @@ function camera.new(map, x, y, z)
 
 
 	-- Standard functions
-	function self.update(dt)
+	function §.update(dt)
 
 		distance = yama.distance(self.anchor:getBody():getX(), self.anchor:getBody():getY(), self.target.x, self.target.y)
 

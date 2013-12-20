@@ -17,6 +17,10 @@ function capsule.load()
 	capsule.p1.vp = capsule.vp1
 	capsule.vp1.view(capsule.map)
 
+	function capsule.p1.func(self) print("BAJSEN" .. self.x) end
+
+	capsule.p1:func()
+
 	function love.keypressed(key)
 		if key == "escape" then
 			love.event.push("quit")

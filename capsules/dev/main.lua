@@ -7,20 +7,24 @@ function capsule.load()
 		fullscreen = false,
 		fullscreentype = "desktop",
 		vsync = false,
-		fsaa = 0,
+		fsaa = 8,
 		resizable = true,
 		borderless = false,
 		centered = true,
 	})
+	--love.graphics.setDefaultFilter("nearest", "nearest")
 
+	love.graphics.setFont(love.graphics.newImageFont(yama.assets.loadImage("font")," abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`'*#=[]\""))
 
+	capsule.map = yama.maps.load("test/parallax")
 
-	scaleToggle = 1
+	capsule.p1 = capsule.map.spawn("player", "start")
 
+	capsule.cam1 = capsule.map.spawn("camera", "start")
+	capsule.cam1.follow(capsule.p1)
 
-	vp1 = yama.viewports.new()
-	arkanosPlayer = 0
-	gravityfallPlayer = 0
+	capsule.vp1 = yama.viewports.new()
+	capsule.vp1.connect(capsule.map, capsule.cam1)
 
 	function love.keypressed(key)
 		if key == "escape" then
@@ -42,10 +46,10 @@ function capsule.load()
 		end
 
 		if key == "p" then
-			if yama.g.paused then
-				yama.g.paused = false
+			if yama.v.paused then
+				yama.v.paused = false
 			else
-				yama.g.paused = true
+				yama.v.paused = true
 			end
 		end
 
@@ -57,157 +61,59 @@ function capsule.load()
 			vp1.camera.r = vp1.camera.r - 0.1
 		end
 
-		-- ARKANOS
+		if key == "k" then
+			if capsule.vp1.parallax.enabled then
+				capsule.vp1.parallax.enabled = false
+			else
+				capsule.vp1.parallax.enabled = true
+			end
+		end
+
 		if key == "1" then
-			arkanos = yama.maps.load("test/start")
-			if arkanosPlayer == 0 then
-				local player1 = arkanos.spawn("player", "start")
-				local camera = arkanos.spawn("camera", "start")
-				camera.follow(player1)
-				vp1.view(arkanos, camera)
-				vp1.setScale(4, 4)
-				arkanosPlayer = 1
-			elseif arkanosPlayer == 1 then
-				local player2 = arkanos.spawn("player", "start")
-				vp2 = yama.viewports.new()
-				vp2.view(arkanos, player2)
-				vp2.setScale(4, 4)
-
-
-				vp1.setSize(yama.screen.width / 2, yama.screen.height)
-				vp2.setSize(yama.screen.width / 2, yama.screen.height)
-				vp2.setPosition(yama.screen.width / 2)
-				arkanosPlayer = 2
-			elseif arkanosPlayer == 2 then
-				local player3 = arkanos.spawn("player", "start")
-				vp3 = yama.viewports.new()
-				vp3.view(arkanos, player3)
-				vp3.setScale(4, 4)
-
-
-				vp1.setSize(yama.screen.width / 3, yama.screen.height)
-				vp2.setSize(yama.screen.width / 3, yama.screen.height)
-				vp2.setPosition(yama.screen.width / 3)
-				vp3.setSize(yama.screen.width / 3, yama.screen.height)
-				vp3.setPosition((yama.screen.width / 3) * 2)
-				arkanosPlayer = 3
-			elseif arkanosPlayer == 3 then
-				local player4 = arkanos.spawn("player", "start")
-				vp4 = yama.viewports.new()
-				vp4.view(arkanos, player4)
-
-
-				vp1.setSize(yama.screen.width / 2, yama.screen.height / 2)
-				
-				vp2.setSize(yama.screen.width / 2, yama.screen.height / 2)
-				vp2.setPosition(yama.screen.width / 2, 0)
-
-				vp3.setSize(yama.screen.width / 2, yama.screen.height / 2)
-				vp3.setPosition(0, yama.screen.height / 2)
-
-				vp4.setSize(yama.screen.width / 2, yama.screen.height / 2)
-				vp4.setPosition(yama.screen.width / 2, yama.screen.height / 2)
-
-				vp1.setScale(2, 2)
-				vp2.setScale(2, 2)
-				vp3.setScale(2, 2)
-				vp4.setScale(2, 2)
-
-				arkanosPlayer = 4
-			end
+			capsule.vp1.camera.zoom(1)
 		end
 
-		-- CUBICLES
 		if key == "2" then
-			arkanos = yama.maps.load("test/cubicles")
-			if arkanosPlayer == 0 then
-				local player1 = arkanos.spawn("player", "start")
-				vp1.view(arkanos, player1)
-				vp1.setScale(4, 4)
-				arkanosPlayer = 1
-			end
+			capsule.vp1.camera.zoom(2)
 		end
 
-
-		-- PLATFORM
 		if key == "3" then
-			arkanos = yama.maps.load("platform/start")
-			if arkanosPlayer == 0 then
-				local player1 = arkanos.spawn("player", "start")
-				vp1.view(arkanos, player1)
-				vp1.setScale(0.5, 0.5)
-				arkanosPlayer = 1
-			end
+			capsule.vp1.camera.zoom(3)
 		end
 
-		-- GRAVITYFALL
-		if key == "z" then
-			gravityfall = yama.maps.load("test/gravityfall")
-
-			if gravityfallPlayer == 0 then
-				player1 = gravityfall.spawn("mplayer", "start")
-				vp1.view(gravityfall, player1)
-				--vp1.setScale(4, 4)
-				gravityfallPlayer = 1
-			
-			elseif gravityfallPlayer == 1 then
-				player2 = gravityfall.spawn("mplayer", "start2")
-				vp2 = yama.viewports.new()
-				vp2.view(gravityfall, player2)
-
-				--vp2.setScale(4, 4)
-
-
-				vp1.setSize(yama.screen.width / 2, yama.screen.height)
-				vp2.setSize(yama.screen.width / 2, yama.screen.height)
-				vp2.setPosition(yama.screen.width / 2)
-				gravityfallPlayer = 2
-				player2.joystick = 2
-			end
-
+		if key == "4" then
+			capsule.vp1.camera.zoom(4)
 		end
 
-		if key == 'v' then
-			if player1.destroyed then
-				player1 = gravityfall.spawn("mplayer", "start")
-				vp1.view(gravityfall, player1)
-			end
-			if player2.destroyed then
-				player2 = gravityfall.spawn("mplayer", "start2")
-				vp2.view(gravityfall, player2)
-				player2.joystick = 2
-			end
+		if key == "5" then
+			capsule.vp1.zoom(4)
 		end
 
-		if key == "a" then
-			spaceMap = yama.maps.load("space/planets")
-			vp1.view(spaceMap)
+		if key == "6" then
+			capsule.vp1.zoom(1)
 		end
-		if key == "e" then
-			arkanos.spawnXYZ("monster", math.random(100, 300), math.random(100, 300), 32)
-			arkanos.spawnXYZ("humanoid", math.random(100, 300), math.random(100, 300), 32)
-		end
-		if key == "q" then
-			jonasMap.getEntities().list[1].destroy()
-			--entities.new("fplayer", math.random(100, 300), math.random(100, 300), 0, yama.viewports.list.a)
-		end
-
 
 		if key == "0" then
-			scaleToggle = scaleToggle + 1
-			if scaleToggle > 5 then
-				scaleToggle = 1
+			local scale = capsule.vp1.camera.sx + 1
+			if scale > 5 then
+				scale = 1
 			end
-			vp1.setScale(scaleToggle)
+			capsule.vp1.camera.zoom(scale)
+		end
+
+		if key == "+" then
+			if capsule.vp1.camera.round then
+				capsule.vp1.camera.round = false
+			else
+				capsule.vp1.camera.round = true
+			end
 		end
 	end
 
 	function love.resize(w, h)
-		print(("Window resized to width: %d and height: %d."):format(w, h))
-		if vp1 then
-			vp1.setSize()
+		if capsule.vp1 then
+			capsule.vp1.resize(w, h)
 		end
-		--yama.screen.resize(w, h)
 	end
 
 	function love.joystickadded(joystick)

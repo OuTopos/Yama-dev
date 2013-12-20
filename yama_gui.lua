@@ -8,23 +8,23 @@ function gui.load()
 	" abcdefghijklmnopqrstuvwxyz" ..
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
 	"123456789.,!?-+/():;%&`'*#=[]\"")
-
-	imagefont = love.graphics.newImage("images/font.png")
-	font = love.graphics.newImageFont(imagefont," abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`'*#=[]\"")
-	love.graphics.setFont(font)
-	
-	gui.images = {}
-	gui.images.hp = love.graphics.newImage("images/gui/bar_hp_mp.png")
-	gui.images.test = love.graphics.newImage("images/gui/confirm_bg.png")
 	--]]
+	--imagefont = love.graphics.newImage("images/font.png")
+
+
+	
+	--gui.images = {}
+	--gui.images.hp = love.graphics.newImage("images/gui/bar_hp_mp.png")
+	--gui.images.test = love.graphics.newImage("images/gui/confirm_bg.png")
+
 
 	--table.insert(gui.list, gui.newHealthBar())
 end
 function gui.draw(vp)
-	local left = vp.getX()
-	local right = vp.getX() + vp.getWidth()
-	local top = vp.getY()
-	local bottom = vp.getY() + vp.getHeight()
+	local left = vp.x
+	local right = vp.x + vp.width
+	local top = vp.y
+	local bottom = vp.y + vp.height
 	
 	--local camera = vp.getCamera()
 	--local map = vp.getMap()
@@ -48,13 +48,13 @@ function gui.draw(vp)
 	--love.graphics.print("Skeleton: HELLO", camera.x + 12, camera.y + camera.height - 55)
 	--love.graphics.print("Princess: Aahh!", camera.x + 12, camera.y + camera.height - 45)
 
-	if yama.g.paused then
+	if yama.v.paused then
 		love.graphics.setColor(0, 0, 0, 234)
-		love.graphics.rectangle("fill", left, top, vp.getWidth(), vp.getHeight())
+		love.graphics.rectangle("fill", left, top, vp.width, vp.height)
 		love.graphics.setColor(0, 0, 0, 255)
-		love.graphics.print("- PAUSE -", left + vp.getWidth()/2 - 20, top + vp.getHeight()/2 - 4)
+		love.graphics.print("- PAUSE -", left + vp.width/2 - 20, top + vp.height/2 - 4)
 		love.graphics.setColor(255, 255, 255, 255)
-		love.graphics.print("- PAUSE -", left + vp.getWidth()/2 - 21, top + vp.getHeight()/2 - 5)
+		love.graphics.print("- PAUSE -", left + vp.width/2 - 21, top + vp.height/2 - 5)
 	end
 
 	--gui.list[1].draw(vp)

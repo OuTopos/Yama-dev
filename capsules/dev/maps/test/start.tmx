@@ -5,7 +5,7 @@
  </properties>
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32">
   <properties>
-   <property name="pad" value="true"/>
+   <property name="pad" value="false"/>
   </properties>
   <image source="../../images/terrain.png" width="512" height="928"/>
   <terraintypes>
@@ -566,7 +566,7 @@
    eJzt0cEJwCAABMEj9l9jbEHTQMhP0oCiM7D/g0sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB2JX2Idfy/+Xp8tLW7JLXMXgEAAAAAAAAAAAAAAAAAnOwFY6oLTQ==
   </data>
  </layer>
- <layer name="3 A" width="100" height="100">
+ <layer name="3 A" width="100" height="100" visible="0">
   <properties>
    <property name="z" value="3"/>
   </properties>
@@ -590,7 +590,7 @@
    eJztzrENACAMwLCKHsHtXMqKKn6gDPaSNREAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8N4e3QeUlbczez8AAAAAAAAAAAAAAAAAAADgJwcigwGw
   </data>
  </layer>
- <objectgroup color="#ffff00" name="Spawns" width="100" height="100">
+ <objectgroup color="#ffff00" name="Spawns" width="100" height="100" visible="0">
   <properties>
    <property name="type" value="spawns"/>
   </properties>
@@ -774,5 +774,6 @@
   <object gid="2515" x="1800" y="3025"/>
   <object gid="2514" x="1767" y="3109"/>
   <object gid="2513" x="1928" y="3174"/>
+  <object x="1152" y="1856"/>
  </objectgroup>
 </map>

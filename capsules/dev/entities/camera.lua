@@ -49,7 +49,7 @@ function camera.new(map, x, y, z)
 	-- Standard functions
 	function self.update(dt)
 
-		distance = yama.distance(self.anchor:getBody():getX(), self.anchor:getBody():getY(), self.target.x, self.target.y)
+		distance = yama.tools.getDistance(self.anchor:getBody():getX(), self.anchor:getBody():getY(), self.target.x, self.target.y)
 
 		if distance > 1 then
 			if self.target.x and self.target.y then

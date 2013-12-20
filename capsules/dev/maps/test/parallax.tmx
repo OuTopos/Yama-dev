@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="name" value="Gravity Fall"/>
+  <property name="player_entity" value="mplayer"/>
+  <property name="sx" value="1"/>
+  <property name="sy" value="1"/>
+  <property name="yg" value="10"/>
+ </properties>
+ <tileset firstgid="1" name="goblin_cave" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/lorestrome/goblin_cave.png" width="256" height="837"/>
+ </tileset>
+ <tileset firstgid="209" name="test" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/test.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="465" name="hyptosis_tile-art-batch-1" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/hyptosis_tile-art-batch-1.png" width="960" height="960"/>
+ </tileset>
+ <tileset firstgid="1365" name="goblin2" tilewidth="32" tileheight="32">
+  <image source="../../images/tilesets/lorestrome/goblin2.png" width="256" height="837"/>
+ </tileset>
+ <tileset firstgid="1573" name="smalltrees" tilewidth="96" tileheight="128">
+  <image source="../../images/gamegraphics/smalltrees.png" width="288" height="128"/>
+ </tileset>
+ <layer name="-2" width="100" height="100">
+  <properties>
+   <property name="z" value="-2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt0bENACAMBLH0jPizshsZgD5IuHB/0qWq0jZPiB8AAAAAAAAAAAAAAAAAAAC0dTHdBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/OAJi03M=
+  </data>
+ </layer>
+ <layer name="-1 Behind" width="100" height="100">
+  <properties>
+   <property name="z" value="-1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzjENADAMA7AAGYDhKX8w/Ycg0nz49yS5AAAAAAAAAAAAAAAAAAAAQJXzSMEJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH6xCXcarQ==
+  </data>
+ </layer>
+ <layer name="0 Center" width="100" height="100">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt0TsKg0AARVEbXYgQSDZtrGJWkD47c0ACFg6oTMbfOXAbET/zPgUAAAAAAAAAAAAAAAAAAHBU33KI/3ksuNce+5Jijyb0DLUJvmep+6gzSLHHK9SF3ik+6KJ+O4zb4hlXMOds7JFPrvOxR9zU2dhjO2v3qCPXb9W6d+YW+29JknScAAAAAAAAAAAAAAAAAAAAAAAAIKce4hG2pg==
+  </data>
+ </layer>
+ <layer name="1 Infront" width="100" height="100">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt0yEOgDAQBMAqPF8gQcBn+kPgqVQQXB3hLs1MsubMrdlSyKZGFwAAAAAAAAAAAAAAAAAAAF5bdAFCHS1nyxXwe39CDnN0AUjMPqBvtH0snfs6/VqDQYy2D/iSfQAAAAAAAAAAAAAAAAAAAAAAAADkcAOZywNM
+  </data>
+ </layer>
+ <layer name="2" width="100" height="100">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt08EJgDAMQNGcHETw4E4O4UTVUe0CuQiaiu9BLr0kUH5ExB6Mwl8AAAAAAAAAAAAAAAAAAMBY1uoDKNX6HH3Ogt1bwU74Cn1ATh88aU7el+nVM27TB+T0ATl9AAAAAAAAAAAAAAAAAAAAAAAAwH9dnmsFXA==
+  </data>
+ </layer>
+ <layer name="3" width="100" height="100">
+  <properties>
+   <property name="z" value="3"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzqENACAQBEEUhZAgaBoolW8AyyNmkjOnthQAAAAAAAAAAAAAAAAAAABuRnYAqWZsxXZyBwDAD9rl7/VpBgAAAAAAAAAAAAAAAAAAAAAAAAAAPHEAlYkCVA==
+  </data>
+ </layer>
+ <layer name="4" width="100" height="100">
+  <properties>
+   <property name="z" value="4"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzqENACAQBEEUhZAgaBoolW8AyyNmkjOnthQAAAAAAAAAAAAAAAAAAABuRnYAqWZsxXZyBwDAD9rl7/VpBgAAAAAAAAAAAAAAAAAAAAAAAAAAPHEAlYkCVA==
+  </data>
+ </layer>
+ <layer name="5" width="100" height="100">
+  <properties>
+   <property name="z" value="5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzqENACAQBEEUhZAgaBoolW8AyyNmkjOnthQAAAAAAAAAAAAAAAAAAABuRnYAqWZsxXZyBwDAD9rl7/VpBgAAAAAAAAAAAAAAAAAAAAAAAAAAPHEAlYkCVA==
+  </data>
+ </layer>
+ <layer name="6" width="100" height="100">
+  <properties>
+   <property name="z" value="6"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzqENACAQBEEUhZAgaBoolW8AyyNmkjOnthQAAAAAAAAAAAAAAAAAAABuRnYAqWZsxXZyBwDAD9rl7/VpBgAAAAAAAAAAAAAAAAAAAAAAAAAAPHEAlYkCVA==
+  </data>
+ </layer>
+ <layer name="7" width="100" height="100">
+  <properties>
+   <property name="z" value="7"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzqENACAQBEEUhZAgaBoolW8AyyNmkjOnthQAAAAAAAAAAAAAAAAAAABuRnYAqWZsxXZyBwDAD9rl7/VpBgAAAAAAAAAAAAAAAAAAAAAAAAAAPHEAlYkCVA==
+  </data>
+ </layer>
+ <layer name="8" width="100" height="100">
+  <properties>
+   <property name="z" value="8"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzqENACAQBEEUhZAgaBoolW8AyyNmkjOnthQAAAAAAAAAAAAAAAAAAABuRnYAqWZsxXZyBwDAD9rl7/VpBgAAAAAAAAAAAAAAAAAAAAAAAAAAPHEAlYkCVA==
+  </data>
+ </layer>
+ <layer name="9" width="100" height="100">
+  <properties>
+   <property name="z" value="9"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzqENACAQBEEUhZAgaBoolW8AyyNmkjOnthQAAAAAAAAAAAAAAAAAAABuRnYAqWZsxXZyBwDAD9rl7/VpBgAAAAAAAAAAAAAAAAAAAAAAAAAAPHEAlYkCVA==
+  </data>
+ </layer>
+ <layer name="10" width="100" height="100">
+  <properties>
+   <property name="z" value="10"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt0bEKgzAUBVAnP0To4M91dLRu9iuqn+obdCmNKARS23PgEggheeRWFQAAAAAAAAAAAAAAAAAAAClt6QEo6hWZInPhOQD+2b30AD/q078e+esu8ogMWaehO7C39dOv69bDGHkm7s3dVZPYv9UZH7mI9372ejhzBgAAAAAAAAAAAAAAAAAAAAAAAACA77EAMoUMjA==
+  </data>
+ </layer>
+ <objectgroup color="#ff0000" name="Ground" width="100" height="100">
+  <properties>
+   <property name="type" value="collision"/>
+  </properties>
+  <object type="floor" x="0" y="1504" width="3200" height="160">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1280" y="1856">
+   <polyline points="0,0 64,0"/>
+  </object>
+  <object type="floor" x="1344" y="1888">
+   <polyline points="0,0 32,0"/>
+  </object>
+  <object type="floor" x="1536" y="1856">
+   <polyline points="0,0 32,0"/>
+  </object>
+  <object type="floor" x="1568" y="1824">
+   <polyline points="0,0 64,0"/>
+  </object>
+  <object type="floor" x="1632" y="1696">
+   <polyline points="0,0 64,0"/>
+  </object>
+  <object type="floor" x="1696" y="1824">
+   <polyline points="0,0 32,0"/>
+  </object>
+  <object type="floor" x="1184" y="1920">
+   <polyline points="0,0 96,0"/>
+  </object>
+  <object type="floor" x="2112" y="1824">
+   <polyline points="0,0 160,0"/>
+  </object>
+  <object type="floor" x="2144" y="1504">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+   <polygon points="0,32 0,-160 160,-160 160,32"/>
+  </object>
+  <object type="floor" x="1216" y="1440" width="96" height="96">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1312" y="1376" width="64" height="160">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1376" y="1408" width="32" height="128">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1600" y="1344" width="160" height="64">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1664" y="1216" width="64" height="160">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Walls" width="100" height="100">
+  <properties>
+   <property name="type" value="collision"/>
+  </properties>
+  <object type="wall" x="1696" y="1696">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="1632" y="1696">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="1728" y="1824">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object type="wall" x="2112" y="1824">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object type="wall" x="2272" y="1824">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object x="1376" y="1888">
+   <polyline points="0,0 0,96"/>
+  </object>
+  <object type="wall" x="1280" y="1856">
+   <polyline points="0,0 0,64"/>
+  </object>
+  <object type="wall" x="1344" y="1856">
+   <polyline points="0,0 0,32"/>
+  </object>
+  <object type="wall" x="1184" y="1920">
+   <polyline points="0,0 0,64"/>
+  </object>
+  <object type="wall" x="1568" y="1824">
+   <polyline points="0,0 0,32"/>
+  </object>
+  <object type="wall" x="1536" y="1856">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="2176" y="2208">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object type="wall" x="1344" y="2240">
+   <polyline points="0,0 0,64"/>
+  </object>
+  <object type="wall" x="1792" y="2208">
+   <polyline points="0,0 0,160"/>
+  </object>
+  <object type="wall" x="1600" y="2240">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="1408" y="2240">
+   <polyline points="0,0 0,32"/>
+  </object>
+  <object type="wall" x="1760" y="2080">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object type="wall" x="1248" y="2304">
+   <polyline points="0,0 0,64"/>
+  </object>
+  <object type="wall" x="1696" y="2080">
+   <polyline points="0,0 0,128"/>
+  </object>
+  <object x="1440" y="2272">
+   <polyline points="0,0 0,96"/>
+  </object>
+  <object type="wall" x="2336" y="2208">
+   <polyline points="0,0 0,160"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffff7f" name="Spawns" width="100" height="100">
+  <properties>
+   <property name="type" value="spawns"/>
+  </properties>
+  <object name="start" x="704" y="1440" width="32" height="32">
+   <properties>
+    <property name="z" value="0"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object name="start2" x="2080" y="1440" width="32" height="32">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Entities" width="100" height="100">
+  <properties>
+   <property name="type" value="entities"/>
+   <property name="z" value="1"/>
+  </properties>
+  <object gid="1573" x="520" y="1521"/>
+  <object gid="1573" x="865" y="1529"/>
+  <object gid="1574" x="706" y="1525"/>
+  <object gid="1574" x="1011" y="1527"/>
+ </objectgroup>
+</map>

@@ -5,9 +5,9 @@ hud.physics = false
 function hud.drawR(vp)
 	if hud.enabled then
 		local lh = 10
-		local camera = vp.getCamera()
-		local map = vp.getMap()
-		local buffer = vp.getBuffer()
+		local camera = vp.camera
+		local map = vp.map
+		local buffer = vp.buffer
 		local entities = map.entities
 
 		if hud.physics then
@@ -40,14 +40,14 @@ end
 function hud.draw(vp)
 	if hud.enabled then
 		local lh = 10
-		local left = vp.getX()
-		local right = vp.getX() + vp.getWidth()
-		local top = vp.getY()
-		local bottom = vp.getY() + vp.getHeight()
+		local left = vp.x
+		local right = vp.x + vp.width
+		local top = vp.y
+		local bottom = vp.y + vp.height
 		
-		local camera = vp.getCamera()
-		local map = vp.getMap()
-		local buffer = vp.getBuffer()
+		local camera = vp.camera
+		local map = vp.map
+		local buffer = vp.buffer
 		local entities = map.entities
 		local world = map.world
 
@@ -62,7 +62,8 @@ function hud.draw(vp)
 		love.graphics.setColor(0, 255, 0, 255)
 
 		-- FPS
-		love.graphics.print("FPS: "..love.timer.getFPS(), right - 39, top + 2)
+		love.graphics.printf(love.timer.getFPS() .. " fps", 0, 2, vp.width, "right")
+		--love.graphics.print("FPS: "..love.timer.getFPS(), right - 39, top + 2)
 
 		-- Entities
 		love.graphics.print("Entities: "..#entities.list, left + 2, top + 2)

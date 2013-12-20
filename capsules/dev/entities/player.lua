@@ -162,13 +162,13 @@ function player.new(map, x, y, z)
 				vmultiplier = 1
 				--self.fixtures.weapon:getBody():setPosition(x, y)
 				--self.fixtures.weapon:getBody():setLinearVelocity(wvx, wvy)
-			elseif yama.g.getDistance(0, 0, self.joystick:getAxis(1), self.joystick:getAxis(2)) > 0.2 then
+			elseif yama.tools.getDistance(0, 0, self.joystick:getAxis(1), self.joystick:getAxis(2)) > 0.2 then
 				self.state = "walk"
 				nx = self.joystick:getAxis(1)
 				ny = self.joystick:getAxis(2)
 				self.direction = math.atan2(ny, nx)
 				self.aim = self.direction
-				vmultiplier = yama.g.getDistance(0, 0, self.joystick:getAxis(1), self.joystick:getAxis(2))
+				vmultiplier = yama.tools.getDistance(0, 0, self.joystick:getAxis(1), self.joystick:getAxis(2))
 				if vmultiplier >  1 then
 					vmultiplier = 1
 				end
@@ -220,7 +220,7 @@ function player.new(map, x, y, z)
 		end
 
 
-		--if yama.g.getDistance(0, 0, love.joystick.getAxis(self.joystick, 4), love.joystick.getAxis(self.joystick, 5)) > 0.2 then
+		--if yama.tools.getDistance(0, 0, love.joystick.getAxis(self.joystick, 4), love.joystick.getAxis(self.joystick, 5)) > 0.2 then
 		if false then
 			local nx = love.joystick.getAxis(self.joystick, 4)
 			local ny = love.joystick.getAxis(self.joystick, 5)
@@ -320,7 +320,7 @@ function player.new(map, x, y, z)
 			a = "stand"
 		end
 		if self.state == "walk" or self.state == "stand" or self.state == "sword" then
-			animation.update(dt, "humanoid_"..self.state.."_"..yama.g.getRelativeDirection(self.direction))
+			animation.update(dt, "humanoid_"..self.state.."_"..yama.tools.getRelativeDirection(self.direction))
 		else
 			animation.update(dt, "humanoid_die")
 		end
@@ -367,7 +367,7 @@ function player.new(map, x, y, z)
 	--function self.getBoundingCircle()
 	--	local x, y, width, height = self.getBoundingBox()
 	--	local cx, cy = x + width / 2, y + height / 2
-	--	local radius = yama.g.getDistance(x, y, cx, cy)
+	--	local radius = yama.tools.getDistance(x, y, cx, cy)
 
 	--	return cx, cy, radius
 	--end

@@ -42,49 +42,45 @@ function tools.serialize(t, d)
 
 		return f.value(t, d)
 	end
-	--[[
-	if type(table) == "table" then
-		print("is a table")
+end
 
+function tools.getDistance(x1, y1, x2, y2)
+	return math.sqrt((x1-x2)^2+(y1-y2)^2)
+end
 
+function tools.getDirection(x1, y1, x2, y2)
+	return math.atan2(y2-y1, x2-x1)
+end
 
-		local string = ""
+function tools.getRelativeDirection(r)
+	--if r < 0 then
+	--	r = 4*math.pi/2+r
+	--elseif r >= 4*math.pi/2 then
+	--	while r >= 4*math.pi/2 do
+	--		r = r - 4*math.pi/2
+	--	end
+	--end
 
-		local process = {}
-
-		local function v(v, d)
-		end
-
-		--local function table(t, d)
-		--	string = process.tabulate(string, d)
-		--	string = string .. "{\n"
---
-		--	for k, v in pairs(t) do
-				vtype = type(v)
---
-				
-
-		--	end
-
-		--	string = string .. "}"
-		--end
-
-		function process.tabulate(s, d)
-			for i = 1, d do
-				s = s .. "\t"
-			end
-			return s
-		end
-
-
-		--process.table(table, 0)
-
-
-		return string
-	else
-		return nil
+	local i = math.floor(r / (math.pi/2) + 0.5)
+	
+	while i < 0 do
+		i = i + 4
 	end
-	--]]
+	while i >= 4 do
+		i = i - 4
+	end
+
+	if i == 0 then
+		return "right"
+	elseif i == 1 then
+		return "down"
+	elseif i == 2 then
+		return "left"
+	elseif i == 3 then
+		return "up"
+	else
+		print("retard "..i..r)
+	end
 end
 
 return tools

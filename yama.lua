@@ -4,13 +4,11 @@ local yama = {}
 yama.boot           = require("boot")
 
 -- MODULES
-yama.c              = require("yama_c")
 yama.assets         = require("yama_assets")
-yama.buffers      	= require("yama_buffers")
 yama.entities       = require("entities")
-yama.viewports      = require("yama_viewports")
-yama.maps           = require("yama_maps")
-yama.newmaps		= require("maps")
+yama.buffers      	= require("yama_buffers")
+yama.maps           = require("maps")
+yama.viewports      = require("viewports")
 yama.gui            = require("yama_gui")
 yama.hud            = require("yama_hud")
 yama.animations     = require("yama_animations")
@@ -19,8 +17,6 @@ yama.ai.patrols     = require("yama_ai_patrols")
 yama.input          = require("yama_input")
 yama.joystick       = require("yama_joystick")
 yama.physics        = require("yama_physics")
-
-yama.g              = require("yama_g")
 
 
 yama.tools		    = require("tools")
@@ -75,11 +71,6 @@ function yama.draw()
 
 	love.graphics.setColor(255, 255, 255, 255)
 	love.graphics.printf(fps .. " fps", 0, 2, screenwidth, "right")
-end
-
--- GENERERIC FUNCTIONS
-function yama.distance(x1, y1, x2, y2)
-	return math.sqrt((x1-x2)^2+(y1-y2)^2)
 end
 
 return yama
