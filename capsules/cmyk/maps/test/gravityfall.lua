@@ -551,7 +551,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = -32 },
-            { x = 0, y = 128 }
+            { x = 0, y = 96 }
           },
           properties = {
             ["groupindex"] = "-2"
@@ -602,7 +602,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 0, y = 192 }
+            { x = 0, y = 160 }
           },
           properties = {
             ["groupindex"] = "-2"
@@ -619,7 +619,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 0, y = 192 }
+            { x = 0, y = 160 }
           },
           properties = {
             ["groupindex"] = "-2"

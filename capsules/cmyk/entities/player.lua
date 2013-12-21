@@ -39,7 +39,7 @@ function player.new( map, x, y, z )
 	local sx, sy = 1, 1
 	local r = 0
 	self.cx, self.cy = x - ox + width / 2, y - oy + height / 2
-	self.radius = yama.g.getDistance( self.cx, self.cy, x - ox, y - oy)
+	self.radius = yama.tools.getDistance( self.cx, self.cy, x - ox, y - oy)
 	self.type = "player"
 	self.joystick = 1
 	
@@ -96,7 +96,8 @@ function player.new( map, x, y, z )
 	local meleeTimer = 0
 	local meleeMaxTimer = 0.2
 	local meleeCoolDownTimer = 0
-	local meleeCoolDownMaxTimer = 0.1
+	local meleeCoolDownMaxTimer = 0.05
+	local ctrlMeleeDown = false
 
 	-- SHIELD--
 	local shieldMaxHealth = 140
@@ -192,12 +193,13 @@ function player.new( map, x, y, z )
 	anchor:getBody():setGravityScale( 9 )
 	anchor:getBody():setBullet( true )
 
-	local sword = love.physics.newFixture( anchor:getBody(), love.physics.newPolygonShape( 0, 0, 0, 7, 47, 7, 47, 0 ) )
+	local sword = love.physics.newFixture( love.physics.newBody( map.world, self.x+25, self.y, "dynamic"), love.physics.newRectangleShape( 50, 7 ), 1 )
 	sword:setUserData( swordUserdata )
-	sword:setGroupIndex( -2 )
+	--sword:setGroupIndex( -2 )
 	sword:setUserData( swordUserdata )
-	sword:getBody( ):setMass( 1 )
-	sword:setMask( 1 )
+	--sword:setMask( 1 )
+	--sword:getBody():setMass( 1 )
+	print(sword:getBody():getMass(  ), 'MASSASS' )
 
 
 	local shield = love.physics.newFixture( anchor:getBody(), love.physics.newCircleShape( 26 ), 0 )
@@ -242,7 +244,7 @@ function player.new( map, x, y, z )
 		self.updateShield( dt )
 		
 		self.cx, self.cy = x - ox + width / 2, y - oy + height / 2
-		self.radius = yama.g.getDistance( self.cx, self.cy, x - ox, y - oy )
+		self.radius = yama.tools.getDistance( self.cx, self.cy, x - ox, y - oy )
 
 		--ptcSpark:start()
 		--ptcSpark:setPosition( x+distSparkX, y+distSparkY )
@@ -276,7 +278,7 @@ function player.new( map, x, y, z )
 			elseif not shieldOn and shieldKilled then
 				local nxx = self.joystick:getAxis( 3 )
 				local nyy = self.joystick:getAxis( 4 )
-				if yama.g.getDistance( 0, 0, nxx, nyy ) < 0.26 then
+				if yama.tools.getDistance( 0, 0, nxx, nyy ) < 0.26 then
 					self.createShield( shieldMaxHealth, false )
 				end
 			end
@@ -290,23 +292,23 @@ function player.new( map, x, y, z )
 		fx, fy = 0, 0
 		relativeDirection = ""
 		
-		if yama.g.getDistance( 0, 0, self.joystick:getAxis( 1 ), self.joystick:getAxis( 2 ) ) > 0.26 then
+		if yama.tools.getDistance( 0, 0, self.joystick:getAxis( 1 ), self.joystick:getAxis( 2 ) ) > 0.22 then
 			if not self.running then
 				local xv, yv = anchor:getBody( ):getLinearVelocity( )
-				if pContact and yv == 0 then
+				if pContact and yv == 0 and onGround then
 					self.running = true
 					print('SETFRICRUN')
-					pContact:setFriction( stopFriction )
+					pContact:setFriction( friction )
 				end
 			end
 
 			nx = self.joystick:getAxis( 1 )
 			ny = self.joystick:getAxis( 2 )
-			relativeDirection = yama.g.getRelativeDirection( math.atan2( ny, nx ) )
+			relativeDirection = yama.tools.getRelativeDirection( math.atan2( ny, nx ) )
 		else
 			if self.running then
 				local xv, yv = anchor:getBody( ):getLinearVelocity( )
-				if pContact and yv == 0 then
+				if pContact and yv == 0 and onGround then
 					self.running = false
 					print('STOPFRICTION')
 					pContact:setFriction( stopFriction )
@@ -345,7 +347,7 @@ function player.new( map, x, y, z )
 
 		local nx = self.joystick:getAxis( 3 )
 		local ny = self.joystick:getAxis( 4 )
-		if yama.g.getDistance( 0, 0, nx, ny ) > 0.26 then	
+		if yama.tools.getDistance( 0, 0, nx, ny ) > 0.26 then	
 			spawntimer = spawntimer - dt
 			if spawntimer <= 0 then
 				local leftover = math.abs( spawntimer )
@@ -382,7 +384,14 @@ function player.new( map, x, y, z )
 
 	function self.melee( dt )
 		--print( 'FUNC MELEE' )
-		if meleeTimer < meleeMaxTimer and allowMelee and self.joystick:isDown( ctrlMelee ) then
+
+		if not self.joystick:isDown( ctrlMelee ) and ctrlMeleeDown then
+			ctrlMeleeDown = false
+		end
+
+
+		if not ctrlMeleeDown and meleeTimer < meleeMaxTimer and allowMelee and self.joystick:isDown( ctrlMelee ) then
+			ctrlMeleeDown = true
 			print('whopp')
 			if meleeTimer == 0 then
 				print('WHAM')
@@ -395,7 +404,7 @@ function player.new( map, x, y, z )
 			end
 		end
 		if meleeing then
-			print('meleeing')
+			--print('meleeing')
 			meleeTimer = meleeTimer + dt
 			if meleeTimer > meleeMaxTimer then
 				print( 'NOTMELEE' )
@@ -407,7 +416,7 @@ function player.new( map, x, y, z )
 			end
 		end
 		if not meleeing and meleeCoolDownTimer < meleeCoolDownMaxTimer then
-			print('coolioo')
+			--print('coolioo')
 			meleeCoolDownTimer = meleeCoolDownTimer + dt
 			if meleeCoolDownTimer > meleeCoolDownMaxTimer then
 				print('reset')
@@ -536,6 +545,9 @@ function player.new( map, x, y, z )
 		spriteShield.y = y
 		spriteShield.z = 100
 
+		sword:getBody():setX( x )
+		sword:getBody():setY( y )
+
 		spriteArrow.x = x --math.floor(x + 0.5)
 		spriteArrow.y = y --math.floor(y-16 + 0.5)
 		spriteArrow.z = 10
@@ -572,15 +584,16 @@ function player.new( map, x, y, z )
 		if userdata then
 			print(userdata.type)
 			print(userdata2.type)
-			if userdata.type == 'floor' then
+			if userdata.type == 'floor' and userdata2.type == 'mplayer' then
 				xc1, yc1, xc2, yc2 = contact:getPositions( )
-				if yc1 > self.y then
-					pContact = contact
+				--if yc1 > self.y then
+				pContact = contact
 					--print( 'On floor!')
-					jumpTimer = 0
-		 			onGround = true
-		 		end
+				jumpTimer = 0
+		 		onGround = true
+		 		--end
 			elseif userdata.type == 'bullet' and userdata2.type == 'shield' then
+				print('hitShieldBullet!')
 				self.shieldPower( bulletStandardShieldDamage )
 
 				--aims = math.atan2( a:getBody:GetX(), b:getBody:GetX() )
@@ -599,12 +612,13 @@ function player.new( map, x, y, z )
 			end
 			if userdata2 then
 				if userdata.type == 'shield' and userdata2.type == 'melee' then
+					print('hitShieldMelee!')
 					self.shieldPower( meleeStandardShieldDamage )
 				end
 				if userdata.type == 'bullet' and userdata2.type == 'mplayer' then
 					self.bodyEnergy( bulletStandardBodyDamage )
 				end
-				if userdata.type == 'melee' and userdata2.type == 'mplayer' then
+				if userdata.type == 'melee' and userdata2.type == 'mplayer' and not shieldOn then
 					self.bodyEnergy( meleeStandardBodyDamage )
 				end
 
@@ -646,10 +660,10 @@ function player.new( map, x, y, z )
 		if a:getBody() == anchor:getBody() then
 			contact:setRestitution( 0 )
 			if b:getUserData() then
-				if b:getUserData().type == 'floor' then
-					if yc1 > self.y then
-						onGround = false
-					end
+				if b:getUserData().type == 'floor' and a:getUserData().type == 'mplayer' then
+					--if yc1 > self.y then
+					onGround = false
+					--end
 				end
 			end
 		end

@@ -16,7 +16,7 @@ function capsule.load()
 	capsule.cam1 = capsule.map.spawn("camera", "start")
 	capsule.cam1.follow(capsule.p1)
 	capsule.vp1 = yama.viewports.new()
-	capsule.vp1.view(capsule.map, capsule.cam1)
+	capsule.vp1.connect(capsule.map, capsule.cam1)
 
 	function love.keypressed(key)
 		if key == "escape" then
@@ -62,13 +62,13 @@ function capsule.load()
 		if key == "z" then
 			capsule.p2 = capsule.map.spawn("player", "start2")
 			capsule.vp2 = yama.viewports.new()
-			capsule.vp2.view(capsule.map, capsule.p2)
+			capsule.vp2.connect(capsule.map, capsule.p2)
 
 			--vp2.setScale(4, 4)
 
-			capsule.vp1.setSize(love.window.getWidth() / 2, love.window.getHeight())
-			capsule.vp2.setSize(love.window.getWidth() / 2, love.window.getHeight())
-			capsule.vp2.setPosition(love.window.getWidth() / 2)
+			capsule.vp1.resize(love.window.getWidth() / 2, love.window.getHeight())
+			capsule.vp2.resize(love.window.getWidth() / 2, love.window.getHeight())
+			capsule.vp2.x = love.window.getWidth() / 2
 			capsule.p2.joystick = love.joystick.getJoysticks()[2]
 
 		end
