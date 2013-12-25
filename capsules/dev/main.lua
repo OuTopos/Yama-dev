@@ -16,7 +16,7 @@ function capsule.load()
 
 	love.graphics.setFont(love.graphics.newImageFont(yama.assets.loadImage("font")," abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`'*#=[]\""))
 
-	capsule.map = yama.maps.load("test/parallax")
+	capsule.map = yama.maps.load("test/start")
 
 	capsule.p1 = capsule.map.spawn("player", "start")
 

@@ -46,7 +46,7 @@ function viewports.new()
 
 	self.camera.targets = {}
 
-	self.camera.speed = 0.1
+	self.camera.speed = 5
 	self.camera.target = nil
 
 	self.camera.vx = 0
@@ -60,8 +60,8 @@ function viewports.new()
 		self.camera.vy = math.sin(direction)
 
 		--print(self.camera.vx, distance, self.camera.vx * distance)
-		self.camera.cx = self.camera.cx + self.camera.vx * distance/100 * self.camera.speed
-		self.camera.cy = self.camera.cy + self.camera.vy * distance/100 * self.camera.speed
+		self.camera.cx = self.camera.cx + self.camera.vx * distance/1000 * self.camera.speed
+		self.camera.cy = self.camera.cy + self.camera.vy * distance/1000 * self.camera.speed
 	end
 
 	function self.camera.update()

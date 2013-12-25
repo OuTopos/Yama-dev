@@ -4,7 +4,8 @@ hud.physics = false
 
 function hud.drawR(vp)
 	if hud.enabled then
-		if true then
+		-- DRAW THE CAMERA
+		if false then
 			love.graphics.setColor(0, 255, 0, 15)
 			love.graphics.rectangle("fill", vp.camera.x, vp.camera.y, vp.camera.width, vp.camera.height)
 			love.graphics.setColor(255, 0, 0, 255)
