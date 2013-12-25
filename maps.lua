@@ -24,6 +24,7 @@ function maps.new(path)
 	self.debug.tilesetcount = 0
 	self.debug.tilelayercount = 0
 	self.debug.tilecount = 0
+	self.debug.vertexcount = 0
 
 	-- LOADING MAP DATA FILE
 	self.data = require(yama.paths.capsule .. "/maps/" .. path)
@@ -307,6 +308,8 @@ function maps.new(path)
 					--print(meshdata.tiles[i][1], meshdata.tiles[i][2], meshdata.tiles[i][3], meshdata.tiles[i][4])
 				--	self.addToGrid(batch, meshdata.tiles[i][1], meshdata.tiles[i][2], meshdata.tiles[i][1]+meshdata.tiles[i][3], meshdata.tiles[i][2]+meshdata.tiles[i][4])
 				--end
+
+				self.debug.vertexcount = self.debug.vertexcount + #meshdata.vertices
 			end
 
 			table.insert(self.bufferbatches, batch)

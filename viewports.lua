@@ -1,3 +1,8 @@
+--[[
+VIEWPORTS
+To do:
+ Make smooth camera movement. 
+]]--
 local viewports = {}
 
 function viewports.new()
@@ -39,23 +44,42 @@ function viewports.new()
 
 	self.camera.round = false
 
-	function self.camera.update()
-		if self.entity then
-			self.camera.setPosition(self.entity.x, self.entity.y, true)
-		end
-		self.camera.cx = self.camera.x + self.camera.width / 2
-		self.camera.cy = self.camera.y + self.camera.height / 2
-		self.camera.radius = yama.tools.getDistance(self.camera.cx, self.camera.cy, self.camera.x, self.camera.y)
+	self.camera.targets = {}
+
+	self.camera.speed = 0.1
+	self.camera.target = nil
+
+	self.camera.vx = 0
+	self.camera.vy = 0
+
+	function self.camera.move(x, y)
+		local distance = yama.tools.getDistance(x, y, self.camera.cx, self.camera.cy)
+		local direction = math.atan2(y-self.camera.cy, x-self.camera.cx)
+
+		self.camera.vx = math.cos(direction)
+		self.camera.vy = math.sin(direction)
+
+		--print(self.camera.vx, distance, self.camera.vx * distance)
+		self.camera.cx = self.camera.cx + self.camera.vx * distance/100 * self.camera.speed
+		self.camera.cy = self.camera.cy + self.camera.vy * distance/100 * self.camera.speed
 	end
 
-	function self.camera.setPosition(x, y, center)
-		if center then
-			self.camera.x = x - self.camera.width / 2
-			self.camera.y = y - self.camera.height / 2
-		else
-			self.camera.x = x
-			self.camera.y = y
+	function self.camera.update()
+		-- SET THE CX, CY or not.
+		if self.entity then
+			--self.camera.cx = self.entity.x -- self.camera.width / 2
+			--self.camera.cy = self.entity.y -- self.camera.height / 2
+
+			-- New smooth camera stuff
+			--local x = self.camera.x
+			--local y = self.camera.y
+			--table.insert(self.camera.targets, 1, {x = x, y = y})
+			--table.remove(self.camera.targets, 4)
+			self.camera.move(self.entity.x, self.entity.y)
 		end
+		-- GET X, Y from CX, XY
+		 self.camera.x = self.camera.cx - self.camera.width / 2
+		 self.camera.y = self.camera.cy - self.camera.height / 2
 		
 		self.boundaries.apply()
 
@@ -65,6 +89,24 @@ function viewports.new()
 		else
 			self.ox = 0
 			self.oy = 0
+		end
+	end
+
+	function self.camera.follow(entity)
+		if entity then
+			if self.entity then
+				self.entity.vp = nil
+			end
+			self.entity = entity
+			entity.vp = self
+
+			self.camera.follow = entity
+		else
+			if self.entity then
+				self.entity.vp = nil
+			end
+
+			print("WARNING: VIEWPORT -> No entity specified for camera to follow.")
 		end
 	end
 
@@ -105,35 +147,18 @@ function viewports.new()
 		self.height = height or love.window.getHeight()
 
 		self.canvas = love.graphics.newCanvas(self.width, self.height)
-		self.canvas:setFilter("linear", "linear")
+		--self.canvas:setFilter("linear", "linear")
 
-		self.camera.width = self.width / self.camera.sx
-		self.camera.height = self.height / self.camera.sy
-
-		self.camera.update()
+		self.zoom(self.camera.sx, self.camera.sy)
 	end
 
 	function self.zoom(sx, sy)
-		sx = sx or 1
-		sy = sy or sx or 1
-
-		self.resize(self.width * self.sx / sx, self.height * self.sy / sy)
-
-		self.sx = sx
-		self.sy = sy
-	end
-
-	function self.camera.zoom(sx, sy)
-		sx = sx or 1
-		sy = sy or sx or 1
-
-		self.camera.width = self.camera.width * self.camera.sx / sx
-		self.camera.height = self.camera.height * self.camera.sy / sy
-
 		self.camera.sx = sx or 1
 		self.camera.sy = sy or sx or 1
 
-		self.camera.update()
+		self.camera.width = self.width / self.camera.sx
+		self.camera.height = self.height / self.camera.sy
+		self.camera.radius = yama.tools.getDistance(0, 0, self.camera.width / 2, self.camera.height / 2)
 	end
 
 	-- CURSOR
@@ -344,24 +369,12 @@ function viewports.new()
 			self.map.connectViewport(self)
 
 			self.resize()
+
+			if entity then
+				self.camera.follow(entity)
+			end
 		else
 			print("WARNING: VIEWPORT -> No map specified to connect to.")
-		end
-
-		if entity then
-			if self.entity then
-				self.entity.vp = nil
-			end
-			self.entity = entity
-			entity.vp = self
-
-			self.camera.follow = entity
-		else
-			if self.entity then
-				self.entity.vp = nil
-			end
-
-			print("WARNING: VIEWPORT -> No entity specified to connect to.")
 		end
 	end
 

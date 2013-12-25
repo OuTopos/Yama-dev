@@ -24,7 +24,7 @@ function capsule.load()
 	capsule.cam1.follow(capsule.p1)
 
 	capsule.vp1 = yama.viewports.new()
-	capsule.vp1.connect(capsule.map, capsule.cam1)
+	capsule.vp1.connect(capsule.map, capsule.p1)
 
 	function love.keypressed(key)
 		if key == "escape" then
@@ -54,11 +54,11 @@ function capsule.load()
 		end
 
 		if key == "n" then
-			vp1.camera.r = vp1.camera.r + 0.1
+			capsule.vp1.camera.r = capsule.vp1.camera.r + 0.1
 		end
 
 		if key == "m" then
-			vp1.camera.r = vp1.camera.r - 0.1
+			capsule.vp1.camera.r = capsule.vp1.camera.r - 0.1
 		end
 
 		if key == "k" then
@@ -70,27 +70,27 @@ function capsule.load()
 		end
 
 		if key == "1" then
-			capsule.vp1.camera.zoom(1)
+			capsule.vp1.zoom(1)
 		end
 
 		if key == "2" then
-			capsule.vp1.camera.zoom(2)
+			capsule.vp1.zoom(2)
 		end
 
 		if key == "3" then
-			capsule.vp1.camera.zoom(3)
+			capsule.vp1.zoom(3)
 		end
 
 		if key == "4" then
-			capsule.vp1.camera.zoom(4)
-		end
-
-		if key == "5" then
 			capsule.vp1.zoom(4)
 		end
 
+		if key == "5" then
+			capsule.vp1.zoom(0.5)
+		end
+
 		if key == "6" then
-			capsule.vp1.zoom(1)
+			capsule.vp1.zoom(0.25)
 		end
 
 		if key == "0" then

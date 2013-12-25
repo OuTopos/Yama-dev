@@ -4,6 +4,12 @@ hud.physics = false
 
 function hud.drawR(vp)
 	if hud.enabled then
+		if true then
+			love.graphics.setColor(0, 255, 0, 15)
+			love.graphics.rectangle("fill", vp.camera.x, vp.camera.y, vp.camera.width, vp.camera.height)
+			love.graphics.setColor(255, 0, 0, 255)
+			love.graphics.rectangle("line", vp.camera.x, vp.camera.y, vp.camera.width, vp.camera.height)
+		end
 		local lh = 10
 		local camera = vp.camera
 		local map = vp.map
@@ -39,6 +45,7 @@ end
 
 function hud.draw(vp)
 	if hud.enabled then
+		-- Draw camera
 		local lh = 10
 		local left = vp.x
 		local right = vp.x + vp.width
@@ -73,6 +80,7 @@ function hud.draw(vp)
 			love.graphics.print("Map: "..map.data.width.."x"..map.data.height.."x"..map.data.layercount, left + 2, top + 22)
 			--love.graphics.print("  View: "..map.view.width.."x"..map.view.height.." ("..map.view.x..":"..map.view.y..")", left + 2, top + 32)
 
+			love.graphics.print("  Vertices: " ..map.debug.vertexcount, left + 2, top + 32)
 			love.graphics.print("  Tiles: ".."/"..map.debug.tilecount, left + 2, top + 42)
 			-- Physics
 			if world then

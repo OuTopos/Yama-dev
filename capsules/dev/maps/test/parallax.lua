@@ -1730,150 +1730,11 @@ return {
         {
           name = "",
           type = "floor",
-          shape = "polyline",
-          x = 1280,
-          y = 1856,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 64, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1344,
-          y = 1888,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 32, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1536,
-          y = 1856,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 32, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1568,
-          y = 1824,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 64, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1632,
-          y = 1696,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 64, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1696,
-          y = 1824,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 32, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1184,
-          y = 1920,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 96, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 2112,
-          y = 1824,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 160, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polygon",
-          x = 2144,
-          y = 1504,
-          width = 0,
-          height = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 32 },
-            { x = 0, y = -160 },
-            { x = 160, y = -160 },
-            { x = 160, y = 32 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
           shape = "rectangle",
           x = 1216,
           y = 1440,
           width = 96,
-          height = 96,
+          height = 64,
           visible = true,
           properties = {
             ["groupindex"] = "-2"
@@ -1886,7 +1747,7 @@ return {
           x = 1312,
           y = 1376,
           width = 64,
-          height = 160,
+          height = 128,
           visible = true,
           properties = {
             ["groupindex"] = "-2"
@@ -1899,7 +1760,7 @@ return {
           x = 1376,
           y = 1408,
           width = 32,
-          height = 128,
+          height = 96,
           visible = true,
           properties = {
             ["groupindex"] = "-2"
@@ -1925,11 +1786,22 @@ return {
           x = 1664,
           y = 1216,
           width = 64,
-          height = 160,
+          height = 128,
           visible = true,
           properties = {
             ["groupindex"] = "-2"
           }
+        },
+        {
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 2144,
+          y = 1344,
+          width = 160,
+          height = 160,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -1941,323 +1813,7 @@ return {
       properties = {
         ["type"] = "collision"
       },
-      objects = {
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1696,
-          y = 1696,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 128 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1632,
-          y = 1696,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 128 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1728,
-          y = 1824,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 160 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 2112,
-          y = 1824,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 160 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 2272,
-          y = 1824,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 160 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "",
-          shape = "polyline",
-          x = 1376,
-          y = 1888,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 96 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1280,
-          y = 1856,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 64 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1344,
-          y = 1856,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 32 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1184,
-          y = 1920,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 64 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1568,
-          y = 1824,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 32 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1536,
-          y = 1856,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 128 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 2176,
-          y = 2208,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 160 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1344,
-          y = 2240,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 64 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1792,
-          y = 2208,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 160 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1600,
-          y = 2240,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 128 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1408,
-          y = 2240,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 32 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1760,
-          y = 2080,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 128 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1248,
-          y = 2304,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 64 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 1696,
-          y = 2080,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 128 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "",
-          shape = "polyline",
-          x = 1440,
-          y = 2272,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 96 }
-          },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "wall",
-          shape = "polyline",
-          x = 2336,
-          y = 2208,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 160 }
-          },
-          properties = {}
-        }
-      }
+      objects = {}
     },
     {
       type = "objectgroup",

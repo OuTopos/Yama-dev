@@ -5,7 +5,7 @@
  </properties>
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32">
   <properties>
-   <property name="pad" value="false"/>
+   <property name="pad" value="true"/>
   </properties>
   <image source="../../images/terrain.png" width="512" height="928"/>
   <terraintypes>
@@ -515,7 +515,7 @@
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt3c1OU0EchvFRCbQrWKIiwiWAG5AEcSsu3LlDWUHCXbAAQliw5D5IkG/8YEXcCAotbfm+CBQkvgQSJs2hPQKdM3SeX/KEhDTkZP7pmTNdFGMAAADgwvSDi86tp5O9Fhizkb6Yxw9m4R1mAgAAAJ8MP0r6CgAAAAAAAAAAAAAAAAAAAAAAAMI2kzLmk5pVc2peLahFtaSW1Yr6rL6or+qbWk0lfeXVaVPruqUyKqu2VU7lVUHtqF21p/bVgTpUR8wDAAAA8N5IjTGjaqwm6SuBrZ7vPQDgkXHdk3rVW+ve9Obyd3YT3LucGIq5znFfh9thHn5xOY/ZWmPm1LxaqL3937sP2rRu7VbluJxHRjPIqm2VC2QeUw+vfhbP5rwXRevqch7HmsFv9UedBDKP/1Vqncet56vvEa9r1vn9uWpRrTHO8o11xjxWT9TTuptfczVbi3i2LTUDW7dm8Er1qNc3+GwlxP2kkvo0gw/qo+ovM49FrfeSWrbWPcT9xJUGvZfelXg/5bXeBbVjrTv7SWmbFfxe/1Ot9191Zq07+8ndeV+0fuU+C27S65+pZtbdC6Ht3b88/x8icffu0OaWlLh7N89cbsTdu3nmulsdum92qpeq6/IeGnX2uE41PnP9dLCXDOj8NxjzTB519kA8lZhl1NkDbk1a55H7evbw/ZkVCE0lP7MCEC7uLQAAAAAAAAAAwAf/AAC7eqA=
+   eJzt3c1OU0EchvFBCB8rWIoK6CWAG4QEdass2LFTXGHCXbAAQliw9D5MpFBABFfGDaBAKd94EfIZX0ITJs2xPUA7Z9p5fskTEtKQk/mnZ850UYwBAACAK59rrn+uNSV7HTBmPTeDVWbhHWYCAAAAn4zWJn0FAAAAAAAAAAAAAAAAAAAAAAAAYfvSaMyMSqlZNafSal4tqEX1VS2pb2pZrajvjUlfeXXa0Lpuqi2VUdsqq3bUrtpT++pAHaojdaz+MA8AAADAe2N1xoyribqkrwS2Zr73AIBHJnVPeqv6rXvTm9zv7Ka4dzkxEnOd474O98M8/OJyHql6Y2bVnErX3//vVYJOrVuXVTEu57GlGWTUtsoGMo9PD25+5s/mqud56+pyHn81gxN1qs4CmcdtFVrnSev56mfE69p1fu9QT9WzGGf5hw3GtKpH6nHD3a+5mv2IeLYtNANbn2bwUr1Sr+/w2UqI+0k5vdMM3qsh9aHIPOa13gtq0Vr3EPcTV1r0Xhoo8H7a0Xrvqj1r3dlPCtso4/f6n2u9L9Slte7sJ6UzmLd+xT4LfqLXt6l21t0Loe3dvz3/HyJx9+7Q5paUuHs3z1xuxN27eeYqrW7dN1+oHtWbu4dGnT3+pxqfuX452EuGdf77GPNMHnX2QDzlmGXU2QNuTVvnkUo9e/j+zAqEppyfWQEIF/cWAAAAAAAAAADgg3+ne3k4
   </data>
  </layer>
  <layer name="1 A" width="100" height="100">
@@ -523,7 +523,7 @@
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1zFSwzAQBVBBioTT0IST5CpwBLif4Sz00DCTSWxZcix7Y94r4yKa/d7V+vSQCOYkk3BkEo9M4pFJPDKJRybxyAQAAAAAAAAAAAAAAAAAAAAAAAAAAADKfT+ufQJKvB9S+jisfQpyvp7yz1/3Kb3tlzkLzKUbea+X8Lxb+wRtjM0M7st5nhH6Zssue6eml1r23fH3jn/55/d8rr61z8zIfkN1Of9d7e5fX4Yt7pbPjb4rU3pgqBa39pN+bGts9g31jVyuzVmT3Lz6+x/7cltjeZbuDXK6TVexn5XW2vyKYas71BLm+n43n+Y1VGt1nq6vdt3FHmSmxzX1XpbpMmp2LMrVfj+7I+CamRSfjAAAAADI+QH9iDgE
+   eJzt1zsSgjAQANCMFuBpbPRmegS9H3oWe22ccRQCQQKI75VQkNnNfggBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4m6rqU9AF6cyhHM59SmIuW7i7w9FCMdinLPAUKqWez2G7XrqE+TR1jP4La/5nEPdLNl77aTUUs662z1m/P7P53wsvqnv9Mh6TXF5fS52v68uhzlmy2Whd6VPDTTF4tt6Uo95tfW+prqRl09DxiTWr57fsS/n1ZbPrnuDPH2nStjPusZa/5qHpe5QYxjq/11/GlZTrMW5v7rYVW97kJ4+X33nspyOI2XHorvU/2czAj7pSfMnRwAAAADE3AE+KzVk
   </data>
  </layer>
  <layer name="1 B" width="100" height="100">
@@ -590,11 +590,11 @@
    eJztzrENACAMwLCKHsHtXMqKKn6gDPaSNREAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8N4e3QeUlbczez8AAAAAAAAAAAAAAAAAAADgJwcigwGw
   </data>
  </layer>
- <objectgroup color="#ffff00" name="Spawns" width="100" height="100" visible="0">
+ <objectgroup color="#ffff00" name="Spawns" width="100" height="100">
   <properties>
    <property name="type" value="spawns"/>
   </properties>
-  <object name="start" x="1760" y="2368" width="32" height="32"/>
+  <object name="start" x="448" y="288" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ff0000" name="Collision" width="100" height="100">
   <properties>
@@ -673,14 +673,6 @@
   <object x="1536" y="2112">
    <polygon points="0,0 32,32 64,32 64,0"/>
   </object>
-  <object x="0" y="224" width="32" height="32"/>
-  <object x="32" y="192" width="32" height="32"/>
-  <object x="64" y="160" width="32" height="32"/>
-  <object x="96" y="128" width="32" height="32"/>
-  <object x="128" y="96" width="32" height="32"/>
-  <object x="160" y="64" width="32" height="32"/>
-  <object x="192" y="32" width="32" height="32"/>
-  <object x="224" y="0" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ff00ff" name="Patrols" width="100" height="100">
   <properties>
