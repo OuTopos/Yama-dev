@@ -13,7 +13,7 @@ function assets.load()
 	if love.filesystem.exists(yama.paths.capsule .. "tilesets") then
 		local files = love.filesystem.getDirectoryItems(yama.paths.capsule .. "tilesets")
 		for k, file in ipairs(files) do
-			print("INFO: ASSETS -> Autoloading tileset #" .. k .. ": " .. file)
+			info("Autoloading tileset #" .. k .. ": " .. file)
 			local tilesets = dofile(yama.paths.capsule .. "tilesets/" .. file)
 			for i = 1, #tilesets do
 				assets.loadTileset(tilesets[i].name, tilesets[i].imagepath, tilesets[i].tilewidth, tilesets[i].tileheight, tilesets[i].spacing, tilesets[i].margin, tilesets[i].margin)
@@ -49,7 +49,7 @@ function assets.loadImage(imagepath)
 			assets.images[imagepath] = love.graphics.newImage(yama.paths.capsule .. "images/"..imagepath..".png")
 			return assets.images[imagepath]
 		else
-			print("WARNING: ASSETS -> Couldn't load image: " .. imagepath .. ". File not found.")
+			warning("Couldn't load image: " .. imagepath .. ". File not found.")
 			return nil
 		end
 	end

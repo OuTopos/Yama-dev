@@ -2,6 +2,10 @@ local hud = {}
 hud.enabled = false
 hud.physics = false
 
+
+--love.graphics.setPointStyle("smooth")
+love.graphics.setPointSize(8)
+
 function hud.drawR(vp)
 	if hud.enabled then
 		-- DRAW THE CAMERA
@@ -28,12 +32,13 @@ function hud.drawR(vp)
 				local x, y, z = entities.list[i].x, entities.list[i].y, entities.list[i].z
 				local left, top, width, height = entities.list[i].boundingbox.x, entities.list[i].boundingbox.y, entities.list[i].boundingbox.width, entities.list[i].boundingbox.height
 
-				love.graphics.setColor(255, 0, 0, 255)
+				love.graphics.setColor(255, 0, 0, 127)
 				love.graphics.rectangle( "line", left, top, width, height)
+				love.graphics.line(left, top, left + width, top + height)
 			
-				love.graphics.setColor(0, 0, 255, 255)
+				love.graphics.setColor(255, 255, 255, 255)
 				--love.graphics.print(i, left + 2, top + 2)
-				love.graphics.circle("line", x, y, 2)
+				love.graphics.point(x, y)
 				--love.graphics.setColor(0, 0, 0, 255)
 				--love.graphics.print(math.floor(x + 0.5), left + 2, top + 12)
 				--love.graphics.print(math.floor(y + 0.5), left + 2, top + 22)

@@ -20,8 +20,8 @@ function capsule.load()
 
 	capsule.p1 = capsule.map.spawn("player", "start")
 
-	capsule.cam1 = capsule.map.spawn("camera", "start")
-	capsule.cam1.follow(capsule.p1)
+	--capsule.cam1 = capsule.map.spawn("camera", "start")
+	--capsule.cam1.follow(capsule.p1)
 
 	capsule.vp1 = yama.viewports.new()
 	capsule.vp1.connect(capsule.map, capsule.p1)

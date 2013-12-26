@@ -83,4 +83,9 @@ function tools.getRelativeDirection(r)
 	end
 end
 
+function tools.print(type, text)
+	local info = debug.getinfo(2, "lS")
+	print(type .. ": " .. info.short_src .. ":" .. info.currentline .. ": " .. text)
+end
+
 return tools

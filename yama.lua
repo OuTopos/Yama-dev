@@ -1,5 +1,14 @@
 local yama = {}
 
+function info(text)
+	local info = debug.getinfo(2, "lS")
+	print("Info: " .. info.short_src .. ":" .. info.currentline .. ": " .. text)
+end
+function warning(text)
+	local info = debug.getinfo(2, "lS")
+	print("Warning: " .. info.short_src .. ":" .. info.currentline .. ": " .. text)
+end
+
 -- Bootloader. Mainly for development. Remove or replace with launcher.
 yama.boot           = require("boot")
 
