@@ -373,6 +373,8 @@ function viewports.new()
 
 			if entity then
 				self.follow(entity)
+				self.camera.cx = entity.x
+				self.camera.cy = entity.y
 			end
 		else
 			print("WARNING: VIEWPORT -> No map specified to connect to.")
