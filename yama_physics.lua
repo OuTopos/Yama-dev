@@ -11,7 +11,7 @@ function physics.draw(world)
 	end
 end
 
-function physics.drawFixture(fixture, map)
+function physics.drawFixture(fixture)
 	local r, g, b, a = 0, 0, 0, 0
 
 

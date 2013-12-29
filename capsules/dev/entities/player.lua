@@ -299,7 +299,7 @@ function player.new(map, x, y, z)
 		local newMap = yama.maps.load(mapname)
 		local newEntity = newMap.spawn(self.type, spawn)
 		if self.vp then
-			self.vp.view(newMap, newEntity)
+			self.vp.connect(newMap, newEntity)
 		end
 		self.destroy()
 	end

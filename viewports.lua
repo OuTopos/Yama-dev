@@ -15,7 +15,6 @@ function viewports.new()
 	self.buffer = {}
 
 	self.map = nil
-	self.entity = nil
 
 	-- CANVAS
 	self.x = 0
@@ -52,6 +51,44 @@ function viewports.new()
 	self.camera.vx = 0
 	self.camera.vy = 0
 
+	-- RESIZE & ZOOM
+	function self.resize(width, height)
+		self.width = width or love.window.getWidth()
+		self.height = height or love.window.getHeight()
+
+		self.canvas = love.graphics.newCanvas(self.width, self.height)
+		self.canvas:setFilter("linear", "linear")
+
+		self.zoom(self.camera.sx, self.camera.sy)
+	end
+
+	function self.zoom(sx, sy)
+		self.camera.sx = sx or 1
+		self.camera.sy = sy or sx or 1
+
+		self.camera.width = self.width / self.camera.sx
+		self.camera.height = self.height / self.camera.sy
+		self.camera.radius = yama.tools.getDistance(0, 0, self.camera.width / 2, self.camera.height / 2)
+	end
+
+	function self.follow(entity)
+		if entity then
+			if self.camera.target then
+				self.camera.target.vp = nil
+			end
+			self.camera.target = entity
+			entity.vp = self
+
+			self.camera.target = entity
+		else
+			if self.camera.target then
+				self.camera.target.vp = nil
+			end
+
+			warning("No entity specified for camera to follow.")
+		end
+	end
+
 	function self.camera.move(x, y)
 		local distance = yama.tools.getDistance(x, y, self.camera.cx, self.camera.cy)
 		local direction = math.atan2(y-self.camera.cy, x-self.camera.cx)
@@ -66,16 +103,16 @@ function viewports.new()
 
 	function self.camera.update()
 		-- SET THE CX, CY or not.
-		if self.entity then
-			--self.camera.cx = self.entity.x -- self.camera.width / 2
-			--self.camera.cy = self.entity.y -- self.camera.height / 2
+		if self.camera.target then
+			--self.camera.cx = self.camera.target.x -- self.camera.width / 2
+			--self.camera.cy = self.camera.target.y -- self.camera.height / 2
 
 			-- New smooth camera stuff
 			--local x = self.camera.x
 			--local y = self.camera.y
 			--table.insert(self.camera.targets, 1, {x = x, y = y})
 			--table.remove(self.camera.targets, 4)
-			self.camera.move(self.entity.x, self.entity.y)
+			self.camera.move(self.camera.target.x, self.camera.target.y)
 		end
 		-- GET X, Y from CX, XY
 		 self.camera.x = self.camera.cx - self.camera.width / 2
@@ -84,29 +121,13 @@ function viewports.new()
 		self.boundaries.apply()
 
 		if self.camera.round then
-			self.ox = self.camera.x - math.floor(self.camera.x * self.camera.sx + 0.5) / self.camera.sx
-			self.oy = self.camera.y - math.floor(self.camera.y * self.camera.sx + 0.5) / self.camera.sx
+			self.ox = (self.camera.x - math.floor(self.camera.x + 0.5)) * self.camera.sx
+			self.oy = (self.camera.y - math.floor(self.camera.y + 0.5))  * self.camera.sy
+			self.camera.x = math.floor(self.camera.x + 0.5)
+			self.camera.y = math.floor(self.camera.y + 0.5)
 		else
 			self.ox = 0
 			self.oy = 0
-		end
-	end
-
-	function self.camera.follow(entity)
-		if entity then
-			if self.entity then
-				self.entity.vp = nil
-			end
-			self.entity = entity
-			entity.vp = self
-
-			self.camera.follow = entity
-		else
-			if self.entity then
-				self.entity.vp = nil
-			end
-
-			print("WARNING: VIEWPORT -> No entity specified for camera to follow.")
 		end
 	end
 
@@ -139,26 +160,6 @@ function viewports.new()
 				self.camera.y = self.boundaries.y - (self.camera.height - self.boundaries.height) / 2
 			end
 		end
-	end
-
-	-- RESIZE & ZOOM
-	function self.resize(width, height)
-		self.width = width or love.window.getWidth()
-		self.height = height or love.window.getHeight()
-
-		self.canvas = love.graphics.newCanvas(self.width, self.height)
-		--self.canvas:setFilter("linear", "linear")
-
-		self.zoom(self.camera.sx, self.camera.sy)
-	end
-
-	function self.zoom(sx, sy)
-		self.camera.sx = sx or 1
-		self.camera.sy = sy or sx or 1
-
-		self.camera.width = self.width / self.camera.sx
-		self.camera.height = self.height / self.camera.sy
-		self.camera.radius = yama.tools.getDistance(0, 0, self.camera.width / 2, self.camera.height / 2)
 	end
 
 	-- CURSOR
@@ -248,7 +249,7 @@ function viewports.new()
  		love.graphics.rotate(- self.camera.r)
 		love.graphics.translate(- self.camera.width / 2 * self.camera.sx, - self.camera.height / 2 * self.camera.sy)
 		love.graphics.scale(self.camera.sx, self.camera.sy)
-		love.graphics.translate(- self.camera.x + self.ox, - self.camera.y + self.oy)
+		love.graphics.translate(- self.camera.x, - self.camera.y)
 		
 		-- SET CANVAS
 		love.graphics.setCanvas(self.canvas)
@@ -371,7 +372,7 @@ function viewports.new()
 			self.resize()
 
 			if entity then
-				self.camera.follow(entity)
+				self.follow(entity)
 			end
 		else
 			print("WARNING: VIEWPORT -> No map specified to connect to.")
@@ -382,8 +383,8 @@ function viewports.new()
 		if self.map then
 			self.map.disconnectViewport(self)
 		end
-		if self.entity then
-			self.entity.vp = nil
+		if self.camera.target then
+			self.camera.target.vp = nil
 			self.camera.follow = nil
 		end
 	end

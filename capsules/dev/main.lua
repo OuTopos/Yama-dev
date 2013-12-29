@@ -7,12 +7,12 @@ function capsule.load()
 		fullscreen = false,
 		fullscreentype = "desktop",
 		vsync = false,
-		fsaa = 8,
+		fsaa = 0,
 		resizable = true,
 		borderless = false,
 		centered = true,
 	})
-	--love.graphics.setDefaultFilter("nearest", "nearest")
+	love.graphics.setDefaultFilter("nearest", "nearest")
 
 	love.graphics.setFont(love.graphics.newImageFont(yama.assets.loadImage("font")," abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`'*#=[]\""))
 

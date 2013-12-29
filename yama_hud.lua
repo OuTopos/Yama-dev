@@ -22,7 +22,7 @@ function hud.drawR(vp)
 		local entities = map.entities
 
 		if hud.physics then
-			yama.physics.draw(map.world)
+			yama.physics.draw(map.world, vp.camera)
 		end
 
 		-- Entities
