@@ -113,6 +113,7 @@ function viewports.new()
 			--table.insert(self.camera.targets, 1, {x = x, y = y})
 			--table.remove(self.camera.targets, 4)
 			self.camera.move(self.camera.target.x, self.camera.target.y)
+			--self.camera.z = self.camera.target.z
 		end
 		-- GET X, Y from CX, XY
 		 self.camera.x = self.camera.cx - self.camera.width / 2
@@ -328,6 +329,7 @@ function viewports.new()
 				if sy < 0 then
 					sy = 0
 				end
+
 				love.graphics.draw(object.drawable, x, y, object.r, sx, sy, object.ox, object.oy, object.kx, object.ky)
 			else
 				love.graphics.draw(object.drawable, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)
@@ -338,6 +340,8 @@ function viewports.new()
 			print("THEW FUCK? SPRITES SHOULD NOT BE!")
 			love.graphics.draw(object.quad, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)
 			self.debug.drawcalls = self.debug.drawcalls + 1
+		else
+			print("What am i?: " .. object.type)
 		end
 	end
 

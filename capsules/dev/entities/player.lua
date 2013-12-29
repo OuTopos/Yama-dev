@@ -32,7 +32,7 @@ function player.new(map, x, y, z)
 	self.fixtures.anchor:setRestitution(0)
 	self.fixtures.anchor:getBody():setLinearDamping(10)
 	self.fixtures.anchor:getBody():setFixedRotation(true)
-	self.fixtures.anchor:setUserData({type = "player", callback = self})
+	self.fixtures.anchor:setUserData({type = "player", callbacks = self})
 
 
 	self.test = {}
@@ -44,7 +44,7 @@ function player.new(map, x, y, z)
 
 	self.weapon = {}
 	self.weapon.data = {}
-	self.weapon.data.callback = self.test
+	self.weapon.data.callbacks = self.test
 	self.weapon.data.type = "damage"
 	self.weapon.data.properties = {}
 	self.weapon.data.properties.physical = 3
@@ -306,7 +306,7 @@ function player.new(map, x, y, z)
 
 	-- DEFAULT FUNCTIONS
 	function self.initialize(object)
-
+		print("PLAYER INITAD", self.fixtures.anchor.type())
 	end
 
 	function self.update(dt)

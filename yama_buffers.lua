@@ -43,6 +43,7 @@ function buffers.newDrawable(drawable, x, y, z, r, sx, sy, ox, oy, kx, ky, color
 	return self
 end
 
+--[[
 function buffers.newSprite(image, quad, x, y, z, r, sx, sy, ox, oy, kx, ky, color, colormode, blendmode)
 	local self = {}
 	self.type = "sprite"
@@ -64,7 +65,7 @@ function buffers.newSprite(image, quad, x, y, z, r, sx, sy, ox, oy, kx, ky, colo
 	
 	return self
 end
-
+]]--
 
 
 function buffers.setBatchPosition(batch, x, y, z)

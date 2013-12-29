@@ -39,16 +39,16 @@ function maps.new(path)
 				local beginContact, endContact, preSolve, postSolve
 				function beginContact(a, b, contact)
 					if a:getUserData() then
-						if a:getUserData().callback then
-							if a:getUserData().callback.beginContact then
-								a:getUserData().callback.beginContact(a, b, contact)
+						if a:getUserData().callbacks then
+							if a:getUserData().callbacks.beginContact then
+								a:getUserData().callbacks.beginContact(a, b, contact)
 							end
 						end
 					end
 					if b:getUserData() then
-						if b:getUserData().callback then
-							if b:getUserData().callback.beginContact then
-								b:getUserData().callback.beginContact(b, a, contact)
+						if b:getUserData().callbacks then
+							if b:getUserData().callbacks.beginContact then
+								b:getUserData().callbacks.beginContact(b, a, contact)
 							end
 						end
 					end
@@ -56,16 +56,16 @@ function maps.new(path)
 
 				function endContact(a, b, contact)
 					if a:getUserData() then
-						if a:getUserData().callback then
-							if a:getUserData().callback.endContact then
-								a:getUserData().callback.endContact(a, b, contact)
+						if a:getUserData().callbacks then
+							if a:getUserData().callbacks.endContact then
+								a:getUserData().callbacks.endContact(a, b, contact)
 							end
 						end
 					end
 					if b:getUserData() then
-						if b:getUserData().callback then
-							if b:getUserData().callback.endContact then
-								b:getUserData().callback.endContact(b, a, contact)
+						if b:getUserData().callbacks then
+							if b:getUserData().callbacks.endContact then
+								b:getUserData().callbacks.endContact(b, a, contact)
 							end
 						end
 					end
@@ -73,16 +73,16 @@ function maps.new(path)
 
 				function preSolve(a, b, contact)
 					if a:getUserData() then
-						if a:getUserData().callback then
-							if a:getUserData().callback.preSolve then
-								a:getUserData().callback.preSolve(a, b, contact)
+						if a:getUserData().callbacks then
+							if a:getUserData().callbacks.preSolve then
+								a:getUserData().callbacks.preSolve(a, b, contact)
 							end
 						end
 					end
 					if b:getUserData() then
-						if b:getUserData().callback then
-							if b:getUserData().callback.preSolve then
-								b:getUserData().callback.preSolve(b, a, contact)
+						if b:getUserData().callbacks then
+							if b:getUserData().callbacks.preSolve then
+								b:getUserData().callbacks.preSolve(b, a, contact)
 							end
 						end
 					end
@@ -90,16 +90,16 @@ function maps.new(path)
 
 				function postSolve(a, b, contact)
 					if a:getUserData() then
-						if a:getUserData().entity then
-							if a:getUserData().entity.postSolve then
-								a:getUserData().entity.postSolve(a, b, contact)
+						if a:getUserData().callbacks then
+							if a:getUserData().callbacks.postSolve then
+								a:getUserData().callbacks.postSolve(a, b, contact)
 							end
 						end
 					end
 					if b:getUserData() then
-						if b:getUserData().entity then
-							if b:getUserData().entity.postSolve then
-								b:getUserData().entity.postSolve(b, a, contact)
+						if b:getUserData().callbacks then
+							if b:getUserData().callbacks.postSolve then
+								b:getUserData().callbacks.postSolve(b, a, contact)
 							end
 						end
 					end
