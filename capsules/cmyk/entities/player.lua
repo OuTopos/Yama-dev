@@ -10,23 +10,24 @@ function player.new( map, x, y, z )
 
 	yc1 = nil
 
-	local userdata = {}
-	userdata.name = "Unnamed"
-	userdata.type = "mplayer"
-	userdata.properties = {}
-	userdata.callback = self
+	local bodyUserdata = {}
+	bodyUserdata.name = "Unnamed"
+	bodyUserdata.type = "player"
+	bodyUserdata.properties = {}
+	bodyUserdata.callbacks = {}
 
 	local shieldUserdata = {}
 	shieldUserdata.name = "Unnamed"
 	shieldUserdata.type = "shield"
 	shieldUserdata.properties = {}
-	shieldUserdata.callback = self
+	shieldUserdata.callbacks = {}
+
 
 	local swordUserdata = {}
 	swordUserdata.name = "Unnamed"
 	swordUserdata.type = "melee"
 	swordUserdata.properties = {}
-	swordUserdata.callback = self
+	swordUserdata.callbacks = {}
 
 	--local camera = vp.getCamera()
 	--local buffer = vp.addToBuffer()
@@ -45,17 +46,14 @@ function player.new( map, x, y, z )
 	
 	local aim = 0
 
-	local remove = false
-	local doLeg = 1
-
 	-- BUTTONS --	
-	buttonShoulderR = 8
-	buttunFaceA = 9
-	buttunTriggerR = 3
+	local buttonShoulderR = 8
+	local buttunFaceA = 9
+	local buttunTriggerR = 3
 
-	ctrlJumpButtom = buttunFaceA
-	ctrlMelee = buttonShoulderR
-	ctrlAimShoot = 1
+	local ctrlJumpButtom = buttunFaceA
+	local ctrlMelee = buttonShoulderR
+	local ctrlAimShoot = 1
 
 	local xvel, yvel = 0, 0
 	local speed = 0
@@ -70,7 +68,7 @@ function player.new( map, x, y, z )
 	local xJumpForce = 1900
 	local maxSpeed = 600
 	local friction = 0.2
-	local stopFriction = 0.7
+	local stopFriction = 1.0
 	local allowjump = true
 
 	-- SHOOTING --
@@ -81,11 +79,11 @@ function player.new( map, x, y, z )
 	local nAllowedBullets = 75
 
 	-- bullet types
-	local bulletStandardShieldDamage = 20
-	local bulletStandardBodyDamage = 1.5
+	local bulletStandardShieldDamage = 16
+	local bulletStandardBodyDamage = 7
 
 	-- MELEE --
-	local meleeStandardShieldDamage = 1
+	local meleeStandardShieldDamage = 20
 	local meleeStandardBodyDamage = 80
 	local meleeing = false
 	local allowMelee = true
@@ -178,13 +176,19 @@ function player.new( map, x, y, z )
 	
 	-- Physics
 
-	function self.initialize( data )
+	function self.initialize( properties )
 		--self.setBoundingBox()		-- body
+		bodyUserdata.playerId = properties.id
+		swordUserdata.playerId = properties.id
+		shieldUserdata.playerId = properties.id
+
+		self.refreshBufferBatch()
+
 	end
 
 	local anchor = love.physics.newFixture( love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( width, height ) )
 	anchor:setGroupIndex( 1 )
-	anchor:setUserData( userdata )
+	anchor:setUserData( bodyUserdata )
 	anchor:setRestitution( 0 )
 	anchor:getBody():setFixedRotation( true )
 	anchor:getBody():setLinearDamping( 1 )
@@ -194,12 +198,13 @@ function player.new( map, x, y, z )
 	anchor:getBody():setBullet( true )
 
 	local sword = love.physics.newFixture( love.physics.newBody( map.world, self.x+25, self.y, "dynamic"), love.physics.newRectangleShape( 50, 7 ), 1 )
+	--local sword = love.physics.newFixture( anchor:getBody(), love.physics.newPolygonShape( 0, 0, 0, 7, 47, 7, 47, 0 ) )
 	sword:setUserData( swordUserdata )
-	--sword:setGroupIndex( -2 )
-	sword:setUserData( swordUserdata )
-	--sword:setMask( 1 )
-	--sword:getBody():setMass( 1 )
-	print(sword:getBody():getMass(  ), 'MASSASS' )
+	sword:setGroupIndex( -2 )
+	sword:setMask( 1 )
+	sword:setSensor( true )
+	sword:getBody():setMass( 1 )
+
 
 
 	local shield = love.physics.newFixture( anchor:getBody(), love.physics.newCircleShape( 26 ), 0 )
@@ -207,8 +212,8 @@ function player.new( map, x, y, z )
 	--shield:setSensor(true)
 	--local shield = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 38 ) )
 	shield:setGroupIndex( -2 )
-	shield:setUserData( shieldUserdata )
 	shield:getBody( ):setMass( 1 )
+	--shield.entity = self
 	--shieldJoint = love.physics.newWeldJoint( shield:getBody(), anchor:getBody(), x, y, false )
 	--shieldJoint = love.physics.newDistanceJoint( shield:getBody(), anchor:getBody(), x, y, x+1, y+1, false )
 	--shieldJoint:setLength(0.1)
@@ -297,7 +302,7 @@ function player.new( map, x, y, z )
 				local xv, yv = anchor:getBody( ):getLinearVelocity( )
 				if pContact and yv == 0 and onGround then
 					self.running = true
-					print('SETFRICRUN')
+					--print('SETFRICRUN')
 					pContact:setFriction( friction )
 				end
 			end
@@ -310,7 +315,7 @@ function player.new( map, x, y, z )
 				local xv, yv = anchor:getBody( ):getLinearVelocity( )
 				if pContact and yv == 0 and onGround then
 					self.running = false
-					print('STOPFRICTION')
+					--print('STOPFRICTION')
 					pContact:setFriction( stopFriction )
 				end
 			end
@@ -392,9 +397,9 @@ function player.new( map, x, y, z )
 
 		if not ctrlMeleeDown and meleeTimer < meleeMaxTimer and allowMelee and self.joystick:isDown( ctrlMelee ) then
 			ctrlMeleeDown = true
-			print('whopp')
+			--print('whopp')
 			if meleeTimer == 0 then
-				print('WHAM')
+				--print('WHAM')
 				sword:setMask( )
 				sword:setGroupIndex( 2 )
 				meleeing = true
@@ -407,7 +412,7 @@ function player.new( map, x, y, z )
 			--print('meleeing')
 			meleeTimer = meleeTimer + dt
 			if meleeTimer > meleeMaxTimer then
-				print( 'NOTMELEE' )
+				--print( 'NOTMELEE' )
 				sword:setGroupIndex( -2 )
 				sword:setMask( 1 )
 				meleeing = false
@@ -419,7 +424,7 @@ function player.new( map, x, y, z )
 			--print('coolioo')
 			meleeCoolDownTimer = meleeCoolDownTimer + dt
 			if meleeCoolDownTimer > meleeCoolDownMaxTimer then
-				print('reset')
+				print('reset melee timer')
 				allowMelee = true
 			end
 		end
@@ -439,7 +444,6 @@ function player.new( map, x, y, z )
 
 		-- JUMPING --
 		xv, yv = anchor:getBody():getLinearVelocity()
-		math.abs( yv )
 		if yv < 0.1 and allowjump and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
 			anchor:getBody():applyLinearImpulse( 0, -jumpForce )
 			allowjump = false
@@ -447,7 +451,7 @@ function player.new( map, x, y, z )
 
 		self.jumpAccelerator( dt, ctrlJumpButtom, jumpMaxTimer, jumpIncreaser )
 
-		if not love.keyboard.isDown(" ") and not self.joystick:isDown( ctrlJumpButtom ) and yv == 0 then
+		if not love.keyboard.isDown(" ") and not self.joystick:isDown( ctrlJumpButtom ) and yv < 0.12 and yv > -0.12 then
 			allowjump = true
 		end
 	end
@@ -458,15 +462,10 @@ function player.new( map, x, y, z )
 			self.applyForce( 0, -jIncreaser )
 			jumpTimer = jumpTimer + dt
 			xv, yv = anchor:getBody():getLinearVelocity()
-			if jumpTimer > jMaxTimer and yv < 0.1 and yv > -0.1 then
-				print( "jumptiner reset!")
-				jumpTimer = 0
-			end
 		end
 	end
 
 	function self.bodyEnergy( damage )
-		print( damage )
 		bodyHealth = bodyHealth - damage
 		if bodyHealth <= 0 then
 			self.destroy()
@@ -474,7 +473,6 @@ function player.new( map, x, y, z )
 	end
 
 	function self.shieldPower( damage )
-		print( damage )
 		shieldHealth = shieldHealth - damage
 		spriteShield.color = { 255, 255, 255, math.floor( 255*( shieldHealth/shieldMaxHealth )+0.5 ) } 
 		shieldTimer = 0
@@ -545,17 +543,28 @@ function player.new( map, x, y, z )
 		spriteShield.y = y
 		spriteShield.z = 100
 
-		sword:getBody():setX( x )
-		sword:getBody():setY( y )
+		if spriteJumper.sx == 1 then
+			sword:getBody():setX( x+25 )
+			sword:getBody():setY( y )
+			weapon_meleeSprite.x = x --math.floor(x + 0.5)
+			weapon_meleeSprite.y = y --math.floor(y-16 + 0.5)
+			weapon_meleeSprite.r = r
+		else
+			sword:getBody():setX( x-25 )
+			sword:getBody():setY( y )
+			weapon_meleeSprite.x = x-50 --math.floor(x + 0.5)
+			weapon_meleeSprite.y = y --math.floor(y-16 + 0.5)
+			weapon_meleeSprite.r = r
+		end
+
 
 		spriteArrow.x = x --math.floor(x + 0.5)
 		spriteArrow.y = y --math.floor(y-16 + 0.5)
 		spriteArrow.z = 10
 		spriteArrow.r = aim
 
-		weapon_meleeSprite.x = x --math.floor(x + 0.5)
-		weapon_meleeSprite.y = y --math.floor(y-16 + 0.5)
-		weapon_meleeSprite.r = r
+
+
 		
 		bufferBatch.x = x
 		bufferBatch.y = y
@@ -570,30 +579,17 @@ function player.new( map, x, y, z )
 
 	self.callbacks = {}
 	self.callbacks.shield = {}
-
-	function self.callbacks.shield.BeginCont( a, b, contact )
-		-- body
+	---[[
+	function swordUserdata.callbacks.beginContact( a, b, contact )
 	end
 
-	-- CONTACT --
-	function self.beginContact( a, b, contact )
+	function shieldUserdata.callbacks.beginContact( a, b, contact )
 
-		contact:setRestitution( 0 )
 		userdata = b:getUserData()
 		userdata2 = a:getUserData()
 		if userdata then
-			print(userdata.type)
-			print(userdata2.type)
-			if userdata.type == 'floor' and userdata2.type == 'mplayer' then
-				xc1, yc1, xc2, yc2 = contact:getPositions( )
-				--if yc1 > self.y then
-				pContact = contact
-					--print( 'On floor!')
-				jumpTimer = 0
-		 		onGround = true
-		 		--end
-			elseif userdata.type == 'bullet' and userdata2.type == 'shield' then
-				print('hitShieldBullet!')
+			if userdata.type == 'bullet' then
+				--print('hitShieldBullet!')
 				self.shieldPower( bulletStandardShieldDamage )
 
 				--aims = math.atan2( a:getBody:GetX(), b:getBody:GetX() )
@@ -609,58 +605,39 @@ function player.new( map, x, y, z )
 				--ptcSpark:setPosition( sparkx1, sparky1 )
 				--ptcSpark:setDirection( hitDirection )
 				--ptcSpark:start( )
-			end
-			if userdata2 then
-				if userdata.type == 'shield' and userdata2.type == 'melee' then
-					print('hitShieldMelee!')
-					self.shieldPower( meleeStandardShieldDamage )
-				end
-				if userdata.type == 'bullet' and userdata2.type == 'mplayer' then
-					self.bodyEnergy( bulletStandardBodyDamage )
-				end
-				if userdata.type == 'melee' and userdata2.type == 'mplayer' and not shieldOn then
-					self.bodyEnergy( meleeStandardBodyDamage )
-				end
-
+			elseif userdata.type == 'melee' and userdata.playerId ~= userdata2.playerId then
+				print('hitShieldMelee!')
+				self.shieldPower( meleeStandardShieldDamage )
 			end
 		end
-
-
-		--print( "beginContact!" )
-
-		--xc1, yc1, xc2, yc2 = contact:getPositions( )
-		--[[		
-		if a:getBody( ) == anchor:getBody( ) then
-			--print( 'a = anchor' )
-			if xc1 and xc2 then
-			--	print( xc1-xc2 )
-			end
-			if xc1 and xc2 then 
-				if xc1 - xc2 < 0.1 and xc1 - xc2 > - 0.1 then
-					latestCol = 'wall'
-				else
-					--contact:setRestitution( 0 )
-					latestCol = 'ground'
-					jumpTimer = 0
-					onGround = true					
-					yposContact = anchor:getBody( ):getY( )
-				end
-			end
-		end
-		--]]
-
-		-- JUMP STUFF --
-		---[[
-
 	end
 
-	function self.endContact(a, b, contact)
-		--local xc1, yc1, xc2, yc2 = contact:getPositions( )
-		-- JUMP STUFF --
+	function bodyUserdata.callbacks.beginContact( a, b, contact )
+		contact:setRestitution( 0 )
+		userdata = b:getUserData()
+		userdata2 = a:getUserData()
+		if userdata then
+			if userdata.type == 'floor' then
+				--print('body meets floor')
+				--if yc1 > self.y then
+				pContact = contact
+					--print( 'On floor!')
+				jumpTimer = 0
+		 		onGround = true
+		 		xv, yv = anchor:getBody():getLinearVelocity()
+		 	elseif userdata.type == 'bullet' then
+				self.bodyEnergy( bulletStandardBodyDamage )
+			elseif userdata.type == 'melee' and not shieldOn and userdata.playerId ~= userdata2.playerId then
+				print('hitBodyMelee!')
+				self.bodyEnergy( meleeStandardBodyDamage )
+			end
+		end
+	end
+	function bodyUserdata.callbacks.endContact( a, b, contact )
+		contact:setRestitution( 0 )
 		if a:getBody() == anchor:getBody() then
-			contact:setRestitution( 0 )
 			if b:getUserData() then
-				if b:getUserData().type == 'floor' and a:getUserData().type == 'mplayer' then
+				if b:getUserData().type == 'floor' then
 					--if yc1 > self.y then
 					onGround = false
 					--end
@@ -668,6 +645,8 @@ function player.new( map, x, y, z )
 			end
 		end
 	end
+--]]
+
 
 	function self.draw( )
 		love.graphics.setColorMode( "modulate" )

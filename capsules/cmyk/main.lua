@@ -12,7 +12,7 @@ function capsule.load()
 		centered = true,
 	})
 	capsule.map = yama.maps.load("test/gravityfall")
-	capsule.p1 = capsule.map.spawn("player", "start")
+	capsule.p1 = capsule.map.spawn("player", "start", {id = 1})
 	capsule.cam1 = capsule.map.spawn("camera", "start")
 	capsule.cam1.follow(capsule.p1)
 	capsule.vp1 = yama.viewports.new()
@@ -60,7 +60,8 @@ function capsule.load()
 			end
 		end
 		if key == "z" then
-			capsule.p2 = capsule.map.spawn("player", "start2")
+			capsule.p2 = capsule.map.spawn("player", "start2", {id = 2})
+			capsule.p2.playerId = 2
 			capsule.vp2 = yama.viewports.new()
 			capsule.vp2.connect(capsule.map, capsule.p2)
 
@@ -73,7 +74,18 @@ function capsule.load()
 
 		end
 	end
+
+	function love.resize(w, h)
+		if capsule.vp1 and capsule.vp2 then
+			capsule.vp1.resize(w/2, h)
+			capsule.vp2.resize(w/2, h)
+			capsule.vp2.x = w/2
+		elseif capsule.vp1 then
+			capsule.vp1.resize(w, h)
+		end
+	end
 end
+
 
 
 

@@ -4,11 +4,11 @@ function bullet.new( map, x, y, z )
 	local self = {}
 	self.boundingbox = {}
 
-	local userdata = {}
-	userdata.name = "Unnamed"
-	userdata.type = "bullet"
-	userdata.properties = {}
-	userdata.callback = self
+	local bulletUserdata = {}
+	bulletUserdata.name = "Unnamed"
+	bulletUserdata.type = "bullet"
+	bulletUserdata.properties = {}
+	bulletUserdata.callbacks = self
 
 	self.x = x
 	self.y = y
@@ -54,7 +54,7 @@ function bullet.new( map, x, y, z )
 	--local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( 8, 8 ) )
 	bullet:setGroupIndex( -1 )
 
-	bullet:setUserData( userdata )
+	bullet:setUserData( bulletUserdata )
 	bullet:setRestitution( 0.70 )
 	bullet:getBody( ):setFixedRotation( false )
 	bullet:getBody( ):setLinearDamping( 0.3 )
@@ -136,7 +136,7 @@ function bullet.new( map, x, y, z )
 		local userdata = b:getUserData( )
 		if userdata then
 			--print( a:getUserData().type, userdata.type )
-			if userdata.type == 'shield' or userdata.type == 'mplayer' then
+			if userdata.type == 'shield' or userdata.type == 'player' then
 				self.destroy()
 			end
 		end
