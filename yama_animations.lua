@@ -110,4 +110,8 @@ animations.list.eyeball_walk_right  = {delay = 0.2, first = 10, last = 12, loop 
 animations.list.eyeball_walk_up     = {delay = 0.2, first = 1, last = 3, loop = true, finish = false, reverse = false}
 animations.list.eyeball_walk_down   = {delay = 0.2, first = 7, last = 9, loop = true, finish = false, reverse = false}
 
+animations.list.elisa_walk         = {delay = 0.08, first = 17, last = 24, loop = true, finish = false, reverse = false}
+animations.list.elisa_jump         = {delay = 0.08, first = 106, last = 113, loop = true, finish = false, reverse = false}
+animations.list.elisa_idle         = {delay = 0.20, first = 1, last = 3, loop = true, finish = false, reverse = false}
+
 return animations

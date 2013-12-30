@@ -2,6 +2,7 @@ local hud = {}
 hud.enabled = false
 hud.physics = false
 
+joysticks = love.joystick.getJoysticks()
 
 --love.graphics.setPointStyle("smooth")
 love.graphics.setPointSize(8)
@@ -51,6 +52,9 @@ end
 
 function hud.draw(vp)
 	if hud.enabled then
+
+
+
 		-- Draw camera
 		local lh = 10
 		local left = vp.x
@@ -101,6 +105,18 @@ function hud.draw(vp)
 				love.graphics.print("  Stick: "..love.joystick.getAxis(1, 2), left + 2, top + 92)
 				love.graphics.print("  Distance: "..yama.g.getDistance(0, 0, love.joystick.getAxis(1, 1), love.joystick.getAxis(1, 2)), left + 2, top + 102)
 				love.graphics.print("  Button: ", left + 2, top + 112)
+			end
+		end
+
+
+		for i, joystick in ipairs(joysticks) do
+			love.graphics.print(i, 10, i * 10 + 112)
+			love.graphics.print(joystick:getName(), 20, i * 10 + 112)
+			love.graphics.print(joystick:getAxis(1), 250, i * 10 + 112)
+			love.graphics.print(joystick:getAxis(2), 400, i * 10 + 112)
+			love.graphics.print(yama.tools.getDistance(0, 0, joystick:getAxis(1), joystick:getAxis(2)), 550, i * 10 + 112)
+			if joystick:isGamepadDown("a") then
+				love.graphics.print("A!!!", 10, i * 10 + 122)
 			end
 		end
 

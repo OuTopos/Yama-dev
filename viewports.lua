@@ -116,8 +116,8 @@ function viewports.new()
 			--self.camera.z = self.camera.target.z
 		end
 		-- GET X, Y from CX, XY
-		 self.camera.x = self.camera.cx - self.camera.width / 2
-		 self.camera.y = self.camera.cy - self.camera.height / 2
+		self.camera.x = self.camera.cx - self.camera.width / 2
+		self.camera.y = self.camera.cy - self.camera.height / 2
 		
 		self.boundaries.apply()
 
@@ -144,8 +144,10 @@ function viewports.new()
 			if self.camera.width <= self.boundaries.width then
 				if self.camera.x < self.boundaries.x then
 					self.camera.x = self.boundaries.x
+					self.camera.cx = self.camera.x + self.camera.width / 2
 				elseif self.camera.x > self.boundaries.width - self.camera.width then
 					self.camera.x = self.boundaries.width - self.camera.width
+					self.camera.cx = self.camera.x + self.camera.width / 2
 				end
 			else
 				self.camera.x = self.boundaries.x - (self.camera.width - self.boundaries.width) / 2
@@ -154,8 +156,10 @@ function viewports.new()
 			if self.camera.height <= self.boundaries.height then
 				if self.camera.y < self.boundaries.y then
 					self.camera.y = self.boundaries.y
+					self.camera.cy = self.camera.y + self.camera.height / 2
 				elseif self.camera.y > self.boundaries.height - self.camera.height then
 					self.camera.y = self.boundaries.height - self.camera.height
+					self.camera.cy = self.camera.y + self.camera.height / 2
 				end
 			else
 				self.camera.y = self.boundaries.y - (self.camera.height - self.boundaries.height) / 2

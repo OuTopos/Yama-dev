@@ -16,9 +16,9 @@ function capsule.load()
 
 	love.graphics.setFont(love.graphics.newImageFont(yama.assets.loadImage("font")," abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`'*#=[]\""))
 
-	capsule.map = yama.maps.load("test/start")
+	capsule.map = yama.maps.load("test/parallax")
 
-	capsule.p1 = capsule.map.spawn("player", "start")
+	capsule.p1 = capsule.map.spawn("elisa", "start")
 
 	--capsule.cam1 = capsule.map.spawn("camera", "start")
 	--capsule.cam1.follow(capsule.p1)
@@ -90,7 +90,7 @@ function capsule.load()
 		end
 
 		if key == "6" then
-			capsule.vp1.zoom(0.25)
+			capsule.vp1.zoom(8)
 		end
 
 		if key == "0" then
@@ -122,6 +122,8 @@ function capsule.load()
 	function love.joystickremoved(joystick)
 		joysticks = love.joystick.getJoysticks()
 	end
+
+
 end
 
 function capsule.update(dt)

@@ -8,15 +8,17 @@ assets.generateMesh = true
 
 function assets.load()
 	love.graphics.setDefaultFilter("linear", "linear")
+	love.graphics.setDefaultFilter("nearest", "nearest")
 
 	-- LOADING TILESETS
 	if love.filesystem.exists(yama.paths.capsule .. "tilesets") then
 		local files = love.filesystem.getDirectoryItems(yama.paths.capsule .. "tilesets")
 		for k, file in ipairs(files) do
-			info("Autoloading tileset #" .. k .. ": " .. file)
+			--info("Autoloading file #" .. k .. ": " .. file)
 			local tilesets = dofile(yama.paths.capsule .. "tilesets/" .. file)
 			for i = 1, #tilesets do
 				assets.loadTileset(tilesets[i].name, tilesets[i].imagepath, tilesets[i].tilewidth, tilesets[i].tileheight, tilesets[i].spacing, tilesets[i].margin, tilesets[i].margin)
+				info("Autoloaded tileset (" .. file .. ") " .. tilesets[i].name)
 			end
 		end
 	end
