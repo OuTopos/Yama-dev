@@ -107,7 +107,7 @@ function maps.new(path)
 
 				self.world = love.physics.newWorld()
 				self.world:setGravity(self.data.properties.xg * self.data.properties.meter, self.data.properties.yg * self.data.properties.meter)
-				self.world:setCallbacks(unpack({self.callbacks}))
+				self.world:setCallbacks(self.callbacks.beginContact, self.callbacks.endContact, self.callbacks.preSolve, self.callbacks.postSolve)
 				love.physics.setMeter(self.data.properties.meter)
 			end
 		end
