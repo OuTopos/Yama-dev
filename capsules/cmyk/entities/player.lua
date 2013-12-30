@@ -3,6 +3,7 @@ local player = {}
 function player.new( map, x, y, z )
 	local self = {}
 	self.boundingbox = {}
+	self.fixtures = {}
 
 	self.x = x
 	self.y = y
@@ -185,52 +186,58 @@ function player.new( map, x, y, z )
 		self.refreshBufferBatch()
 
 	end
+	os = 16
+	--self.fixtures.main = love.physics.newFixture( love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( width, height ) )
+	self.fixtures.main = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newPolygonShape(-13, 0+os, 13, 0+os, 16, -3+os, 16, -35+os, 13, -38+os, -13, -38+os, -16, -35+os, -16, -3+os), self.mass)
+	self.fixtures.main:setGroupIndex( 1 )
+	self.fixtures.main:setUserData( bodyUserdata )
+	self.fixtures.main:setRestitution( 0 )
+	self.fixtures.main:getBody():setFixedRotation( true )
+	self.fixtures.main:getBody():setLinearDamping( 1 )
+	self.fixtures.main:getBody():setMass( 1 )
+	self.fixtures.main:getBody():setInertia( 1 )
+	self.fixtures.main:getBody():setGravityScale( 9 )
+	self.fixtures.main:getBody():setBullet( true )
 
-	local anchor = love.physics.newFixture( love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( width, height ) )
-	anchor:setGroupIndex( 1 )
-	anchor:setUserData( bodyUserdata )
-	anchor:setRestitution( 0 )
-	anchor:getBody():setFixedRotation( true )
-	anchor:getBody():setLinearDamping( 1 )
-	anchor:getBody():setMass( 1 )
-	anchor:getBody():setInertia( 1 )
-	anchor:getBody():setGravityScale( 9 )
-	anchor:getBody():setBullet( true )
+	self.fixtures.sword = love.physics.newFixture( love.physics.newBody( map.world, self.x+25, self.y, "dynamic"), love.physics.newRectangleShape( 50, 7 ), 1 )
+	--self.fixtures.sword = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newPolygonShape( 0, 0, 0, 7, 47, 7, 47, 0 ) )
+	self.fixtures.sword:setUserData( self.fixtures.swordUserdata )
+	self.fixtures.sword:setGroupIndex( -2 )
+	self.fixtures.sword:setMask( 1 )
+	self.fixtures.sword:setSensor( true )
+	self.fixtures.sword:getBody():setMass( 1 )
 
-	local sword = love.physics.newFixture( love.physics.newBody( map.world, self.x+25, self.y, "dynamic"), love.physics.newRectangleShape( 50, 7 ), 1 )
-	--local sword = love.physics.newFixture( anchor:getBody(), love.physics.newPolygonShape( 0, 0, 0, 7, 47, 7, 47, 0 ) )
-	sword:setUserData( swordUserdata )
-	sword:setGroupIndex( -2 )
-	sword:setMask( 1 )
-	sword:setSensor( true )
-	sword:getBody():setMass( 1 )
+	--self.fixtures.feet = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape(-12, 0, -12, 2, 12, 2, 12, 0),1)
+	--self.fixtures.feet:setSensor(true)
+	--self.fixtures.left = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape(-14, -8, -14, -30, -16, -30, -16, -8), 1)
+	--self.fixtures.left:setSensor(true)
+	--self.fixtures.right = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape(14, -8, 14, -30, 16, -30, 16, -8), 1)
+	--self.fixtures.right:setSensor(true)
 
-
-
-	local shield = love.physics.newFixture( anchor:getBody(), love.physics.newCircleShape( 26 ), 0 )
-	shield:setUserData( shieldUserdata )
-	--shield:setSensor(true)
-	--local shield = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 38 ) )
-	shield:setGroupIndex( -2 )
-	shield:getBody( ):setMass( 1 )
-	--shield.entity = self
-	--shieldJoint = love.physics.newWeldJoint( shield:getBody(), anchor:getBody(), x, y, false )
-	--shieldJoint = love.physics.newDistanceJoint( shield:getBody(), anchor:getBody(), x, y, x+1, y+1, false )
+	self.fixtures.shield = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newCircleShape( 25 ), 0 )
+	self.fixtures.shield:setUserData( shieldUserdata )
+	--self.fixtures.shield:setSensor(true)
+	--self.fixtures.shield = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 38 ) )
+	self.fixtures.shield:setGroupIndex( -2 )
+	self.fixtures.shield:getBody( ):setMass( 1 )
+	--self.fixtures.shield.entity = self
+	--shieldJoint = love.physics.newWeldJoint( self.fixtures.shield:getBody(), self.fixtures.main:getBody(), x, y, false )
+	--shieldJoint = love.physics.newDistanceJoint( self.fixtures.shield:getBody(), self.fixtures.main:getBody(), x, y, x+1, y+1, false )
 	--shieldJoint:setLength(0.1)
 
 	--shieldJoint:setFrequency(-60)
 	--shieldJoint:setDampingRatio(-100)
-	--shield:getBody( ):setLinearDamping( 0.001 )
-	--shield:getBody( ):setMass( 0.0001 )
-	--shield:getBody( ):setInertia( 0.01 )
-	--shield:getBody( ):setGravityScale( 0.9 )
+	--self.fixtures.shield:getBody( ):setLinearDamping( 0.001 )
+	--self.fixtures.shield:getBody( ):setMass( 0.0001 )
+	--self.fixtures.shield:getBody( ):setInertia( 0.01 )
+	--self.fixtures.shield:getBody( ):setGravityScale( 0.9 )
 
 	--[[
 	local canon = love.physics.newFixture(love.physics.newBody( map.world, x+14, y+3, "dynamic"), love.physics.newRectangleShape( 32, 6 ) )
 	canon:setGroupIndex( -1 )
-	canonJoint = love.physics.newRevoluteJoint( canon:getBody(), anchor:getBody(), x, y, false )
+	canonJoint = love.physics.newRevoluteJoint( canon:getBody(), self.fixtures.main:getBody(), x, y, false )
 	canonJoint:enableMotor( true )
-	--canonJoint = love.physics.newWheelJoint( canon:getBody(), anchor:getBody(), x, y, x, y )
+	--canonJoint = love.physics.newWheelJoint( canon:getBody(), self.fixtures.main:getBody(), x, y, x, y )
 	canon:getBody( ):setLinearDamping( 1 )
 	canon:getBody( ):setMass( 0.0001 )
 	canon:getBody( ):setInertia( 0.01 )
@@ -263,7 +270,7 @@ function player.new( map, x, y, z )
 	end
 
 	function self.updateInput( dt )
-		xv, yv = anchor:getBody( ):getLinearVelocity( )
+		xv, yv = self.fixtures.main:getBody( ):getLinearVelocity( )
 		if yv < 0.1 and yv > - 0.1 then
 			--print( 'resetJumpUpdateInput' )
 			jumpTimer = 0
@@ -299,7 +306,7 @@ function player.new( map, x, y, z )
 		
 		if yama.tools.getDistance( 0, 0, self.joystick:getAxis( 1 ), self.joystick:getAxis( 2 ) ) > 0.22 then
 			if not self.running then
-				local xv, yv = anchor:getBody( ):getLinearVelocity( )
+				local xv, yv = self.fixtures.main:getBody( ):getLinearVelocity( )
 				if pContact and yv == 0 and onGround then
 					self.running = true
 					--print('SETFRICRUN')
@@ -312,7 +319,7 @@ function player.new( map, x, y, z )
 			relativeDirection = yama.tools.getRelativeDirection( math.atan2( ny, nx ) )
 		else
 			if self.running then
-				local xv, yv = anchor:getBody( ):getLinearVelocity( )
+				local xv, yv = self.fixtures.main:getBody( ):getLinearVelocity( )
 				if pContact and yv == 0 and onGround then
 					self.running = false
 					--print('STOPFRICTION')
@@ -400,8 +407,8 @@ function player.new( map, x, y, z )
 			--print('whopp')
 			if meleeTimer == 0 then
 				--print('WHAM')
-				sword:setMask( )
-				sword:setGroupIndex( 2 )
+				self.fixtures.sword:setMask( )
+				self.fixtures.sword:setGroupIndex( 2 )
 				meleeing = true
 				self.refreshBufferBatch()
 				allowMelee = false
@@ -413,8 +420,8 @@ function player.new( map, x, y, z )
 			meleeTimer = meleeTimer + dt
 			if meleeTimer > meleeMaxTimer then
 				--print( 'NOTMELEE' )
-				sword:setGroupIndex( -2 )
-				sword:setMask( 1 )
+				self.fixtures.sword:setGroupIndex( -2 )
+				self.fixtures.sword:setMask( 1 )
 				meleeing = false
 				self.refreshBufferBatch()
 				meleeTimer = 0
@@ -435,7 +442,7 @@ function player.new( map, x, y, z )
 
 				
 			--print( 'MELEE' )
-		--elseif sword:getMask() ~= 1 and meleeTimer > meleeMaxTimer then
+		--elseif self.fixtures.sword:getMask() ~= 1 and meleeTimer > meleeMaxTimer then
 
 	--	end
 	end
@@ -443,9 +450,9 @@ function player.new( map, x, y, z )
 	function self.jumping(dt)
 
 		-- JUMPING --
-		xv, yv = anchor:getBody():getLinearVelocity()
+		xv, yv = self.fixtures.main:getBody():getLinearVelocity()
 		if yv < 0.1 and allowjump and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
-			anchor:getBody():applyLinearImpulse( 0, -jumpForce )
+			self.fixtures.main:getBody():applyLinearImpulse( 0, -jumpForce )
 			allowjump = false
 		end
 
@@ -461,7 +468,7 @@ function player.new( map, x, y, z )
 		if jumpTimer < jMaxTimer and ( love.keyboard.isDown( " " ) or self.joystick:isDown( button ) ) then
 			self.applyForce( 0, -jIncreaser )
 			jumpTimer = jumpTimer + dt
-			xv, yv = anchor:getBody():getLinearVelocity()
+			xv, yv = self.fixtures.main:getBody():getLinearVelocity()
 		end
 	end
 
@@ -483,7 +490,7 @@ function player.new( map, x, y, z )
 
 	function self.removeShield( killed )
 		--shield:destroy()
-		shield:setMask( 1 )
+		self.fixtures.shield:setMask( 1 )
 		shieldOn = false
 		self.refreshBufferBatch()
 		shieldKilled = killed
@@ -496,10 +503,10 @@ function player.new( map, x, y, z )
 
 	function self.createShield( health, killed )
 		-- body
-		--shield = love.physics.newFixture( anchor:getBody(), love.physics.newCircleShape( 32 ), 0 )
-		--shield:setGroupIndex( -2 )
-		--shield:setUserData( shieldUserdata )
-		shield:setMask( )
+		--self.fixtures.shield = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newCircleShape( 32 ), 0 )
+		--self.fixtures.shield:setGroupIndex( -2 )
+		--self.fixtures.shield:setUserData( shieldUserdata )
+		self.fixtures.shield:setMask( )
 		shieldHealth = health
 		spriteShield.color = { 255, 255, 255, math.floor( 255 * ( shieldHealth/shieldMaxHealth ) + 0.5 ) }
 		shieldOn = true
@@ -509,7 +516,7 @@ function player.new( map, x, y, z )
 	end
 
 	function self.applyForce( fx, fy )
-		anchor:getBody():applyForce( fx, fy )
+		self.fixtures.main:getBody():applyForce( fx, fy )
 	end
 
 	function self.refreshBufferBatch()
@@ -530,9 +537,9 @@ function player.new( map, x, y, z )
 	end
 
 	function self.updatePosition(xn, yn)		
-		x = anchor:getBody():getX()
-		y = anchor:getBody():getY()
-		r = anchor:getBody():getAngle()
+		x = self.fixtures.main:getBody():getX()
+		y = self.fixtures.main:getBody():getY()
+		r = self.fixtures.main:getBody():getAngle()
 
 		spriteJumper.x = x
 		spriteJumper.y = y
@@ -544,14 +551,14 @@ function player.new( map, x, y, z )
 		spriteShield.z = 100
 
 		if spriteJumper.sx == 1 then
-			sword:getBody():setX( x+25 )
-			sword:getBody():setY( y )
+			self.fixtures.sword:getBody():setX( x+25 )
+			self.fixtures.sword:getBody():setY( y )
 			weapon_meleeSprite.x = x --math.floor(x + 0.5)
 			weapon_meleeSprite.y = y --math.floor(y-16 + 0.5)
 			weapon_meleeSprite.r = r
 		else
-			sword:getBody():setX( x-25 )
-			sword:getBody():setY( y )
+			self.fixtures.sword:getBody():setX( x-25 )
+			self.fixtures.sword:getBody():setY( y )
 			weapon_meleeSprite.x = x-50 --math.floor(x + 0.5)
 			weapon_meleeSprite.y = y --math.floor(y-16 + 0.5)
 			weapon_meleeSprite.r = r
@@ -562,9 +569,6 @@ function player.new( map, x, y, z )
 		spriteArrow.y = y --math.floor(y-16 + 0.5)
 		spriteArrow.z = 10
 		spriteArrow.r = aim
-
-
-
 		
 		bufferBatch.x = x
 		bufferBatch.y = y
@@ -589,7 +593,7 @@ function player.new( map, x, y, z )
 		userdata2 = a:getUserData()
 		if userdata then
 			if userdata.type == 'bullet' then
-				--print('hitShieldBullet!')
+				print('hitShieldBullet!')
 				self.shieldPower( bulletStandardShieldDamage )
 
 				--aims = math.atan2( a:getBody:GetX(), b:getBody:GetX() )
@@ -624,7 +628,7 @@ function player.new( map, x, y, z )
 					--print( 'On floor!')
 				jumpTimer = 0
 		 		onGround = true
-		 		xv, yv = anchor:getBody():getLinearVelocity()
+		 		xv, yv = self.fixtures.main:getBody():getLinearVelocity()
 		 	elseif userdata.type == 'bullet' then
 				self.bodyEnergy( bulletStandardBodyDamage )
 			elseif userdata.type == 'melee' and not shieldOn and userdata.playerId ~= userdata2.playerId then
@@ -635,7 +639,7 @@ function player.new( map, x, y, z )
 	end
 	function bodyUserdata.callbacks.endContact( a, b, contact )
 		contact:setRestitution( 0 )
-		if a:getBody() == anchor:getBody() then
+		if a:getBody() == self.fixtures.main:getBody() then
 			if b:getUserData() then
 				if b:getUserData().type == 'floor' then
 					--if yc1 > self.y then
@@ -653,7 +657,7 @@ function player.new( map, x, y, z )
 		love.graphics.setColor( 255, 255, 255, 255 );
 		love.graphics.setBlendMode( "alpha" )
 		if hud.enabled then
-			physics.draw( anchor, { 0, 255, 0, 102 } )
+			physics.draw( self.fixtures.main, { 0, 255, 0, 102 } )
 		end
 	end
 
@@ -662,8 +666,8 @@ function player.new( map, x, y, z )
 	end
 	-- Basic functions
 	function self.setPosition( x, y )
-		anchor.body:setPosition( x, y )
-		anchor.body:setLinearVelocity( 0, 0 )
+		self.fixtures.main.body:setPosition( x, y )
+		self.fixtures.main.body:setLinearVelocity( 0, 0 )
 	end
 	
 	function self.getPosition( )
@@ -677,7 +681,7 @@ function player.new( map, x, y, z )
 		return yvel
 	end
 	function self.destroy( )
-		anchor:getBody():destroy()
+		self.fixtures.main:getBody():destroy()
 		self.destroyed = true
 	end
 

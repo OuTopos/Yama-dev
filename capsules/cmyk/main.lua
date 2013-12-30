@@ -73,6 +73,45 @@ function capsule.load()
 			capsule.p2.joystick = love.joystick.getJoysticks()[2]
 
 		end
+		if key == "1" then
+			capsule.vp1.zoom(1)
+		end
+
+		if key == "2" then
+			capsule.vp1.zoom(2)
+		end
+
+		if key == "3" then
+			capsule.vp1.zoom(3)
+		end
+
+		if key == "4" then
+			capsule.vp1.zoom(4)
+		end
+
+		if key == "5" then
+			capsule.vp1.zoom(0.5)
+		end
+
+		if key == "6" then
+			capsule.vp1.zoom(0.25)
+		end
+
+		if key == "0" then
+			local scale = capsule.vp1.camera.sx + 1
+			if scale > 5 then
+				scale = 1
+			end
+			capsule.vp1.camera.zoom(scale)
+		end
+
+		if key == "+" then
+			if capsule.vp1.camera.round then
+				capsule.vp1.camera.round = false
+			else
+				capsule.vp1.camera.round = true
+			end
+		end
 	end
 
 	function love.resize(w, h)
