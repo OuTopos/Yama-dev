@@ -36,8 +36,8 @@ function maps.new(path)
 				self.data.properties.yg = self.data.properties.yg or 0
 				self.data.properties.meter = self.data.properties.meter or self.data.tileheight
 
-				local beginContact, endContact, preSolve, postSolve
-				function beginContact(a, b, contact)
+				self.callbacks = {}
+				function self.callbacks.beginContact(a, b, contact)
 					if a:getUserData() then
 						if a:getUserData().callbacks then
 							if a:getUserData().callbacks.beginContact then
@@ -54,7 +54,7 @@ function maps.new(path)
 					end
 				end
 
-				function endContact(a, b, contact)
+				function self.callbacks.endContact(a, b, contact)
 					if a:getUserData() then
 						if a:getUserData().callbacks then
 							if a:getUserData().callbacks.endContact then
@@ -71,7 +71,7 @@ function maps.new(path)
 					end
 				end
 
-				function preSolve(a, b, contact)
+				function self.callbacks.preSolve(a, b, contact)
 					if a:getUserData() then
 						if a:getUserData().callbacks then
 							if a:getUserData().callbacks.preSolve then
@@ -88,7 +88,7 @@ function maps.new(path)
 					end
 				end
 
-				function postSolve(a, b, contact)
+				function self.callbacks.postSolve(a, b, contact)
 					if a:getUserData() then
 						if a:getUserData().callbacks then
 							if a:getUserData().callbacks.postSolve then
@@ -107,7 +107,7 @@ function maps.new(path)
 
 				self.world = love.physics.newWorld()
 				self.world:setGravity(self.data.properties.xg * self.data.properties.meter, self.data.properties.yg * self.data.properties.meter)
-				self.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+				self.world:setCallbacks(unpack({self.callbacks}))
 				love.physics.setMeter(self.data.properties.meter)
 			end
 		end
