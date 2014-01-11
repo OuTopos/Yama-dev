@@ -13,10 +13,10 @@ function capsule.load()
 	})
 	capsule.map = yama.maps.load("test/gravityfall")
 	capsule.p1 = capsule.map.spawn("player", "start", {id = 1})
-	capsule.cam1 = capsule.map.spawn("camera", "start")
-	capsule.cam1.follow(capsule.p1)
+	--capsule.cam1 = capsule.map.spawn("camera", "start")
+	--capsule.cam1.follow(capsule.p1)
 	capsule.vp1 = yama.viewports.new()
-	capsule.vp1.connect(capsule.map, capsule.cam1)
+	capsule.vp1.connect(capsule.map, capsule.p1)
 
 	function love.keypressed(key)
 		if key == "escape" then

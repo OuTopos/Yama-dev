@@ -40,10 +40,10 @@ function bullet.new( map, x, y, z )
 	local yvb = 0
 
 	-- BUFFER BATCH
-	local bufferBatch = yama.buffers.newBatch( x, y, z )
+	local bufferBatch = yama.buffers.newBatch( self.x, self.y, self.z )
 
 	-- SPRITE (PLAYER)	
-	local bulletsprite = yama.buffers.newDrawable( yama.assets.loadImage( "bullet" ), x, y, z, r, sx, sy, ox, oy )
+	local bulletsprite = yama.buffers.newDrawable( yama.assets.loadImage( "bullet" ), self.x, self.y, self.z, r, sx, sy, ox, oy )
 
 	--local bulletsprite = yama.buffers.newDrawable( yama.assets.loadImage("bullet"), x, y, z, r, sx, sy, ox, oy )
 
@@ -138,15 +138,6 @@ function bullet.new( map, x, y, z )
 			--print( a:getUserData().type, userdata.type )
 			if userdata.type == 'shield' or userdata.type == 'player' then
 				self.destroy()
-			end
-		end
-	end
-
-	function self.endContact( a, b, contact )
-
-		if b:getUserData( ) then
-			if b:getUserData( ).type == 'floor' then
-
 			end
 		end
 	end

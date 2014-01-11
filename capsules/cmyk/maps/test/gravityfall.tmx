@@ -7,21 +7,43 @@
   <property name="sy" value="1"/>
   <property name="yg" value="10"/>
  </properties>
- <tileset firstgid="1" name="goblin2" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="stony" tilewidth="32" tileheight="32">
+  <image source="../../images/JnRTiles.png" width="576" height="32"/>
+ </tileset>
+ <tileset firstgid="19" name="back" tilewidth="32" tileheight="32">
+  <image source="../../images/JnRLayer01.png" width="400" height="240"/>
+ </tileset>
+ <tileset firstgid="103" name="back2" tilewidth="32" tileheight="32">
+  <image source="../../images/JnRLayer02.png" width="400" height="146"/>
+ </tileset>
+ <tileset firstgid="151" name="backagain" tilewidth="32" tileheight="32">
+  <image source="../../images/JnRLayer04.png" width="400" height="116"/>
+ </tileset>
+ <tileset firstgid="187" name="backk" tilewidth="32" tileheight="32">
+  <image source="../../images/JnRLayer03.png" width="400" height="104"/>
+ </tileset>
+ <layer name="-3" width="100" height="100">
   <properties>
-   <property name="pad" value="true"/>
+   <property name="z" value="-3"/>
   </properties>
-  <image source="../../images/tilesets/lorestrome/goblin2.png" width="256" height="837"/>
- </tileset>
- <tileset firstgid="209" name="cloud_1" tilewidth="129" tileheight="63">
-  <image source="../../images/platformer/cloud_1.png" width="129" height="63"/>
- </tileset>
- <layer name="Background" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1NlSE0EYQOG8g4CAoiCIoiK4sKi44QKKshiRfVXyyr6O58IpUykI0y2daarOxVcUw5/upk+S/lqtdg3XMYAbuIIudKMHV9GLPvQnmk+5drv5qvY9az6Xs9jDHvawhz3sYQ972MMe9rCHPexhj+rPktu9lJ2/6P1y+J/skV+PkPmeCs7Sqf1yuF97/JvP5Y5D5+1hD3vk1aMTe+Zyv/awhz3sYQ972MMe9rCHParrMWAPe9jDHvawhz3sYQ972MMe9shi3h72sIc97GEPe9jDHpe7R6fuKpf7tYc9/L6yhz3sYQ972MMe9rCHPexhj+rv1x72sIc97GEPe9jDHs6nmL+NUdzBXYzhHm5iEEO4hWGMOJ98/hEe4wmeYgrTuI8HGMdDTGDS+eTzL/EKr/EGbzGPGcziGZ7jBeacTz7/CZ+xhC/4imW8w3t8wEcsYNH55PPr+IENbGIL21jBKtbwDXV8dz75/BGO8RO/cIIGdrCLPezjAIfOJ58/b53mv9dLarfeSi38vVV2rvh5ErFH6HzZ14Sue16PYo1YzWut/j1f6Hur7Fzs3TYiX3Pa89Q99v+zR+vnIqZHyHs25m5jWjTOeL6duEfrvcV8Lorvz0JIi5DZ2LstWrbr3Px7sV/rOsXzYp2Ys/y+xE67t6rPJEmSJEmSJEmSJEmSJEmSJEmSdNH+AHXH0vQ=
+  </data>
+ </layer>
+ <layer name="-2" width="100" height="100">
+  <properties>
+   <property name="z" value="-2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztztdqw0AARFH9bXpvTm9Ob0793syDF4SQhQNykodz4IJYzQpVFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANCnuTSfFtJiWkoraTWt1c6Xf7gt5213lhv31tNG2vyFfXmub/7KfjpIh+koHaeTtJV20m7aa+zK+WC8255yW87b7gyq7n+Z5b481zdd3+7j3aTdVbpON+k23aX7dJrO00W6bOzK+XC8O5tyW87b7gyr7n+Z5b481zdd3+7j3aTda3pL7+kjfaav9JCe0nN6aezK+Wi8e5xyW87b7oyq7n+Z5b481zdd3+7j3aQdAAAAAAAAAAAAAAAA/9s3xc+3XQ==
+  </data>
+ </layer>
+ <layer name="-1" width="100" height="100">
   <properties>
    <property name="z" value="-1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztwwEJAAAMBKGD7995sBwKrpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqvoP5Tp1MQ==
+   eJzt2kVuA0EARNG5/wXCqDApzMzMTGdJRdl4Z1DsxNJ70t+2aka97KIAAAAAAAAAAAAAAAAAAAAAAKBZ9aX+vx5RYj8dpMO/HgIAAAAAAAAATaoltaa21J46UmfqSt2pJ/UWjX8z8B93raX1tJE201baTjtpN+0Vlb1lqPackTSaxtJ4mkiTaarB3zOQBtNQGq7jrkodpeN0kk7TWTpPF+kyXaXrdJNuf/Gc+bSQFtNSWk4rabX4+Zffarkr1e6YTjNpNs2V2dUId+k+PaTH9JSe00t6TW/pPX2kzwacU6qWu1KPHQAAAAAAAAAAAAAAAOV8AWdYlJY=
   </data>
  </layer>
  <layer name="0" width="100" height="100">
@@ -29,191 +51,275 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt0TEKACAMBEHB9/r/1sZSwSpGMgPbCuZ6AwAAAAAAAAAAAAAAAAAAfjVW5GCPXOyRiz1yGJtevFHBzW3sESfqPvY4293GHu9U3eP0b0mS9E8AAAAAAAAAAAAAAAAAAAAAAAAQaQIlpe50
+   eJzt2WFrgzAQxvG8EQUH9ft/2iHWIlcPJ7skT8z/B4HOzVZN74nnUgIAAAAAAAAAAAAA1LDUPgB8LIn5ULLOxVT7IPCxzgX1oYP60EJ9aGE910JeaSGvtFAfWqbEfCghr7SQV1qoDy30H1rIKy3klRaVvHo5ozcq/cfijN6orB/Mx0blvJmPjXpe9bamqHwPp5PRY82o3O961763mlHJq7P68MaTa+Zp59M6lbzChvrQotIPYkNeaaE+tJRYP0r3Ci33JiXmI0ev4D2ff2X6vFJK9IM5rs+dfn58jxbUqI+IHPlxxrGHt738sYbm91BToz5q5UgLGVby/or5uNZT/3HMM1Ut9B9zisn7u/UR9bl39Fofc6pzva+o56mnxV7vL1rIq54o5dVTv/N3KNXHf7LTrgfraHF+leojei2LeD/bz+de/5XW8/2ZR5SrczurqdoU8mr/DkbPx35/m1vks32FvMr1HKVU7Uceu0J95JqPUvUReezHXnX9H8Fgfrb5OjqvB7NtdLYPJ9vsft7f7PuP5vWQvo/D7mN/d3aeV9tKDQAAAAAAAAAAAAAAAAAAAAAAAOsXb8cVfA==
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Ground" width="100" height="100">
   <properties>
    <property name="type" value="collision"/>
   </properties>
-  <object type="floor" x="0" y="1504" width="3200" height="160">
+  <object type="floor" x="0" y="2176" width="3200" height="32">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
   </object>
-  <object type="floor" x="1312" y="1376">
+  <object type="floor" x="1888" y="2592">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 64,0"/>
   </object>
-  <object type="floor" x="1376" y="1408">
+  <object type="floor" x="1952" y="2624">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 32,0"/>
   </object>
-  <object type="floor" x="1600" y="1344">
+  <object type="floor" x="2176" y="2560">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 64,0"/>
   </object>
-  <object type="floor" x="1664" y="1216">
+  <object type="floor" x="2240" y="2432">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 64,0"/>
   </object>
-  <object type="floor" x="1728" y="1344">
+  <object type="floor" x="2304" y="2560">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 32,0"/>
   </object>
-  <object type="floor" x="1216" y="1440">
+  <object type="floor" x="1792" y="2656">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 96,0"/>
   </object>
-  <object type="floor" x="2144" y="1344">
+  <object type="floor" x="2720" y="2560">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 160,0"/>
   </object>
-  <object type="floor" x="2048" y="2688">
-   <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polygon points="0,32 0,-160 160,-160 160,32"/>
-  </object>
-  <object type="floor" x="1120" y="2624" width="96" height="96">
+  <object type="floor" x="768" y="1600" width="128" height="160">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
   </object>
-  <object type="floor" x="1216" y="2560" width="64" height="160">
+  <object type="floor" x="832" y="1696" width="128" height="96">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
   </object>
-  <object type="floor" x="1280" y="2592" width="32" height="128">
+  <object type="floor" x="1664" y="1600" width="128" height="128">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
   </object>
-  <object type="floor" x="1504" y="2528" width="160" height="64">
+  <object type="floor" x="1856" y="1696" width="96" height="192">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
   </object>
-  <object type="floor" x="1568" y="2400" width="64" height="160">
+  <object type="floor" x="1760" y="1664" width="96" height="64">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
   </object>
-  <object type="roof" x="1696" y="1216">
+  <object type="roof" x="2272" y="2432">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="-96,192 64,192"/>
   </object>
-  <object x="1536" y="2176"/>
+  <object x="2304" y="2880"/>
+  <object type="floor" x="0" y="608" width="32" height="1600">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1056" y="1152" width="192" height="256">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1216" y="1280" width="192" height="128">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1376" y="1344" width="192" height="64">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1440" y="1632" width="256" height="96">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1824" y="1696" width="192" height="32">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1920" y="1856" width="160" height="32">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="2240" y="1824" width="96" height="32">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1440" y="1888" width="64" height="32">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1280" y="1824" width="96" height="32">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1024" y="2080" width="128" height="128">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1088" y="1952" width="64" height="160">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1728" y="1984" width="64" height="224">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1568" y="1984" width="224" height="32">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="1984" y="2048" width="160" height="32">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="2272" y="2016" width="192" height="32">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="3168" y="608" width="32" height="1568">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
+  <object type="floor" x="2560" y="2080" width="96" height="96">
+   <properties>
+    <property name="groupindex" value="-2"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup name="Walls" width="100" height="100">
+ <objectgroup name="Walls" width="100" height="100" visible="0">
   <properties>
    <property name="type" value="collision"/>
   </properties>
-  <object type="wall" x="1728" y="1248">
+  <object type="wall" x="2304" y="2464">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,-32 0,96"/>
   </object>
-  <object type="wall" x="1664" y="1216">
+  <object type="wall" x="2240" y="2432">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 0,128"/>
   </object>
-  <object type="wall" x="1760" y="1312">
+  <object type="wall" x="2336" y="2528">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,32 0,96"/>
   </object>
-  <object type="wall" x="2144" y="1344">
+  <object type="wall" x="2720" y="2560">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 0,160"/>
   </object>
-  <object type="wall" x="2304" y="1344">
+  <object type="wall" x="2880" y="2560">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 0,160"/>
   </object>
-  <object type="wall" x="1408" y="1408">
+  <object type="wall" x="1984" y="2624">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 0,96"/>
   </object>
-  <object type="wall" x="1312" y="1376">
+  <object type="wall" x="1888" y="2592">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 0,64"/>
   </object>
-  <object type="wall" x="1376" y="1376">
+  <object type="wall" x="1952" y="2592">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 0,32"/>
   </object>
-  <object type="wall" x="1216" y="1440">
+  <object type="wall" x="1792" y="2656">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,0 0,64"/>
   </object>
-  <object type="wall" x="1600" y="1376">
+  <object type="wall" x="2176" y="2592">
    <properties>
     <property name="groupindex" value="-2"/>
    </properties>
    <polyline points="0,-32 0,32"/>
   </object>
-  <object type="wall" x="2176" y="2208">
+  <object type="wall" x="2944" y="2912">
    <polyline points="0,0 0,160"/>
   </object>
-  <object type="wall" x="1344" y="2240">
+  <object type="wall" x="2112" y="2944">
    <polyline points="0,0 0,64"/>
   </object>
-  <object type="wall" x="1792" y="2208">
+  <object type="wall" x="2560" y="2912">
    <polyline points="0,0 0,160"/>
   </object>
-  <object type="wall" x="1600" y="2240">
+  <object type="wall" x="2368" y="2944">
    <polyline points="0,0 0,128"/>
   </object>
-  <object type="wall" x="1408" y="2240">
+  <object type="wall" x="2176" y="2944">
    <polyline points="0,0 0,32"/>
   </object>
-  <object type="wall" x="1728" y="2080">
+  <object type="wall" x="2496" y="2784">
    <polyline points="0,0 0,128"/>
   </object>
-  <object type="wall" x="1248" y="2304">
+  <object type="wall" x="2016" y="3008">
    <polyline points="0,0 0,64"/>
   </object>
-  <object type="wall" x="1664" y="2080">
+  <object type="wall" x="2432" y="2784">
    <polyline points="0,0 0,128"/>
   </object>
-  <object x="1440" y="2272">
+  <object x="2208" y="2976">
    <polyline points="0,0 0,96"/>
   </object>
-  <object type="wall" x="2336" y="2208">
+  <object type="wall" x="3104" y="2912">
    <polyline points="0,0 0,160"/>
   </object>
  </objectgroup>
@@ -221,13 +327,13 @@
   <properties>
    <property name="type" value="spawns"/>
   </properties>
-  <object name="start" x="704" y="1440" width="32" height="32">
+  <object name="start" x="64" y="2112" width="32" height="32">
    <properties>
     <property name="z" value="0"/>
    </properties>
    <ellipse/>
   </object>
-  <object name="start2" x="2432" y="1440" width="32" height="32">
+  <object name="start2" x="3104" y="2080" width="32" height="32">
    <ellipse/>
   </object>
  </objectgroup>
