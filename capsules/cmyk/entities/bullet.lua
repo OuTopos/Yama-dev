@@ -21,7 +21,7 @@ function bullet.new( map, x, y, z )
 	
 
 	-- Common variables
-	local width, height = 1600, 1600
+	local width, height = 5, 5
 	local width2, height2 = 4, 4
 	local ox, oy = width2/2, height2/2
 	local sx, sy = 1, 1

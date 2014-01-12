@@ -25,6 +25,12 @@ function player.new( map, x, y, z )
 	self.feetUserdata.properties = {}
 	self.feetUserdata.callbacks = {}
 
+	self.headUserdata = {}
+	self.headUserdata.name = "Unnamed"
+	self.headUserdata.type = "feet"
+	self.headUserdata.properties = {}
+	self.headUserdata.callbacks = {}
+
 	self.shieldUserdata = {}
 	self.shieldUserdata.name = "Unnamed"
 	self.shieldUserdata.type = "shield"
@@ -174,7 +180,7 @@ function player.new( map, x, y, z )
 	--table.insert( self.bufferBatch.data, ShieldDestroyed )
 
 	-- Physics
-	jumpTimer = 0
+	
 	function self.initialize( properties )
 		--self.setBoundingBox()		-- body
 		self.bodyUserdata.playerId = properties.id
@@ -198,6 +204,9 @@ function player.new( map, x, y, z )
 	self.fixtures.feet1 = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape( -13,15, -13,17, 13,17, 13,15 ),1)
 	self.fixtures.feet1:setSensor(true)
 	self.fixtures.feet1:setUserData( self.feetUserdata )
+	self.fixtures.head = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape( -13,-15, -13,-17, 13,-17, 13,-15 ),1)
+	self.fixtures.head:setSensor(true)
+	self.fixtures.head:setUserData( self.headUserdata )
 
 	self.fixtures.sword = love.physics.newFixture( love.physics.newBody( map.world, self.x+25, self.y, "dynamic"), love.physics.newRectangleShape( 50, 7 ), 1 )
 	--self.fixtures.sword = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newPolygonShape( 0, 0, 0, 7, 47, 7, 47, 0 ) )
@@ -243,7 +252,7 @@ function player.new( map, x, y, z )
 	--]]
 
 	self.joystick = love.joystick.getJoysticks()[1]
-
+	jumpTimer = 0
 	function self.update( dt )
 		self.xv, self.yv = self.fixtures.main:getBody( ):getLinearVelocity( )
 		self.x = x
@@ -346,26 +355,27 @@ function player.new( map, x, y, z )
 
 	function self.jumping(dt)
 		-- JUMPING --
-		if not self.joystick:isDown( ctrlJumpButtom ) and ctrlJumpDown then
-			ctrlJumpDown = false
-		end
-		
-		if not ctrlJumpDown and allowjump and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
+		--not allowing jump boost if jump boost button is released and pressed again mid air, must release jump button to be able to jump again (no bunny hopping)
+		if not self.joystick:isDown( ctrlJumpButtom ) and self.ctrlJumpDown == true then
+			jumpTimer = 1
+			if allowjump then
+				self.ctrlJumpDown = false
+			end
+		end	
+		if not self.ctrlJumpDown and allowjump and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
 			--self.fixtures.main:getBody():applyLinearImpulse( 0, -self.forces.jump*self.forceAdjuster )
 			self.fixtures.main:getBody():setLinearVelocity( self.xv, self.jumpVelocity )
 			allowjump = false
-			ctrlJumpDown = true
+			self.ctrlJumpDown = true
+			jumpTimer = 0
 		end
 
-		self.jumpAccelerator( dt, ctrlJumpButtom, self.jumpMaxTimer, self.forces.jumpIncreaser*self.forceAdjuster )
-
-		--if not love.keyboard.isDown(" ") and not self.joystick:isDown( ctrlJumpButtom ) and self.yv < 0.12 and self.yv > -0.12 then
-			--allowjump = true
-		--end
+		if ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
+			self.jumpAccelerator( dt, ctrlJumpButtom, self.jumpMaxTimer, self.forces.jumpIncreaser*self.forceAdjuster )
+		end
 	end
 	function self.jumpAccelerator( dt, button, jMaxTimer, jumpIncreaser )
-
-		if jumpTimer < jMaxTimer and ( love.keyboard.isDown( " " ) or self.joystick:isDown( button ) ) then
+		if jumpTimer < jMaxTimer then
 			self.applyForce( 0, -jumpIncreaser )
 			jumpTimer = jumpTimer + dt
 		end
@@ -575,9 +585,8 @@ function player.new( map, x, y, z )
 
 
 	function self.feetUserdata.callbacks.beginContact( a, b, contact )
-	--	print('flooooor')
+		--print('flooooor')
 		jumpTimer = 0
-		print( 'beginContact:', contact:isEnabled() )
 		allowjump = true
 		contact:setRestitution( 0 )
 		userdata = a:getUserData()
@@ -591,7 +600,6 @@ function player.new( map, x, y, z )
 	end
 	function self.feetUserdata.callbacks.endContact( a, b, contact )
 	--	print('leavefloor')
-		print( 'endContact:', contact:isEnabled() )
 		contact:setRestitution( 0 )
 		userdata = a:getUserData()
 		userdata2 = b:getUserData()
@@ -601,6 +609,9 @@ function player.new( map, x, y, z )
 		 		self.worldstates.onGround = false
 		 	end
 		 end
+	end
+	function self.headUserdata.callbacks.beginContact( a, b, contact )
+		jumpTimer = 1
 	end
 
 	function self.shieldUserdata.callbacks.beginContact( a, b, contact )
