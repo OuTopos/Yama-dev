@@ -81,11 +81,10 @@ function scenes.new()
 	function self.newEntity(enitytype, position, properties)
 		local x, y, z = 0, 0, 0
 		if type(position) == "string" then
-			-- Most likely an area. Check for that area.
-			if self.areas[position] then
-				print("SPAWNPOINT!")
-			else
-				error("Not a valid position!")
+			if self.locations[position] then
+				x = self.locations[position][1]
+				y = self.locations[position][2]
+				z = self.locations[position][3]
 			end
 		elseif type(position) == "table" then
 			x = tonumber(position[1]) or 0
