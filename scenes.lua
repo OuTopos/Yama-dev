@@ -82,9 +82,9 @@ function scenes.new()
 		local x, y, z = 0, 0, 0
 		if type(position) == "string" then
 			if self.locations[position] then
-				x = self.locations[position][1]
-				y = self.locations[position][2]
-				z = self.locations[position][3]
+				x = self.locations[position].x
+				y = self.locations[position].y
+				z = self.locations[position].z
 			end
 		elseif type(position) == "table" then
 			x = tonumber(position[1]) or 0
