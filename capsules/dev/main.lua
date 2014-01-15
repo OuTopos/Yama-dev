@@ -28,9 +28,9 @@ function capsule.load()
 	
 	capsule.scene = yama.scenes.new()
 	capsule.scene.enablePhysics()
+	capsule.scene.loadMap("test/start")
 
 	capsule.p1 = capsule.scene.newEntity("player", {1000, 500, 32})
-	capsule.scene.loadMap("test/start")
 
 	capsule.vp1 = yama.viewports.new()
 	capsule.vp1.connect(capsule.scene, capsule.p1)
@@ -38,10 +38,10 @@ function capsule.load()
 
 	capsule.vpMinimap = yama.viewports.new()
 	capsule.vpMinimap.connect(capsule.scene)
-	capsule.vpMinimap.zoom(0.16)
-	capsule.vpMinimap.resize(512, 512)
-	capsule.vpMinimap.sx = 0.25
-	capsule.vpMinimap.sy = 0.25
+	capsule.vpMinimap.zoom(0.04)
+	capsule.vpMinimap.resize(128, 128)
+	--capsule.vpMinimap.sx = 0.25
+	--capsule.vpMinimap.sy = 0.25
 
 	--capsule.vp2 = yama.viewports.new()
 	--capsule.vp2.connect(capsule.scene)

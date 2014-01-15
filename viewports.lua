@@ -186,13 +186,14 @@ function viewports.new()
 	end
 
 	function self.addToBuffer(object)
-		if not object[self] then
+		--if not object[self] then
 			table.insert(self.buffer, object)
-			object[self] = true
-			return true
-		else
-			return false
-		end
+		--	object[self] = true
+		--	return true
+		--else
+		--	error("already added to buffer")
+		--	return false
+		--end
 	end
 
 	-- DEPTH SORTING
@@ -277,13 +278,14 @@ function viewports.new()
 			else
 				self.drawObject(self.buffer[i])
 			end
-			self.buffer[i][self] = nil
+			--self.buffer[i][self] = nil
 
 			-- DEBUG
 			self.debug.bufferSize = self.debug.bufferSize + 1
 		end
 
 		-- EMPTY BUFFER
+		--self.buffer = nil
 		self.buffer = {}
 
 		-- DRAW DEBUG GRAPHICS

@@ -21,6 +21,7 @@ function gui.load()
 	--table.insert(gui.list, gui.newHealthBar())
 end
 function gui.draw(vp)
+   	--love.graphics.print('Memory actually used (in kB): ' .. math.floor(collectgarbage('count') / 1024 + 0.5), 10,10)
 	local left = vp.x
 	local right = vp.x + vp.width
 	local top = vp.y

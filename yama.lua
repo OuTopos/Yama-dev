@@ -70,18 +70,14 @@ function yama.update(dt)
 end
 
 function yama.draw()
-	local screenwidth, screenheight = love.window.getDimensions( )
-
 	yama.viewports.draw()
-	-- DRAW MAPS
-	--yama.maps.draw()
 
 	local fps = love.timer.getFPS()
 	love.graphics.setColor(0, 0, 0, 255)
-	love.graphics.printf(fps .. " fps", 0, 3, screenwidth, "right")
+	love.graphics.printf("FPS: " .. fps, 3, 3, 100, "left")
 
 	love.graphics.setColor(255, 255, 255, 255)
-	love.graphics.printf(fps .. " fps", 0, 2, screenwidth, "right")
+	love.graphics.printf("FPS: " .. fps, 2, 2, 100, "left")
 end
 
 return yama

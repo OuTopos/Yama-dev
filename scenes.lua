@@ -24,7 +24,6 @@ function scenes.new()
 	function self.connectViewport(vp)
 		-- Set the sort mode on the viewport.
 		vp.setDepthMode(self.depthmode)
-		print("depthmode set to "..self.depthmode)
 
 		-- Set camera boundaries for the viewport.
 		if self.boundaries == "false" then
@@ -289,9 +288,7 @@ function scenes.new()
 
 
 			-- MESHES
-			self.meshes = {}
-			--self.bufferbatches = {}
-
+			local meshData = {}
 
 			local function addToMeshes(x, y, z, gid)
 				if gid then
@@ -301,23 +298,23 @@ function scenes.new()
 						local depth = self.getDepth[self.depthmode](x, y, z)
 						local image = tileset.image
 
-						if not self.meshes[depth] then
-							self.meshes[depth] = {}
+						if not meshData[depth] then
+							meshData[depth] = {}
 						end
 
-						if not self.meshes[depth][image] then
-							self.meshes[depth][image] = {}
-							self.meshes[depth][image].vertexmap = {}
-							self.meshes[depth][image].vertices = {}
-							self.meshes[depth][image].tiles = {}
+						if not meshData[depth][image] then
+							meshData[depth][image] = {}
+							meshData[depth][image].vertexmap = {}
+							meshData[depth][image].vertices = {}
+							meshData[depth][image].tiles = {}
 						end
 
-						table.insert(self.meshes[depth][image].vertexmap, #self.meshes[depth][image].vertices + 1)
-						table.insert(self.meshes[depth][image].vertexmap, #self.meshes[depth][image].vertices + 2)
-						table.insert(self.meshes[depth][image].vertexmap, #self.meshes[depth][image].vertices + 3)
-						table.insert(self.meshes[depth][image].vertexmap, #self.meshes[depth][image].vertices + 1)
-						table.insert(self.meshes[depth][image].vertexmap, #self.meshes[depth][image].vertices + 3)
-						table.insert(self.meshes[depth][image].vertexmap, #self.meshes[depth][image].vertices + 4)
+						table.insert(meshData[depth][image].vertexmap, #meshData[depth][image].vertices + 1)
+						table.insert(meshData[depth][image].vertexmap, #meshData[depth][image].vertices + 2)
+						table.insert(meshData[depth][image].vertexmap, #meshData[depth][image].vertices + 3)
+						table.insert(meshData[depth][image].vertexmap, #meshData[depth][image].vertices + 1)
+						table.insert(meshData[depth][image].vertexmap, #meshData[depth][image].vertices + 3)
+						table.insert(meshData[depth][image].vertexmap, #meshData[depth][image].vertices + 4)
 
 						local x1, y1, u1, v1, r1, g1, b1, a1 = tile[1][1], tile[1][2], tile[1][3], tile[1][4], tile[1][5], tile[1][6], tile[1][7], tile[1][8]
 						local x2, y2, u2, v2, r2, g2, b2, a2 = tile[2][1], tile[2][2], tile[2][3], tile[2][4], tile[2][5], tile[2][6], tile[2][7], tile[2][8]
@@ -333,15 +330,15 @@ function scenes.new()
 						x4 = x4 + x
 						y4 = y4 + y
 
-						table.insert(self.meshes[depth][image].vertices, {x1, y1, u1, v1, r1, g1, b1, a1})
-						table.insert(self.meshes[depth][image].vertices, {x2, y2, u2, v2, r2, g2, b2, a2})
-						table.insert(self.meshes[depth][image].vertices, {x3, y3, u3, v3, r3, g3, b3, a3})
-						table.insert(self.meshes[depth][image].vertices, {x4, y4, u4, v4, r4, g4, b4, a4})
+						table.insert(meshData[depth][image].vertices, {x1, y1, u1, v1, r1, g1, b1, a1})
+						table.insert(meshData[depth][image].vertices, {x2, y2, u2, v2, r2, g2, b2, a2})
+						table.insert(meshData[depth][image].vertices, {x3, y3, u3, v3, r3, g3, b3, a3})
+						table.insert(meshData[depth][image].vertices, {x4, y4, u4, v4, r4, g4, b4, a4})
 
-						--self.meshes[depth][image].tiles =
+						--meshData[depth][image].tiles =
 
 						--self.addToGrid()
-						table.insert(self.meshes[depth][image].tiles, {self.getTiles(x1, y1, x2-x1, y3-y1)})
+						--table.insert(meshData[depth][image].tiles, {self.getTiles(x1, y1, x2-x1, y3-y1)})
 
 						--print( tiles[1], tiles[2])
 						--print(self.getTiles(x1, y1, x2-x1, y3-y1))
@@ -364,6 +361,13 @@ function scenes.new()
 
 
 			local map = require(yama.paths.capsule .. "/maps/" .. path)
+
+			-- DEPTH
+			if map.properties.sortmode then
+				self.depthmode = map.properties.sortmode
+			else
+				self.depthmode = "z"
+			end
 
 
 
@@ -411,32 +415,36 @@ function scenes.new()
 								-- Creating a fixture from the object.
 								local fixture = self.createFixture(object, "static")
 
-								-- And setting the userdata from the object.
-								fixture:setUserData({name = object.name, type = object.type, properties = object.properties})
+								if fixture then
+									-- And setting the userdata from the object.
+									fixture:setUserData({name = object.name, type = object.type, properties = object.properties})
 
-								-- Setting filter data from object properties. (category, mask, groupindex)
-								if object.properties.category then
-									local category = {}
-									for x in string.gmatch(object.properties.category, "%P+") do
-										x = tonumber(string.match(x, "%S+"))
-										if x then
-											table.insert(category, x)
+									-- Setting filter data from object properties. (category, mask, groupindex)
+									if object.properties.category then
+										local category = {}
+										for x in string.gmatch(object.properties.category, "%P+") do
+											x = tonumber(string.match(x, "%S+"))
+											if x then
+												table.insert(category, x)
+											end
 										end
+										fixture:setCategory(unpack(category))
 									end
-									fixture:setCategory(unpack(category))
-								end
-								if object.properties.mask then
-									local mask = {}
-									for x in string.gmatch(object.properties.mask, "%P+") do
-										x = tonumber(string.match(x, "%S+"))
-										if x then
-											table.insert(mask, x)
+									if object.properties.mask then
+										local mask = {}
+										for x in string.gmatch(object.properties.mask, "%P+") do
+											x = tonumber(string.match(x, "%S+"))
+											if x then
+												table.insert(mask, x)
+											end
 										end
+										fixture:setMask(unpack(mask))
 									end
-									fixture:setMask(unpack(mask))
-								end
-								if object.properties.groupindex then
-									fixture:setGroupIndex(tonumber(object.properties.groupindex))
+									if object.properties.groupindex then
+										fixture:setGroupIndex(tonumber(object.properties.groupindex))
+									end
+								else
+									warning("Physics not enabled. No fixture created.")
 								end
 							end
 
@@ -490,8 +498,10 @@ function scenes.new()
 							-- Creating portal fixtures.
 							for i, object in ipairs(layer.objects) do
 								local fixture = self.createFixture(object, "static")
-								fixture:setUserData({name = object.name, type = "portal", properties = object.properties})
-								fixture:setSensor(true)
+								if fixture then
+									fixture:setUserData({name = object.name, type = "portal", properties = object.properties})
+									fixture:setSensor(true)
+								end
 							end
 
 
@@ -522,22 +532,10 @@ function scenes.new()
 
 
 
-
-
-
-
-
-
-		
-
-			function self.mergeMeshdata()
-				-- body
-			end
-
 			local function createMeshes()
 				local entity = self.newEntity("mesh", {0, 0, 0})
 
-				for depth, v in pairs(self.meshes) do
+				for depth, v in pairs(meshData) do
 					local batch = yama.buffers.newBatch(0, 0, depth)
 
 					for image, meshdata in pairs(v) do
@@ -618,8 +616,7 @@ function scenes.new()
 
 			self.maps.list[path] = map
 
-		--	if not map.properties.boundaries == "false" then
-				print(" JAASDASDASD")
+			--if map.properties == "false" then
 				self.boundingbox.x = 0
 				self.boundingbox.y = 0
 				self.boundingbox.width = map.width * map.tilewidth
@@ -694,7 +691,7 @@ function scenes.new()
 
 
 	function self.update(dt)
-		self.updateLoad(dt)
+		--self.updateLoad(dt)
 
 		-- Update physics world
 		if self.world then
