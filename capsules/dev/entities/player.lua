@@ -232,7 +232,8 @@ function player.new(map, x, y, z)
 	function self.updatePosition()
 
 		-- Position updates
-		self.x, self.y = map.translatePosition(self.fixtures.anchor:getBody():getX(), self.fixtures.anchor:getBody():getY())
+		--self.x, self.y = map.translatePosition(self.fixtures.anchor:getBody():getX(), self.fixtures.anchor:getBody():getY())
+		self.x, self.y = self.fixtures.anchor:getBody():getX(), self.fixtures.anchor:getBody():getY()
 		--self.x, self.y = math.floor(self.x + 0.5), math.floor(self.y + 0.5)
 		self.fixtures.anchor:getBody():setAngle(self.direction)
 

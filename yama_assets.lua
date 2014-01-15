@@ -7,7 +7,7 @@ assets.padTilesets = true
 assets.generateMesh = true
 
 function assets.load()
-	love.graphics.setDefaultFilter("linear", "linear")
+	--love.graphics.setDefaultFilter("linear", "linear")
 	love.graphics.setDefaultFilter("nearest", "nearest")
 
 	-- LOADING TILESETS
@@ -161,6 +161,81 @@ function assets.loadTileset(name, imagepath, tilewidth, tileheight, spacing, mar
 		print("WARNING: ASSETS -> Couldn't load tileset: " .. name .. ". Too few arguments.")
 		return nil
 	end
+end
+
+assets.loading = {}
+
+function assets.newDrawable(drawable, x, y, z, r, sx, sy, ox, oy, kx, ky)
+	local self = {}
+	self.type = "drawable"
+	self.drawable = drawable
+	self.x = x or 0
+	self.y = y or 0
+	self.z = z or 0
+	self.r = r or 0
+	self.sx = sx or 1
+	self.sy = sy or sx or 1
+	self.ox = ox or 0
+	self.oy = oy or 0
+	self.kx = kx or 0
+	self.ky = ky or 0
+
+	function self.loadImage(imagepath)
+		if assets.images[imagepath] then
+			self.drawable = assets.images[imagepath]
+		else
+
+		end
+	end
+
+	return self
+end
+
+function assets.newContainer()
+	local self = {}
+
+	self.asset = nil
+
+	function self.loadImage(imagepath)
+		print(imagepath)
+		self.test = "fungerar"
+		if assets.images[imagepath] then
+			self.asset = assets.images[imagepath]
+		else
+			-- Enqueue it!
+		end
+	end
+
+	return self
+end
+
+
+assets.queue = {}
+assets.loading = nil
+
+function assets.tLoad(arguments)
+	table.insert(assets.queue, arguments)
+end
+
+function assets.update()
+	--[[
+	if assets.loading then
+		-- Check thread.
+
+
+	elseif #assets.queue > 0 then
+		-- start new thread and load.
+		assets.thread = love.thread.newThread("thread.lua")
+		assets.thread:start()
+
+		assets.channel = love.thread.getChannel("assets.threadInput")
+		-- push the load command through the channel
+		assets.channel:push(assets.queue[1])
+
+		-- remove from queue
+		table.remove(assets.queue, 1)
+	end
+	--]]
 end
 
 return assets

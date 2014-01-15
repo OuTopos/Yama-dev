@@ -504,7 +504,7 @@
  </layer>
  <layer name="0 ----" width="100" height="100">
   <properties>
-   <property name="z" value="0"/>
+   <property name="z" value="0.1"/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJzt1UkuhFEYheEbpMQQsRCsROnZhN46SrsDTPXr0K9DP3UWUDHQ1I3yPMk7/m++M/hLAQAAAAAAAAAAAAAAAAAAAOhOE41SmmkyTaXpNJNmG7Vf9j8t5+4raTWtpfW0kTbtUUUrd99K22kn7aa9tG+PKo5z95N0ms7SebpIl/ao4ip3v0436Tbdpfv0YI8qHnP3p/ScXtJrekvv9gAAAKBLHfSVcpiO+mq/BAAAus9yT+0X/KyR3tov+J5Wl+3x1x1nj5M2ndqp7PSXstvf2W8O5u5DbRq2RxWjuftYm8bt8amlX/pPTeTuzTZN2gP4gqn846c7/J8HADpjbqCU+bSQFgdqvwYAAAAAAAAAAPjLPgDKASwf
@@ -515,15 +515,15 @@
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt3c1OU0EchvFBCB8rWIoK6CWAG4QEdass2LFTXGHCXbAAQliw9D5MpFBABFfGDaBAKd94EfIZX0ITJs2xPUA7Z9p5fskTEtKQk/mnZ850UYwBAACAK59rrn+uNSV7HTBmPTeDVWbhHWYCAAAAn4zWJn0FAAAAAAAAAAAAAAAAAAAAAAAAYfvSaMyMSqlZNafSal4tqEX1VS2pb2pZrajvjUlfeXXa0Lpuqi2VUdsqq3bUrtpT++pAHaojdaz+MA8AAADAe2N1xoyribqkrwS2Zr73AIBHJnVPeqv6rXvTm9zv7Ka4dzkxEnOd474O98M8/OJyHql6Y2bVnErX3//vVYJOrVuXVTEu57GlGWTUtsoGMo9PD25+5s/mqud56+pyHn81gxN1qs4CmcdtFVrnSev56mfE69p1fu9QT9WzGGf5hw3GtKpH6nHD3a+5mv2IeLYtNANbn2bwUr1Sr+/w2UqI+0k5vdMM3qsh9aHIPOa13gtq0Vr3EPcTV1r0Xhoo8H7a0Xrvqj1r3dlPCtso4/f6n2u9L9Slte7sJ6UzmLd+xT4LfqLXt6l21t0Loe3dvz3/HyJx9+7Q5paUuHs3z1xuxN27eeYqrW7dN1+oHtWbu4dGnT3+pxqfuX452EuGdf77GPNMHnX2QDzlmGXU2QNuTVvnkUo9e/j+zAqEppyfWQEIF/cWAAAAAAAAAADgg3+ne3k4
+   eJzt3ctOE1Ecx/EjkgIrXaJgkUdQN14SlS24YMcOdCUJb+FCDWHhkvcw0d4FdWXYKFqgNy/4EIKX+DM24aQZp8dezkw730/yDQlpyOT80zlzuijGAAAAwJenp/7+fDcR7XXAmN3mDN4yi9hhJgAAAIiTB6ejvgIAAAAAAAAAAAAAAAAAAAAAAIBkezZuzHOVUVmVU3lVUEVVUi/UltpWL9Ur9Xo86isfTmWt657aVweqoqqqpuqqoT6qT+qz+qIO1VfmAQAAAMTew1FjHqnHo1FfCWxn+N4DADGyrnvSgrpj3Zvmm7+z2+De5cWa4zq7vg7dYR7x4nMemZQxWZVT+VT3f28QXNK6XbZqx+c89jWDA1VR1YTMY3Pk5GfrbP50pWVdfc7jm2ZwpI7V94TM43+FrfO69Xy1E/C6tM7vM+qimnU4y0+OGXNOnVdTY51f8zB7E/BsGzYD203N4Ja6reY6+GwliftJPy1rBivqrrrXZh4FrXdRlax1T+J+4stZvZcWQ95PNa13XTWsdWc/CVfu4/f6/9B6/1S/rHVnP+mdpZb1a/dZ8LRef0GlWfdYSNre/SHm/0PEde9O2tyi4rp388zlh+vezTNXb13VffOauq5uNO+hQWePfxnGZ673HvaS+zr/rTqeyYPOHohO0NkDfj2xziODevaI+zMrAADoXj8/DwcAAAAAAAAAAHD1G+UVd3w=
   </data>
  </layer>
  <layer name="1 A" width="100" height="100">
   <properties>
-   <property name="z" value="1"/>
+   <property name="z" value="1.001"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1zsSgjAQANCMFuBpbPRmegS9H3oWe22ccRQCQQKI75VQkNnNfggBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4m6rqU9AF6cyhHM59SmIuW7i7w9FCMdinLPAUKqWez2G7XrqE+TR1jP4La/5nEPdLNl77aTUUs662z1m/P7P53wsvqnv9Mh6TXF5fS52v68uhzlmy2Whd6VPDTTF4tt6Uo95tfW+prqRl09DxiTWr57fsS/n1ZbPrnuDPH2nStjPusZa/5qHpe5QYxjq/11/GlZTrMW5v7rYVW97kJ4+X33nspyOI2XHorvU/2czAj7pSfMnRwAAAADE3AE+KzVk
+   eJzt102OgjAUAODGWeicZjZ6Mz2Ccz/UeBP3ujExSAtVCojftxQSm/f6fggBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0i6LsU9AF/tVCP+rsU9ByvE3/Xy7DGG3HOYs0Jeq5V4P4e9n7BOU0dYz+CyP+ZxC3cxZvXZyaqlk3a1vM37z5XM+Fd/cZ3pks1hcHn8Xu8/XlMMSs+Uw07vySg3EYvFuPanHstp6X6xu5OVZnzFJ9av7/9iXy2rLZ712TpH35ek9VcZ+1jXW+tc0zHWHGkJf3+/6U79isa7H+SzunTXd0aq2B+np0/XqXJbTYeTsWHSX+/1sFsMzPWn65AgAAACAlCsAkTcg
   </data>
  </layer>
  <layer name="1 B" width="100" height="100">
@@ -566,7 +566,7 @@
    eJzt0cEJwCAABMEj9l9jbEHTQMhP0oCiM7D/g0sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB2JX2Idfy/+Xp8tLW7JLXMXgEAAAAAAAAAAAAAAAAAnOwFY6oLTQ==
   </data>
  </layer>
- <layer name="3 A" width="100" height="100" visible="0">
+ <layer name="3 A" width="100" height="100">
   <properties>
    <property name="z" value="3"/>
   </properties>
@@ -590,9 +590,9 @@
    eJztzrENACAMwLCKHsHtXMqKKn6gDPaSNREAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8N4e3QeUlbczez8AAAAAAAAAAAAAAAAAAADgJwcigwGw
   </data>
  </layer>
- <objectgroup color="#ffff00" name="Spawns" width="100" height="100">
+ <objectgroup color="#ffff00" name="Locations" width="100" height="100">
   <properties>
-   <property name="type" value="spawns"/>
+   <property name="type" value="locations"/>
   </properties>
   <object name="start" x="448" y="288" width="32" height="32"/>
  </objectgroup>
@@ -674,11 +674,11 @@
    <polygon points="0,0 32,32 64,32 64,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#ff00ff" name="Patrols" width="100" height="100">
+ <objectgroup color="#ff00ff" name="Paths" width="100" height="100">
   <properties>
-   <property name="type" value="patrols"/>
+   <property name="type" value="paths"/>
   </properties>
-  <object name="1" x="1747" y="14">
+  <object name="Path1" x="1747" y="14">
    <polyline points="-12,53 -37,150 -127,341 -362,479 -568,544 -798,479 -954,403 -1101,392 -1215,453 -1254,525 -1237,609 -1192,654 -1183,827 -1203,913 -1327,1130 -1567,1367 -1636,1540 -1630,1655 -1578,1805 -1536,1857 -1263,1920 -983,2058 -602,2135 -330,2240 -197,2290 -68,2313 168,2491 364,2662 633,2859 776,2939 975,3024 1079,3043 1128,3045 1166,2995 1158,2939 1148,2892 1179,2852 1266,2801 1348,2718 1338,2083 1292,1881 1261,1561 1294,1281 1340,1096 1325,931 1311,800 1293,681 1204,574 1133,487 1063,320 1085,208 1165,115 1178,61 1174,23 1154,5 1123,10 995,72 925,95 783,103 607,65 449,19 228,2"/>
   </object>
   <object name="2" x="851" y="2085">

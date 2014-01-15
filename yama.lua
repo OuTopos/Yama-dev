@@ -16,7 +16,7 @@ yama.boot           = require("boot")
 yama.assets         = require("yama_assets")
 yama.entities       = require("entities")
 yama.buffers      	= require("yama_buffers")
-yama.maps           = require("maps")
+yama.scenes         = require("scenes")
 yama.viewports      = require("viewports")
 yama.gui            = require("yama_gui")
 yama.hud            = require("yama_hud")
@@ -60,16 +60,21 @@ function yama.load()
 end
 
 function yama.update(dt)
+	yama.assets.update()
 	yama.capsule.update(dt)
 	if not yama.v.paused then
-		yama.maps.update(dt * yama.v.timescale)
+		yama.viewports.update(dt * yama.v.timescale)
+		yama.scenes.update(dt * yama.v.timescale)
+		--yama.maps.update(dt * yama.v.timescale)
 	end
 end
 
 function yama.draw()
 	local screenwidth, screenheight = love.window.getDimensions( )
+
+	yama.viewports.draw()
 	-- DRAW MAPS
-	yama.maps.draw()
+	--yama.maps.draw()
 
 	local fps = love.timer.getFPS()
 	love.graphics.setColor(0, 0, 0, 255)

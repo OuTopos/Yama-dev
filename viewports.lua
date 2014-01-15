@@ -4,6 +4,7 @@ To do:
  Make smooth camera movement. 
 ]]--
 local viewports = {}
+viewports.list = {}
 
 function viewports.new()
 	local self = {}
@@ -14,7 +15,7 @@ function viewports.new()
 
 	self.buffer = {}
 
-	self.map = nil
+	self.scene = nil
 
 	-- CANVAS
 	self.x = 0
@@ -171,10 +172,17 @@ function viewports.new()
 	self.cursor = {}
 	self.cursor.x = 0
 	self.cursor.y = 0
+	self.cursor.active = false
 
 	function self.cursor.update()
 		self.cursor.x = love.mouse.getX() + self.camera.x
 		self.cursor.y = love.mouse.getY() + self.camera.y
+
+		if self.cursor.x > self.x and self.cursor.x < self.width * self.sx and self.cursor.y > self.y and self.cursor.y < self.height * self.sy then
+			self.cursor.active = true
+		else
+			self.cursor.active = false
+		end
 	end
 
 	function self.addToBuffer(object)
@@ -288,7 +296,9 @@ function viewports.new()
 		love.graphics.setCanvas()
 
 		-- DRAW CANVAS
-		love.graphics.draw(self.canvas, self.x, self.y, self.r, self.sx, self.sy, self.ox, self.oy)
+		if self.canvas then
+			love.graphics.draw(self.canvas, self.x, self.y, self.r, self.sx, self.sy, self.ox, self.oy)
+		end
 
 		-- DRAW GUI
 		yama.gui.draw(self)
@@ -305,12 +315,12 @@ function viewports.new()
 
 	function self.drawObject(object)
 		-- THE ACTUAL DRAW
-		if object.type == "drawable" then
+		if object.drawable then
 			-- DRAWABLE
 			--print(object.x, object.y)
 			if self.parallax.enabled then
 				-- UGLY WIDTH AND HEIGHT
-				local factor = object.z / self.map.data.tileheight * self.parallax.factor
+				local factor = object.z / 32 * self.parallax.factor
 
 			--	local w, h = self.map.data.width * self.map.data.tilewidth, self.map.data.height * self.map.data.tileheight
 			--	local cox = self.camera.cx - w / 2
@@ -339,13 +349,6 @@ function viewports.new()
 				love.graphics.draw(object.drawable, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)
 			end
 			self.debug.drawcalls = self.debug.drawcalls + 1
-		elseif object.type == "sprite" then
-			-- SPRITE
-			print("THEW FUCK? SPRITES SHOULD NOT BE!")
-			love.graphics.draw(object.quad, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)
-			self.debug.drawcalls = self.debug.drawcalls + 1
-		else
-			print("What am i?: " .. object.type)
 		end
 	end
 
@@ -368,14 +371,14 @@ function viewports.new()
 		end
 	end
 
-	-- CONNECTION TO MAP
-	function self.connect(map, entity)
-		if map and map ~= self.map then
-			if self.map then
-				self.map.disconnectViewport(self)
+	-- CONNECTION TO SCENE
+	function self.connect(scene, entity)
+		if scene and scene ~= self.scene then
+			if self.scene then
+				self.scene.disconnectViewport(self)
 			end
-			self.map = map
-			self.map.connectViewport(self)
+			self.scene = scene
+			self.scene.connectViewport(self)
 
 			self.resize()
 
@@ -385,13 +388,13 @@ function viewports.new()
 				self.camera.cy = entity.y
 			end
 		else
-			print("WARNING: VIEWPORT -> No map specified to connect to.")
+			print("WARNING: VIEWPORT -> No scene specified to connect to.")
 		end
 	end
 
 	function self.disconnect()
-		if self.map then
-			self.map.disconnectViewport(self)
+		if self.scene then
+			self.scene.disconnectViewport(self)
 		end
 		if self.camera.target then
 			self.camera.target.vp = nil
@@ -399,8 +402,20 @@ function viewports.new()
 		end
 	end
 
+	table.insert(viewports.list, self)
 	return self
+end
 
+function viewports.update(dt)
+	for k = 1, #viewports.list do
+		viewports.list[k].update(dt)
+	end
+end
+
+function viewports.draw()
+	for k = 1, #viewports.list do
+		viewports.list[k].draw(dt)
+	end
 end
 
 return viewports

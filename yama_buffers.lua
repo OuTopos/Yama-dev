@@ -1,5 +1,68 @@
 local buffers = {}
 
+function buffers.new()
+	local self = {}
+	self.objects = {}
+
+	function self.add(object)
+		if not object[self] then
+			table.insert(self.objects, object)
+			object[self] = true
+			return true
+		else
+			warning("Buffer object already added. Maybe optimize?")
+			return false
+		end
+	end
+
+	function self.draw()
+		for i = 1, #self.buffer do
+			if self.buffer[i].type == "batch" then
+				self.drawBatch(self.buffer[i])
+			else
+				self.drawObject(self.buffer[i])
+			end
+			self.buffer[i][self] = nil
+
+			-- DEBUG
+			self.debug.bufferSize = self.debug.bufferSize + 1
+		end
+
+		self.objects = {}
+	end
+
+	function self.drawBatch(batch)
+		for i = 1, #batch.data do
+			self.drawObject(batch.data[i])
+		end
+	end
+
+	function self.drawObject(object)
+		if self.parallax.enabled then
+			-- UGLY WIDTH AND HEIGHT
+			local factor = object.z / self.map.data.tileheight * self.parallax.factor
+
+			local x = object.x - self.camera.cx * factor
+			local y = object.y - self.camera.cy * factor
+			local sx = object.sx + factor
+			local sy = object.sy + factor
+			if sx < 0 then
+				sx = 0
+			end
+			if sy < 0 then
+				sy = 0
+			end
+
+			love.graphics.draw(object.drawable, x, y, object.r, sx, sy, object.ox, object.oy, object.kx, object.ky)
+		else
+			love.graphics.draw(object.drawable, object.x, object.y, object.r, object.sx, object.sy, object.ox, object.oy, object.kx, object.ky)
+		end
+		--self.debug.drawcalls = self.debug.drawcalls + 1
+	end
+
+	return self
+end
+
 function buffers.newBatch(x, y, z, data)
 	local self = {}
 	self.type = "batch"

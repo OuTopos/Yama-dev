@@ -272,7 +272,7 @@ function maps.load(path)
 			return y + z
 		end
 
-
+		print("WHAAAT?")
 
 		-- MESHES
 		self.meshes = {}
@@ -327,6 +327,9 @@ function maps.load(path)
 
 				--self.addToGrid()
 				table.insert(self.meshes[depth][image].tiles, {self.getTiles(x1, y1, x2-x1, y3-y1)})
+				print("okej?")
+
+
 
 				--print( tiles[1], tiles[2])
 				--print(self.getTiles(x1, y1, x2-x1, y3-y1))
@@ -338,6 +341,7 @@ function maps.load(path)
 		end
 
 		function self.generateMeshes()
+			--Not used??!?!?
 			for depth, v in pairs(self.meshes) do
 				local batch = yama.buffers.newBatch(0, 0, depth)
 				for image, meshdata in pairs(v) do
@@ -351,6 +355,8 @@ function maps.load(path)
 					--	self.addToGrid(batch, meshdata.tiles[i][1], meshdata.tiles[i][2], meshdata.tiles[i][1]+meshdata.tiles[i][3], meshdata.tiles[i][2]+meshdata.tiles[i][4])
 					--end
 				end
+				print("poop")
+				self.spawnXYZ(mesh, batch.x, batch.y, batch.z)
 
 				table.insert(self.bufferbatches, batch)
 			end

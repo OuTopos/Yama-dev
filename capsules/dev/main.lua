@@ -12,19 +12,62 @@ function capsule.load()
 		borderless = false,
 		centered = true,
 	})
-	love.graphics.setDefaultFilter("nearest", "nearest")
+	--love.graphics.setDefaultFilter("nearest", "nearest")
 
 	love.graphics.setFont(love.graphics.newImageFont(yama.assets.loadImage("font")," abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`'*#=[]\""))
 
-	capsule.map = yama.maps.load("test/parallax")
+	--capsule.map = yama.maps.load("test/start")
 
-	capsule.p1 = capsule.map.spawn("elisa", "start")
+	--capsule.p1 = capsule.map.spawn("player", "start")
 
 	--capsule.cam1 = capsule.map.spawn("camera", "start")
 	--capsule.cam1.follow(capsule.p1)
 
+	--capsule.vp1 = yama.viewports.new()
+	
+	
+	capsule.scene = yama.scenes.new()
+	capsule.scene.enablePhysics()
+
+	capsule.p1 = capsule.scene.newEntity("player", {1000, 500, 32})
+	capsule.scene.loadMap("test/start")
+
 	capsule.vp1 = yama.viewports.new()
-	capsule.vp1.connect(capsule.map, capsule.p1)
+	capsule.vp1.connect(capsule.scene, capsule.p1)
+
+
+	capsule.vpMinimap = yama.viewports.new()
+	capsule.vpMinimap.connect(capsule.scene)
+	capsule.vpMinimap.zoom(0.16)
+	capsule.vpMinimap.resize(512, 512)
+	capsule.vpMinimap.sx = 0.25
+	capsule.vpMinimap.sy = 0.25
+
+	--capsule.vp2 = yama.viewports.new()
+	--capsule.vp2.connect(capsule.scene)
+
+
+	--capsule.vp1.resize(love.window.getWidth() / 2, love.window.getHeight())
+	--capsule.vp2.resize(love.window.getWidth() / 2, love.window.getHeight())
+	--capsule.vp2.x = love.window.getWidth() / 2
+	
+
+
+	--yama.maps.load("map", scene)
+
+	--capsule.vp1.sx, capsule.vp1.sy = 4, 4
+
+	--capsule.vp1.connect(capsule.map, capsule.p1)
+	--capsule.thread = love.thread.newThread("thread.lua")
+	--capsule.channel = love.thread.getChannel("test")
+	--capsule.thread:start()
+	--capsule.i = {}
+
+	--capsule.scene.maps.enqueue("mappath till mappen")
+	--local test = yama.assets.newContainer()
+	--test.loadImage(test)
+	--print(test.test)
+
 
 	function love.keypressed(key)
 		if key == "escape" then
@@ -108,6 +151,10 @@ function capsule.load()
 				capsule.vp1.camera.round = true
 			end
 		end
+
+		if key == "e" then
+			capsule.scene.loadMap("test/start")
+		end
 	end
 
 	function love.resize(w, h)
@@ -123,10 +170,23 @@ function capsule.load()
 		joysticks = love.joystick.getJoysticks()
 	end
 
-
+	function love.threaderror(t, e)
+		return error(e)
+	end
 end
 
 function capsule.update(dt)
+	--[[
+	local err = capsule.thread:getError()
+	if err then
+		print("Thread error:\n" .. err)
+	end
+	local v = capsule.channel:pop()
+	if v then
+		table.insert(capsule.i, v)
+		print(v)
+	end
+	]]--
 end
 
 return capsule
