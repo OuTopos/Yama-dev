@@ -51,180 +51,192 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt2WFrgzAQxvG8EQUH9ft/2iHWIlcPJ7skT8z/B4HOzVZN74nnUgIAAAAAAAAAAAAA1LDUPgB8LIn5ULLOxVT7IPCxzgX1oYP60EJ9aGE910JeaSGvtFAfWqbEfCghr7SQV1qoDy30H1rIKy3klRaVvHo5ozcq/cfijN6orB/Mx0blvJmPjXpe9bamqHwPp5PRY82o3O961763mlHJq7P68MaTa+Zp59M6lbzChvrQotIPYkNeaaE+tJRYP0r3Ci33JiXmI0ev4D2ff2X6vFJK9IM5rs+dfn58jxbUqI+IHPlxxrGHt738sYbm91BToz5q5UgLGVby/or5uNZT/3HMM1Ut9B9zisn7u/UR9bl39Fofc6pzva+o56mnxV7vL1rIq54o5dVTv/N3KNXHf7LTrgfraHF+leojei2LeD/bz+de/5XW8/2ZR5SrczurqdoU8mr/DkbPx35/m1vks32FvMr1HKVU7Uceu0J95JqPUvUReezHXnX9H8Fgfrb5OjqvB7NtdLYPJ9vsft7f7PuP5vWQvo/D7mN/d3aeV9tKDQAAAAAAAAAAAAAAAAAAAAAAAOsXb8cVfA==
+   eJzt2Q1rgzAUheGUERQs1P//azuxdnKXYN3ycWLeBwKtm6ua3hOvcw4AAAAAAAAAAAAAUMNc+wDwNjvmQ8kyF2Ptg8DbMhfUhw7qQwv1oYX1XAt5pYW80kJ9aBkd86GEvNJCXmmhPrTQf2ghr7SQV1pU8uoRGb1R6T/myOiNyvrBfKxUzpv5WKnnVW9risr3cAyMHmtG5X43du17qxmVvArVR2xcuWaudj6tU8krrKgPLSr9IFbklRbqQ0uJ9aN0r9Byb1JiPnL0CrHn849Mn1dKiX4wx/U5088Pr9GCGvWRIkfukbHv4W0vv6+h6TXU1KiPWjnSQoaVvL9iPo711H/s80xVC/3H5NLk/dn6SPW5Z/RaH5Orc72PqOdpTIu93idayKueKOXVVb/zZyjVx3+y064Hy2hxfpXqI/ValuLv2X4+9/r/6THfTr7/i+2ZRypH5xaqqdpq5tXX9/Du5zuYej62+9vcUj7bV8irXM9RSt3Lpzx2hfU813yUqo+Ux77vVZf/EXjz3ubrEHntzbYhst0Httn9Yr+z7T+Y1979Pg67j/1Z6DyPtpUaAAAAAAAAAAAAAAAAAAAAAAAA1hPJtRWH
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Ground" width="100" height="100">
   <properties>
    <property name="type" value="collision"/>
   </properties>
-  <object type="floor" x="0" y="2176" width="3200" height="32">
+  <object type="floor" x="128" y="2176" width="3072" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
-  </object>
-  <object type="floor" x="1888" y="2592">
-   <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polyline points="0,0 64,0"/>
-  </object>
-  <object type="floor" x="1952" y="2624">
-   <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polyline points="0,0 32,0"/>
-  </object>
-  <object type="floor" x="2176" y="2560">
-   <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polyline points="0,0 64,0"/>
-  </object>
-  <object type="floor" x="2240" y="2432">
-   <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polyline points="0,0 64,0"/>
-  </object>
-  <object type="floor" x="2304" y="2560">
-   <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polyline points="0,0 32,0"/>
-  </object>
-  <object type="floor" x="1792" y="2656">
-   <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polyline points="0,0 96,0"/>
-  </object>
-  <object type="floor" x="2720" y="2560">
-   <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polyline points="0,0 160,0"/>
   </object>
   <object type="floor" x="768" y="1600" width="128" height="160">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="832" y="1696" width="128" height="96">
+  <object type="floor" x="896" y="1696" width="64" height="96">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="1664" y="1600" width="128" height="128">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="1856" y="1696" width="96" height="192">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1760" y="1664" width="96" height="64">
+  <object type="floor" x="1792" y="1664" width="64" height="64">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="roof" x="2272" y="2432">
+  <object type="floor" x="0" y="608" width="32" height="1568">
    <properties>
-    <property name="groupindex" value="-2"/>
-   </properties>
-   <polyline points="-96,192 64,192"/>
-  </object>
-  <object x="2304" y="2880"/>
-  <object type="floor" x="0" y="608" width="32" height="1600">
-   <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="1056" y="1152" width="192" height="256">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1216" y="1280" width="192" height="128">
+  <object type="floor" x="1248" y="1280" width="160" height="128">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1376" y="1344" width="192" height="64">
+  <object type="floor" x="1408" y="1344" width="160" height="64">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1440" y="1632" width="256" height="96">
+  <object type="floor" x="1440" y="1632" width="224" height="96">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1824" y="1696" width="192" height="32">
+  <object type="floor" x="1952" y="1696" width="64" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1920" y="1856" width="160" height="32">
+  <object type="floor" x="1952" y="1856" width="128" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="2240" y="1824" width="96" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="1440" y="1888" width="64" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="1280" y="1824" width="96" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1024" y="2080" width="128" height="128">
+  <object type="floor" x="1024" y="2080" width="128" height="96">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1088" y="1952" width="64" height="160">
+  <object type="floor" x="1088" y="1952" width="64" height="128">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1728" y="1984" width="64" height="224">
+  <object type="floor" x="1728" y="2016" width="64" height="160">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="1568" y="1984" width="224" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="1984" y="2048" width="160" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="2272" y="2016" width="192" height="32">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="3168" y="608" width="32" height="1568">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
   <object type="floor" x="2560" y="2080" width="96" height="96">
    <properties>
-    <property name="groupindex" value="-2"/>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
+  <object type="floor" x="960" y="2080">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+   <polygon points="0,0 32,32 64,32 64,0"/>
+  </object>
+  <object type="floor" x="288" y="2048" width="32" height="32">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
+  <object type="floor" x="416" y="2048" width="32" height="32">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
+  <object type="floor" x="544" y="2048" width="32" height="32">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
+  <object type="floor" x="832" y="1760" width="64" height="32">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
+  <object type="floor" x="32" y="2176" width="96" height="32">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
    </properties>
   </object>
  </objectgroup>
@@ -325,7 +337,7 @@
  </objectgroup>
  <objectgroup color="#ffff7f" name="Spawns" width="100" height="100" opacity="0.9">
   <properties>
-   <property name="type" value="spawns"/>
+   <property name="type" value="locations"/>
   </properties>
   <object name="start" x="64" y="2112" width="32" height="32">
    <properties>

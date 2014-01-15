@@ -11,12 +11,17 @@ function capsule.load()
 		borderless = false,
 		centered = true,
 	})
-	capsule.map = yama.maps.load("test/gravityfall")
-	capsule.p1 = capsule.map.spawn("player", "start", {id = 1})
+	capsule.scene = yama.scenes.new()
+	capsule.scene.enablePhysics()
+	
+	capsule.scene.world:setGravity( 0, 320 )
+	love.physics.setMeter(32)
+	capsule.scene.loadMap("test/gravityfall")
+	capsule.p1 = capsule.scene.newEntity("player", "start", {id = 1})
 	--capsule.cam1 = capsule.map.spawn("camera", "start")
 	--capsule.cam1.follow(capsule.p1)
 	capsule.vp1 = yama.viewports.new()
-	capsule.vp1.connect(capsule.map, capsule.p1)
+	capsule.vp1.connect(capsule.scene, capsule.p1)
 
 	function love.keypressed(key)
 		if key == "escape" then
@@ -60,10 +65,10 @@ function capsule.load()
 			end
 		end
 		if key == "z" then
-			capsule.p2 = capsule.map.spawn("player", "start2", {id = 2})
+			capsule.p2 = capsule.scene.newEntity("player", "start2", {id = 2})
 			capsule.p2.playerId = 2
 			capsule.vp2 = yama.viewports.new()
-			capsule.vp2.connect(capsule.map, capsule.p2)
+			capsule.vp2.connect(capsule.scene, capsule.p2)
 
 			--vp2.setScale(4, 4)
 

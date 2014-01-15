@@ -2,7 +2,6 @@ local bullet = {}
 
 function bullet.new( map, x, y, z )
 	local self = {}
-	self.boundingbox = {}
 
 	local bulletUserdata = {}
 	bulletUserdata.name = "Unnamed"
@@ -52,8 +51,8 @@ function bullet.new( map, x, y, z )
 	-- Physics
 	local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 2 ) )
 	--local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( 8, 8 ) )
-	bullet:setGroupIndex( -1 )
-
+	bullet:setGroupIndex( 2 )
+	--bullet:setCategory( 2 )
 	bullet:setUserData( bulletUserdata )
 	bullet:setRestitution( 0.70 )
 	bullet:getBody( ):setFixedRotation( false )
@@ -87,7 +86,6 @@ function bullet.new( map, x, y, z )
 		self.x = x
 		self.y = y
 		self.z = z
-		self.setBoundingBox()
 
 		xvb, yvb = bullet:getBody():getLinearVelocity()
 		invaim = math.atan2( -yvb, -xvb )
@@ -137,6 +135,7 @@ function bullet.new( map, x, y, z )
 		if userdata then
 			--print( a:getUserData().type, userdata.type )
 			if userdata.type == 'shield' or userdata.type == 'player' then
+				print('bullet: player hit!')
 				self.destroy()
 			end
 		end
@@ -182,14 +181,6 @@ function bullet.new( map, x, y, z )
 		end
 	end
 
-	function self.setBoundingBox()
-		self.boundingbox.x = x - 500
-		self.boundingbox.y = y - 500
-
-		self.boundingbox.width = 1000
-		self.boundingbox.height = 1000
-	end
-	self.setBoundingBox()
 	return self
 end
 

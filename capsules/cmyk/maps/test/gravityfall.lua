@@ -507,8 +507,8 @@ return {
         16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16,
         8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 11, 11, 11, 11, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8,
         16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16,
-        16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0, 11, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16,
-        8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8,
+        16, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0, 11, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16,
+        8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 5, 15, 15, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8,
         16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16,
         8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8,
         11, 11, 7, 5, 11, 11, 7, 11, 11, 11, 11, 7, 11, 11, 7, 11, 11, 5, 11, 7, 11, 7, 11, 5, 11, 7, 11, 5, 5, 11, 7, 11, 11, 7, 11, 7, 5, 5, 11, 7, 11, 11, 11, 5, 7, 11, 5, 7, 5, 11, 11, 5, 11, 11, 11, 11, 5, 11, 5, 11, 11, 5, 11, 11, 7, 11, 5, 11, 11, 7, 11, 5, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
@@ -558,132 +558,14 @@ return {
           name = "",
           type = "floor",
           shape = "rectangle",
-          x = 0,
+          x = 128,
           y = 2176,
-          width = 3200,
+          width = 3072,
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1888,
-          y = 2592,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 64, y = 0 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1952,
-          y = 2624,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 32, y = 0 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 2176,
-          y = 2560,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 64, y = 0 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 2240,
-          y = 2432,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 64, y = 0 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 2304,
-          y = 2560,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 32, y = 0 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 1792,
-          y = 2656,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 96, y = 0 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "polyline",
-          x = 2720,
-          y = 2560,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 160, y = 0 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -696,20 +578,22 @@ return {
           height = 160,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
           name = "",
           type = "floor",
           shape = "rectangle",
-          x = 832,
+          x = 896,
           y = 1696,
-          width = 128,
+          width = 64,
           height = 96,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -722,7 +606,8 @@ return {
           height = 128,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -735,49 +620,23 @@ return {
           height = 192,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
           name = "",
           type = "floor",
           shape = "rectangle",
-          x = 1760,
+          x = 1792,
           y = 1664,
-          width = 96,
+          width = 64,
           height = 64,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
-        },
-        {
-          name = "",
-          type = "roof",
-          shape = "polyline",
-          x = 2272,
-          y = 2432,
-          width = 0,
-          height = 0,
-          visible = true,
-          polyline = {
-            { x = -96, y = 192 },
-            { x = 64, y = 192 }
-          },
-          properties = {
-            ["groupindex"] = "-2"
-          }
-        },
-        {
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 2304,
-          y = 2880,
-          width = 0,
-          height = 0,
-          visible = true,
-          properties = {}
         },
         {
           name = "",
@@ -786,10 +645,11 @@ return {
           x = 0,
           y = 608,
           width = 32,
-          height = 1600,
+          height = 1568,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -802,33 +662,36 @@ return {
           height = 256,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
           name = "",
           type = "floor",
           shape = "rectangle",
-          x = 1216,
+          x = 1248,
           y = 1280,
-          width = 192,
+          width = 160,
           height = 128,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
           name = "",
           type = "floor",
           shape = "rectangle",
-          x = 1376,
+          x = 1408,
           y = 1344,
-          width = 192,
+          width = 160,
           height = 64,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -837,37 +700,40 @@ return {
           shape = "rectangle",
           x = 1440,
           y = 1632,
-          width = 256,
+          width = 224,
           height = 96,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
           name = "",
           type = "floor",
           shape = "rectangle",
-          x = 1824,
+          x = 1952,
           y = 1696,
-          width = 192,
+          width = 64,
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
           name = "",
           type = "floor",
           shape = "rectangle",
-          x = 1920,
+          x = 1952,
           y = 1856,
-          width = 160,
+          width = 128,
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -880,7 +746,8 @@ return {
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -893,7 +760,8 @@ return {
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -906,7 +774,8 @@ return {
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -916,10 +785,11 @@ return {
           x = 1024,
           y = 2080,
           width = 128,
-          height = 128,
+          height = 96,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -929,10 +799,11 @@ return {
           x = 1088,
           y = 1952,
           width = 64,
-          height = 160,
+          height = 128,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -940,12 +811,13 @@ return {
           type = "floor",
           shape = "rectangle",
           x = 1728,
-          y = 1984,
+          y = 2016,
           width = 64,
-          height = 224,
+          height = 160,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -958,7 +830,8 @@ return {
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -971,7 +844,8 @@ return {
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -984,7 +858,8 @@ return {
           height = 32,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -997,7 +872,8 @@ return {
           height = 1568,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         },
         {
@@ -1010,7 +886,98 @@ return {
           height = 96,
           visible = true,
           properties = {
-            ["groupindex"] = "-2"
+            ["category"] = "1",
+            ["groupindex"] = "1"
+          }
+        },
+        {
+          name = "",
+          type = "floor",
+          shape = "polygon",
+          x = 960,
+          y = 2080,
+          width = 0,
+          height = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 32, y = 32 },
+            { x = 64, y = 32 },
+            { x = 64, y = 0 }
+          },
+          properties = {
+            ["category"] = "1",
+            ["groupindex"] = "1"
+          }
+        },
+        {
+          name = "",
+          type = "floor",
+          shape = "rectangle",
+          x = 288,
+          y = 2048,
+          width = 32,
+          height = 32,
+          visible = true,
+          properties = {
+            ["category"] = "1",
+            ["groupindex"] = "1"
+          }
+        },
+        {
+          name = "",
+          type = "floor",
+          shape = "rectangle",
+          x = 416,
+          y = 2048,
+          width = 32,
+          height = 32,
+          visible = true,
+          properties = {
+            ["category"] = "1",
+            ["groupindex"] = "1"
+          }
+        },
+        {
+          name = "",
+          type = "floor",
+          shape = "rectangle",
+          x = 544,
+          y = 2048,
+          width = 32,
+          height = 32,
+          visible = true,
+          properties = {
+            ["category"] = "1",
+            ["groupindex"] = "1"
+          }
+        },
+        {
+          name = "",
+          type = "floor",
+          shape = "rectangle",
+          x = 832,
+          y = 1760,
+          width = 64,
+          height = 32,
+          visible = true,
+          properties = {
+            ["category"] = "1",
+            ["groupindex"] = "1"
+          }
+        },
+        {
+          name = "",
+          type = "floor",
+          shape = "rectangle",
+          x = 32,
+          y = 2176,
+          width = 96,
+          height = 32,
+          visible = true,
+          properties = {
+            ["category"] = "1",
+            ["groupindex"] = "1"
           }
         }
       }
@@ -1352,7 +1319,7 @@ return {
       visible = true,
       opacity = 0.9,
       properties = {
-        ["type"] = "spawns"
+        ["type"] = "locations"
       },
       objects = {
         {
