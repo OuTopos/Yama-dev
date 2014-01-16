@@ -22,12 +22,15 @@
  <tileset firstgid="187" name="backk" tilewidth="32" tileheight="32">
   <image source="../../images/JnRLayer03.png" width="400" height="104"/>
  </tileset>
+ <tileset firstgid="223" name="sky" tilewidth="32" tileheight="32">
+  <image source="../../images/sky.png" width="64" height="64"/>
+ </tileset>
  <layer name="-3" width="100" height="100">
   <properties>
    <property name="z" value="-3"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1NlSE0EYQOG8g4CAoiCIoiK4sKi44QKKshiRfVXyyr6O58IpUykI0y2daarOxVcUw5/upk+S/lqtdg3XMYAbuIIudKMHV9GLPvQnmk+5drv5qvY9az6Xs9jDHvawhz3sYQ972MMe9rCHPexhj+rPktu9lJ2/6P1y+J/skV+PkPmeCs7Sqf1yuF97/JvP5Y5D5+1hD3vk1aMTe+Zyv/awhz3sYQ972MMe9rCHParrMWAPe9jDHvawhz3sYQ972MMe9shi3h72sIc97GEPe9jDHpe7R6fuKpf7tYc9/L6yhz3sYQ972MMe9rCHPexhj+rv1x72sIc97GEPe9jDHs6nmL+NUdzBXYzhHm5iEEO4hWGMOJ98/hEe4wmeYgrTuI8HGMdDTGDS+eTzL/EKr/EGbzGPGcziGZ7jBeacTz7/CZ+xhC/4imW8w3t8wEcsYNH55PPr+IENbGIL21jBKtbwDXV8dz75/BGO8RO/cIIGdrCLPezjAIfOJ58/b53mv9dLarfeSi38vVV2rvh5ErFH6HzZ14Sue16PYo1YzWut/j1f6Hur7Fzs3TYiX3Pa89Q99v+zR+vnIqZHyHs25m5jWjTOeL6duEfrvcV8Lorvz0JIi5DZ2LstWrbr3Px7sV/rOsXzYp2Ys/y+xE67t6rPJEmSJEmSJEmSJEmSJEmSJEmSdNH+AHXH0vQ=
+   eJzt1NlOFEEUBuB5B0FR3FBx3xdccN8QXAARF0QQhHllL3kV/ws7mUxYpksrxuS7+DLpmr9PV86p7q1Op7MFAAAAAAAAAAAAAAAAAAAAAAAAAAAAUNHBOBSjcTiOxNHYF0MxHPvjQIzIV8+Px+k4E2fjXJyPY3E8xuJEnIxT8tXz1+J63IibcSsm4kJcjEtxOa7EVfnq+QfxMB7F43gST+N23Im7cS8m47589fx0zMTreBNv4108i+fxIl7GVLySr55fjI/xKT7Hl1iK2ZiL+XgfC/FBvnp+LdbjR2zEZnTjayzHt1iJ1fguXz2/V53e/xcGtFu92U77szVorvndLHhG2/yg97Stu9c8mhqlemvN/d5f27M1aK60t93Ce7Zbrz2PlT+cR/97UTKPNme2pLcls+jusL5UeR79fSt5L5rvZ6PNLNpkS3vbzHK3OfdeN8/rr9OsN3VK9vLzP7Zd3/71ngAAAAAAAAAAAAAAAP62X8mQFLg=
   </data>
  </layer>
  <layer name="-2" width="100" height="100">
@@ -240,7 +243,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Walls" width="100" height="100" visible="0">
+ <objectgroup name="Walls" width="100" height="100">
   <properties>
    <property name="type" value="collision"/>
   </properties>

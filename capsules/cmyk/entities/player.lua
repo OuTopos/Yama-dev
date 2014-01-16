@@ -128,7 +128,7 @@ function player.new( map, x, y, z )
 	-- ANIMATION
 	local animation = yama.animations.new()
 	local tileset = yama.assets.tilesets["elisa"]
-	self.spriteJumper = yama.buffers.newDrawable(tileset.tiles[1], self.x, self.y, 2, 2, sx, sy, tileset.tilewidth/2, -21 )
+	self.spriteJumper = yama.buffers.newDrawable(tileset.tiles[1], self.x, self.y, 0, 2, sx, sy, tileset.tilewidth/2, -21 )
 
 	-- SHIELD --
 	local spriteShield = yama.buffers.newDrawable( yama.assets.loadImage( "shield_2" ), self.x, self.y, 1000, 0, sx, sy, 25, 25 )
@@ -281,10 +281,9 @@ function player.new( map, x, y, z )
 		end
 		if count > 0 then
 			--self.fixtures.main:getBody():applyLinearImpulse( 0, -self.forces.jump*self.forceAdjuster )
-			allowjump = false
+			allowjump = true
 			self.worldstates.onGround = true								
 			jumpTimer = 0
-			self.state = "idle"
 		else
 			self.worldstates.onGround = false
 		end
@@ -293,33 +292,13 @@ function player.new( map, x, y, z )
 		self.jumping( dt )
 		self.movement( dt )
 		self.bulletSpawn( dt )
-		self.melee( dt )		
-	end
-
-	function self.updateAnimation( dt )
-		if self.state == "walk" or self.state == "idle" or self.state == "sword" then
-			animation.update(dt, "elisa_"..self.state)
-		else
-			--animation.update(dt, "elisa_die")
+		self.melee( dt )
+		if self.joystick:isDown( ctrlJumpButtom ) then
+			self.ctrlJumpDown = true
 		end
-		self.spriteJumper.drawable = tileset.tiles[animation.frame]
-		animation.timescale = math.abs(self.xv)/maxSpeed
-	end
-
-	function self.updateShield( dt )
-		if shieldHealth < shieldMaxHealth then
-			if shieldTimer <= shieldMaxTimer then
-			shieldTimer = shieldTimer + dt
-			elseif not shieldOn and shieldKilled then
-				local nxx = self.joystick:getAxis( 3 )
-				local nyy = self.joystick:getAxis( 4 )
-				if yama.tools.getDistance( 0, 0, nxx, nyy ) < 0.26 then
-					self.createShield( shieldMaxHealth, false )
-				end
-			end
-		else
-			shieldHealth = shieldMaxHealth
-			spriteShield.color = { 255, 255, 255, math.floor( 255*( shieldHealth/shieldMaxHealth )+0.5 ) }
+		if not self.joystick:isDown( ctrlJumpButtom ) and self.ctrlJumpDown then
+			self.ctrlJumpDown = false
+			jumpTimer = 1
 		end
 	end
 
@@ -351,10 +330,10 @@ function player.new( map, x, y, z )
 		elseif self.worldstates.onGround then
 			if self.xv < 0 then
 				self.applyForce( 4000, 0 )
-			elseif self.xv > 0  then
+			elseif self.xv > 0 then
 				self.applyForce( -4000, 0 )
 			else
-				self.state = 'idle'
+				self.state = "idle"
 			end
 		end
 	end
@@ -362,18 +341,14 @@ function player.new( map, x, y, z )
 	function self.jumping(dt)
 		-- JUMPING --
 		--not allowing jump boost if jump boost button is released and pressed again mid air, must release jump button to be able to jump again (no bunny hopping)
-		
-		if not self.joystick:isDown( ctrlJumpButtom ) and self.ctrlJumpDown == true then
-			jumpTimer = 1
-			self.ctrlJumpDown = false
-		end
+		print( self.state )
 
 		--if not self.ctrlJumpDown and allowjump and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
 		if not self.ctrlJumpDown and self.worldstates.onGround and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
 			--allowjump
 			self.ctrlJumpDown = true
-			self.fixtures.main:getBody():setLinearVelocity( self.xv, self.jumpVelocity )
 			self.state = "jumping"
+			self.fixtures.main:getBody():setLinearVelocity( self.xv, self.jumpVelocity )			
 		end
 
 		if ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
@@ -476,6 +451,41 @@ function player.new( map, x, y, z )
 	--	end
 	end
 
+	function self.updateAnimation( dt )
+		if self.state == "walk" or self.state == "idle" or self.state == "sword" then
+			animation.update(dt, "elisa_"..self.state)
+		else
+			--animation.update(dt, "elisa_die")
+		end
+		self.spriteJumper.drawable = tileset.tiles[animation.frame]
+		if self.state == "walk" then
+			local timescaler = math.abs(self.xv)/maxSpeed
+			if timescaler < 0.2 then
+				timescaler = 0.2
+			end
+			animation.timescale = timescaler
+		else
+			animation.timescale = 0.9
+		end
+	end
+
+	function self.updateShield( dt )
+		if shieldHealth < shieldMaxHealth then
+			if shieldTimer <= shieldMaxTimer then
+			shieldTimer = shieldTimer + dt
+			elseif not shieldOn and shieldKilled then
+				local nxx = self.joystick:getAxis( 3 )
+				local nyy = self.joystick:getAxis( 4 )
+				if yama.tools.getDistance( 0, 0, nxx, nyy ) < 0.26 then
+					self.createShield( shieldMaxHealth, false )
+				end
+			end
+		else
+			shieldHealth = shieldMaxHealth
+			spriteShield.color = { 255, 255, 255, math.floor( 255*( shieldHealth/shieldMaxHealth )+0.5 ) }
+		end
+	end
+
 	function self.bodyEnergy( damage )
 		bodyHealth = bodyHealth - damage
 		if bodyHealth <= 0 then
@@ -532,10 +542,10 @@ function player.new( map, x, y, z )
 		userdata = a:getUserData()
 		userdata2 = b:getUserData()
 		if userdata2 then
-			if userdata2.type == 'floor' then
-				print('feet meets floor')				
+			if userdata2.type == "floor" then
+				print("feet meets floor")				
 		 		jumpTimer = 0
-		 		if self.state == 'fall' then
+		 		if self.state == "fall" then
 		 			--bajs
 		 		end
 		 	end
@@ -553,7 +563,6 @@ function player.new( map, x, y, z )
 		if userdata2 then
 			if userdata2.type == 'floor' then
 				print('feet leaves floor')
-				self.state = 'fall'	
 		 	end
 		 end
 	end
