@@ -2,7 +2,6 @@ local player = {}
 
 function player.new( map, x, y, z )
 	local self = {}
-	self.boundingbox = {}
 	self.fixtures = {}
 	self.worldstates = {}
 	self.forces = {}
@@ -57,7 +56,7 @@ function player.new( map, x, y, z )
 	self.radius = yama.tools.getDistance( self.cx, self.cy, x - ox, y - oy)
 	self.type = "player"
 	self.joystick = 1
-	self.worldstates.onGround = true
+	self.worldstates.onGround = false
 	self.worldstates.onWall = false
 	
 	self.state = nil
@@ -119,7 +118,7 @@ function player.new( map, x, y, z )
 
 	-- BUFFER BATCH
 	self.bufferBatch = yama.buffers.newBatch(self.x, self.y, 0)
-	--self.spriteJumper = yama.buffers.newDrawable(yama.assets.loadImage("jumper"),self.x, self.y, self.z, r, sx, sy, ox, oy )
+	--spriteJumper = yama.buffers.newDrawable(yama.assets.loadImage("jumper"),self.x, self.y, self.z, r, sx, sy, ox, oy )
 
 	local spriteArrow = yama.buffers.newDrawable(yama.assets.loadImage("directionarrowshootah"), self.x, self.y, 1, 1, sx, sy, 3, 3 )
 
@@ -128,7 +127,7 @@ function player.new( map, x, y, z )
 	-- ANIMATION
 	local animation = yama.animations.new()
 	local tileset = yama.assets.tilesets["elisa"]
-	self.spriteJumper = yama.buffers.newDrawable(tileset.tiles[1], self.x, self.y, 0, 2, sx, sy, tileset.tilewidth/2, -21 )
+	local spriteJumper = yama.buffers.newDrawable(tileset.tiles[1], self.x, self.y, 0, 2, sx, sy, tileset.tilewidth/2, -21 )
 
 	-- SHIELD --
 	local spriteShield = yama.buffers.newDrawable( yama.assets.loadImage( "shield_2" ), self.x, self.y, 1000, 0, sx, sy, 25, 25 )
@@ -174,7 +173,7 @@ function player.new( map, x, y, z )
 
 	
 	table.insert( self.bufferBatch.data, spriteArrow )
-	table.insert( self.bufferBatch.data, self.spriteJumper )
+	table.insert( self.bufferBatch.data, spriteJumper )
 	table.insert( self.bufferBatch.data, weapon_meleeSprite )
 	table.insert( self.bufferBatch.data, spriteShield )
 	--table.insert( self.bufferBatch.data, sparks )
@@ -183,7 +182,6 @@ function player.new( map, x, y, z )
 	-- Physics
 	
 	function self.initialize( properties )
-		--self.setBoundingBox()		-- body
 		self.bodyUserdata.playerId = properties.id
 		self.swordUserdata.playerId = properties.id
 		self.shieldUserdata.playerId = properties.id
@@ -217,11 +215,13 @@ function player.new( map, x, y, z )
 	self.fixtures.sword:setSensor( true )
 	self.fixtures.sword:getBody():setMass( self.mass )
 
-	self.fixtures.shield = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newCircleShape( 26 ), 0 )
+	--self.fixtures.shield = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newCircleShape( 26 ), 0 )
+	self.fixtures.shield = love.physics.newFixture( love.physics.newBody( map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape( 26 ), 0 )
 	self.fixtures.shield:setUserData( self.shieldUserdata )
 	--self.fixtures.shield:setSensor(true)
 	--self.fixtures.shield = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 38 ) )
-	self.fixtures.shield:setGroupIndex( 2 )
+	self.fixtures.shield:setGroupIndex( -2 )
+	--self.fixtures.shield:setCategory( 2 )
 	self.fixtures.shield:setMask( 1 )
 	self.fixtures.shield:getBody( ):setMass( self.mass )
 	--self.fixtures.shield.entity = self
@@ -256,13 +256,9 @@ function player.new( map, x, y, z )
 		self.y = y
 		self.z = z
 		self.updateInput( dt )
-		self.updateAnimation( dt )
 		self.updatePosition( )
-		self.setBoundingBox( )
+		self.updateAnimation( dt )		
 		self.updateShield( dt )
-		
-		self.cx, self.cy = x - ox + width / 2, y - oy + height / 2
-		self.radius = yama.tools.getDistance( self.cx, self.cy, x - ox, y - oy )
 
 		--ptcSpark:start()
 		--ptcSpark:setPosition( x+distSparkX, y+distSparkY )
@@ -287,6 +283,21 @@ function player.new( map, x, y, z )
 		else
 			self.worldstates.onGround = false
 		end
+		
+		if self.worldstates.onGround then
+			if math.abs(self.xv) > 0.1 then
+				--self.state = "walk"
+			else
+				--self.state = "idle"
+			end
+		elseif not self.worldstates.onGround and self.yv < - 0.2 then
+			self.state = "jumping"
+		elseif not self.worldstates.onGround and self.yv > 0.2 then
+			self.state = "falling"
+		end
+		--print( self.worldstates.onGround )
+		--print( self.state )
+		--print( self.xv )
 	end
 	function self.updateInput( dt )
 		self.jumping( dt )
@@ -311,7 +322,8 @@ function player.new( map, x, y, z )
 			if self.worldstates.onGround then
 				--print('walk')
 				fx = self.forces.run * stickdistance
-				self.state = 'walk'
+				self.state = "walk"
+				print( self.xv )
 			else
 				fx = self.forces.runJump * stickdistance
 				--print('runJump')
@@ -319,21 +331,20 @@ function player.new( map, x, y, z )
 			
 			self.direction = yama.tools.getRelativeDirection( math.atan2( ny, nx ) )
 			if love.keyboard.isDown( "right" ) or self.direction == "right" then
-				self.spriteJumper.sx = 1
+				spriteJumper.sx = 1
 			elseif love.keyboard.isDown("left") or self.direction == "left" then
-				self.spriteJumper.sx = -1
+				spriteJumper.sx = -1
 				fx = - fx
 			end
 			if maxSpeed > math.abs( self.xv ) then
 				self.applyForce( fx, fy )
 			end
 		elseif self.worldstates.onGround then
-			if self.xv < 0 then
+			self.state = "idle"
+			if self.xv < - 0.1 then
 				self.applyForce( 4000, 0 )
-			elseif self.xv > 0 then
+			elseif self.xv > 0.1 then
 				self.applyForce( -4000, 0 )
-			else
-				self.state = "idle"
 			end
 		end
 	end
@@ -341,14 +352,13 @@ function player.new( map, x, y, z )
 	function self.jumping(dt)
 		-- JUMPING --
 		--not allowing jump boost if jump boost button is released and pressed again mid air, must release jump button to be able to jump again (no bunny hopping)
-		print( self.state )
+		--print( self.state )
 
 		--if not self.ctrlJumpDown and allowjump and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
 		if not self.ctrlJumpDown and self.worldstates.onGround and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
 			--allowjump
 			self.ctrlJumpDown = true
-			self.state = "jumping"
-			self.fixtures.main:getBody():setLinearVelocity( self.xv, self.jumpVelocity )			
+			self.fixtures.main:getBody():setLinearVelocity( self.xv, self.jumpVelocity )		
 		end
 
 		if ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
@@ -457,7 +467,7 @@ function player.new( map, x, y, z )
 		else
 			--animation.update(dt, "elisa_die")
 		end
-		self.spriteJumper.drawable = tileset.tiles[animation.frame]
+		spriteJumper.drawable = tileset.tiles[animation.frame]
 		if self.state == "walk" then
 			local timescaler = math.abs(self.xv)/maxSpeed
 			if timescaler < 0.2 then
@@ -504,7 +514,8 @@ function player.new( map, x, y, z )
 
 	function self.removeShield( killed )
 		--shield:destroy()
-		self.fixtures.shield:setGroupIndex( -2 )
+		--self.fixtures.shield:setGroupIndex( -2 )
+		self.fixtures.shield:setMask( 1, 2 )
 		shieldOn = false
 		self.refreshBufferBatch()
 		shieldKilled = killed
@@ -520,7 +531,8 @@ function player.new( map, x, y, z )
 		--self.fixtures.shield = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newCircleShape( 32 ), 0 )
 		--self.fixtures.shield:setGroupIndex( -2 )
 		--self.fixtures.shield:setUserData( self.shieldUserdata )
-		self.fixtures.shield:setGroupIndex( 2 )
+		--self.fixtures.shield:setGroupIndex( 2 )
+		self.fixtures.shield:setMask( 1 )
 		shieldHealth = health
 		spriteShield.color = { 255, 255, 255, math.floor( 255 * ( shieldHealth/shieldMaxHealth ) + 0.5 ) }
 		shieldOn = true
@@ -538,14 +550,15 @@ function player.new( map, x, y, z )
 		
 		self.feetContacts[contact] = true
 
-		contact:setRestitution( 0 )
+
+		contact:setRestitution( 1 )
 		userdata = a:getUserData()
 		userdata2 = b:getUserData()
 		if userdata2 then
-			if userdata2.type == "floor" then
+			if userdata2.type == "floor" or userdata2.type == "player" then
 				print("feet meets floor")				
 		 		jumpTimer = 0
-		 		if self.state == "fall" then
+		 		if self.state == "falling" then
 		 			--bajs
 		 		end
 		 	end
@@ -639,7 +652,7 @@ function player.new( map, x, y, z )
 
 		self.bufferBatch = yama.buffers.newBatch(x, y, z)
 
-		table.insert( self.bufferBatch.data, self.spriteJumper )
+		table.insert( self.bufferBatch.data, spriteJumper )
 		table.insert( self.bufferBatch.data, spriteArrow )
 				
 		table.insert( self.bufferBatch.data, sparks )
@@ -657,16 +670,18 @@ function player.new( map, x, y, z )
 		y = self.fixtures.main:getBody():getY()
 		r = self.fixtures.main:getBody():getAngle()
 
-		self.spriteJumper.x = x
-		self.spriteJumper.y = y
-		self.spriteJumper.z = 0
-		self.spriteJumper.r = r
+		spriteJumper.x = x
+		spriteJumper.y = y
+		spriteJumper.z = 0
+		spriteJumper.r = r
 		
 		spriteShield.x = x
 		spriteShield.y = y
 		spriteShield.z = 0
+		self.fixtures.shield:getBody():setX( x )
+		self.fixtures.shield:getBody():setY( y )
 
-		if self.spriteJumper.sx == 1 then
+		if spriteJumper.sx == 1 then
 			self.fixtures.sword:getBody():setX( x+25 )
 			self.fixtures.sword:getBody():setY( y )
 			weapon_meleeSprite.x = x --math.floor(x + 0.5)
@@ -691,9 +706,9 @@ function player.new( map, x, y, z )
 		self.bufferBatch.r = r
 	end
 
-	local animation = {}
-	animation.quad = 1
-	animation.dt = 0
+	--local animation = {}
+	--animation.quad = 1
+	--animation.dt = 0
 
 	self.callbacks = {}
 	self.callbacks.shield = {}
