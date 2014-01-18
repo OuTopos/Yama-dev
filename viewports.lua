@@ -113,7 +113,11 @@ function viewports.new()
 			--local y = self.camera.y
 			--table.insert(self.camera.targets, 1, {x = x, y = y})
 			--table.remove(self.camera.targets, 4)
-			self.camera.move(self.camera.target.x, self.camera.target.y)
+			--self.camera.move(self.camera.target.x, self.camera.target.y)
+			self.camera.cx = self.camera.target.x
+			self.camera.cy = self.camera.target.y
+			self.camera.z = self.camera.target.z
+			--print(self.camera.z+self.camera.y)
 			--self.camera.z = self.camera.target.z
 		end
 		-- GET X, Y from CX, XY
@@ -209,29 +213,29 @@ function viewports.new()
 	end
 
 	function self.depthsorts.z(a, b)
-		if a.z < b.z then
+		if a.z > b.z then
 			return true
 		end
 		return false
 	end
 
 	function self.depthsorts.y(a, b)
-		if a.y < b.y then
+		if a.y > b.y then
 			return true
 		end
 		return false
 	end
 
 	function self.depthsorts.yz(a, b)
-		if a.y+a.z < b.y+b.z then
+		if a.y+a.z > b.y+b.z then
 			return true
 		end
 		if a.z == b.z then
-			if a.y < b.y then
+			if a.y > b.y then
 				return true
 			end
 			if a.y == b.y then
-				if a.x < b.x then
+				if a.x > b.x then
 					return true
 				end
 			end
@@ -272,11 +276,12 @@ function viewports.new()
 		table.sort(self.buffer, self.depthsorts[self.depthmode])
 
 		-- DRAW BUFFER
-		for i = 1, #self.buffer do
-			if self.buffer[i].type == "batch" then
-				self.drawBatch(self.buffer[i])
+		for i = #self.buffer, 1, -1 do
+			local object = table.remove(self.buffer)
+			if object.type == "batch" then
+				self.drawBatch(object)
 			else
-				self.drawObject(self.buffer[i])
+				self.drawObject(object)
 			end
 			--self.buffer[i][self] = nil
 
@@ -285,7 +290,7 @@ function viewports.new()
 		end
 
 		-- EMPTY BUFFER
-		--self.buffer = nil
+		self.buffer = nil
 		self.buffer = {}
 
 		-- DRAW DEBUG GRAPHICS
@@ -320,7 +325,7 @@ function viewports.new()
 		if object.drawable then
 			-- DRAWABLE
 			--print(object.x, object.y)
-			if self.parallax.enabled then
+			if self.parallax.enabled and self.depthmode == "z" then
 				-- UGLY WIDTH AND HEIGHT
 				local factor = object.z / 32 * self.parallax.factor
 
@@ -416,7 +421,7 @@ end
 
 function viewports.draw()
 	for k = 1, #viewports.list do
-		viewports.list[k].draw(dt)
+		viewports.list[k].draw()
 	end
 end
 

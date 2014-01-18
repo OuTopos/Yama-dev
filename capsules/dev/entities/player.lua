@@ -89,7 +89,7 @@ function player.new(map, x, y, z)
 
 
 
-	tilesetArrow = "directionarrow"
+	local tilesetArrow = "directionarrow"
 	--images.load(tilesetArrow):setFilter("linear", "linear")
 	local spriteArrow = yama.buffers.newDrawable(yama.assets.loadImage(tilesetArrow), self.x, self.y-16, 640, 1, self.sx, self.sy, -24, 12)
 
@@ -227,6 +227,10 @@ function player.new(map, x, y, z)
 			self.aim = math.atan2(ny, nx)
 		end
 
+		nx, ny = nil, nil
+		fx, fy = nil, nil
+		vmultiplier = nil
+
 	end
 
 	function self.updatePosition()
@@ -265,6 +269,7 @@ function player.new(map, x, y, z)
 					--triggers.add(entity)
 				--end
 		--end
+		userdata = nil
 	end
 
 	function self.endContact(a, b, contact)
@@ -315,6 +320,8 @@ function player.new(map, x, y, z)
 		self.updateInput(dt)
 		self.updatePosition()
 
+		local a = nil
+
 		if self.move then
 			a = "walk"
 		else
@@ -335,6 +342,8 @@ function player.new(map, x, y, z)
 		--self.p:update(dt)
 
 		self.setBoundingBox()
+
+		a = nil
 	end
 
 	function self.addToBuffer(vp)

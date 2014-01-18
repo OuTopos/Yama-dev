@@ -57,23 +57,19 @@ function scenes.new()
 	function self.entities.update(dt)
 		for key=#self.entities.list, 1, -1 do
 			local entity = self.entities.list[key]
-
 			if entity.destroyed then
 				table.remove(self.entities.list, key)
 			else
 				entity.update(dt)
 				for i=1, #self.viewports do
 					local vp = self.viewports[i]
-					--if entity.buffer then
 						if vp.isEntityInside(entity) then
 							entity.addToBuffer(vp)
-							--for k = 1, #entity.buffer do
-							--	vp.addToBuffer(entity.buffer[k])
-							--end
 						end
-					--end
+					vp = nil
 				end
 			end
+			entity = nil
 		end
 	end
 
@@ -258,7 +254,8 @@ function scenes.new()
 		--if self.maps.list[path] then
 		--	info(path .. " already loaded.")
 		--else
-			if self.maps.new(path) then
+			--if self.maps.new(path) then
+				--[[
 				info("Successfully loaded map \"" .. path .. "\" in " .. self.maps.list[path].debug.load_time .. " seconds.")
 				print("Pre stuff " .. self.maps.list[path].debug.pre)
 				print("loadTilesets() " .. self.maps.list[path].debug.loadTilesets)
@@ -268,10 +265,12 @@ function scenes.new()
 				print("sum: " .. self.maps.list[path].debug.pre + self.maps.list[path].debug.loadTilesets + self.maps.list[path].debug.loadLayers + self.maps.list[path].debug.createMeshes + self.maps.list[path].debug.post)
 
 				--info(self.maps.list[path].debug.tilecount .. " tiles, " .. #self.maps.list[path].bufferbatches .. " meshes.")
-			end
+				--]]
+			--end
 		--end
 
-		return self.maps.list[path]
+		--return self.maps.list[path]
+		self.maps.new(path)
 	end
 
 	function self.maps.new(path)
@@ -346,6 +345,10 @@ function scenes.new()
 
 
 						-- have to add to the grid
+						tileset = nil
+						tile = nil
+						depth = nil
+						image = nil
 					end
 				end
 			end
@@ -454,7 +457,7 @@ function scenes.new()
 
 							-- ENTITIES
 							-- Spawning entities.
-							for i, object in ipairs(layer.objects) do
+							for _, object in ipairs(layer.objects) do
 								if object.type == "" then
 									-- STATIC TILE
 									local z = tonumber(object.properties.z) or 1
@@ -462,6 +465,8 @@ function scenes.new()
 									addToMeshes(object.x, object.y, z, object.gid)
 
 									debug.tilecount = debug.tilecount + 1
+
+									z = nil
 									
 								elseif object.type and object.type ~= "" then
 									object.z = tonumber(object.properties.z) or 1
@@ -543,17 +548,21 @@ function scenes.new()
 						mesh:setVertexMap(meshdata.vertexmap)
 						mesh:setDrawMode("triangles")
 
-						table.insert(batch.data, yama.assets.newDrawable(mesh, 0, 0, depth))
+						table.insert(batch.data, yama.buffers.newDrawable(mesh, 0, 0, depth))
 						--for i = 1, #meshdata.tiles do
 							--print(meshdata.tiles[i][1], meshdata.tiles[i][2], meshdata.tiles[i][3], meshdata.tiles[i][4])
 						--	self.addToGrid(batch, meshdata.tiles[i][1], meshdata.tiles[i][2], meshdata.tiles[i][1]+meshdata.tiles[i][3], meshdata.tiles[i][2]+meshdata.tiles[i][4])
 						--end
 
 						debug.vertexcount = debug.vertexcount + #meshdata.vertices
+
+						mesh = nil
 					end
 
 					table.insert(entity.batches, batch)
+					batch = nil
 				end
+				entity = nil
 			end
 
 			function self.index2xy(index)
@@ -573,7 +582,7 @@ function scenes.new()
 			end
 
 			function self.getTileset(gid)
-				i = #map.tilesets
+				local i = #map.tilesets
 				while map.tilesets[i] and gid < map.tilesets[i].firstgid do
 					i = i - 1
 				end
@@ -614,7 +623,7 @@ function scenes.new()
 			debug.timestamp4 = os.clock()
 
 
-			self.maps.list[path] = map
+			--self.maps.list[path] = map
 
 			--if map.properties == "false" then
 				self.boundingbox.x = 0
@@ -631,6 +640,9 @@ function scenes.new()
 			debug.createMeshes = debug.timestamp4 - debug.timestamp3
 			debug.post = debug.end_time - debug.timestamp4
 			map.debug = debug
+			map = nil
+
+			collectgarbage()
 			return true
 		end
 	end
@@ -691,8 +703,6 @@ function scenes.new()
 
 
 	function self.update(dt)
-		--self.updateLoad(dt)
-
 		-- Update physics world
 		if self.world then
 			self.world:update(dt)

@@ -1,4 +1,5 @@
 local capsule = {}
+local ProFi = require('ProFi')
 
 function capsule.load()
 	love.window.setTitle("Adventures of Princess Moe")
@@ -31,15 +32,18 @@ function capsule.load()
 	capsule.scene.loadMap("test/start")
 
 	capsule.p1 = capsule.scene.newEntity("player", {1000, 500, 32})
+	--for i = 1, 1000 do
+	--	capsule.scene.newEntity("player", {math.random(1,1980), math.random(1,1080), 32})
+	--end
 
 	capsule.vp1 = yama.viewports.new()
 	capsule.vp1.connect(capsule.scene, capsule.p1)
 
 
-	capsule.vpMinimap = yama.viewports.new()
-	capsule.vpMinimap.connect(capsule.scene)
-	capsule.vpMinimap.zoom(0.04)
-	capsule.vpMinimap.resize(128, 128)
+	--capsule.vpMinimap = yama.viewports.new()
+	--capsule.vpMinimap.connect(capsule.scene)
+	--capsule.vpMinimap.zoom(0.04)
+	--capsule.vpMinimap.resize(128, 128)
 	--capsule.vpMinimap.sx = 0.25
 	--capsule.vpMinimap.sy = 0.25
 
@@ -154,6 +158,15 @@ function capsule.load()
 
 		if key == "e" then
 			capsule.scene.loadMap("test/start")
+		end
+
+		if key == "s" then
+			ProFi:start()
+		end
+
+		if key == "d" then
+			ProFi:stop()
+			ProFi:writeReport( 'MyProfilingReport.txt' )
 		end
 	end
 

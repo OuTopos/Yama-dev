@@ -189,7 +189,7 @@ function hud.draw(vp)
 		--end
 
 		-- 
-		if player then
+		if false then
 			love.graphics.print("Player: "..math.floor( player.getX() / map.data.tilewidth)..":"..math.floor( player.getY() / map.data.tileheight), left + 2, top + 152)
 			love.graphics.print("  x = "..player.getX(), left + 2, top + 162)
 			love.graphics.print("  y = "..player.getY(), left + 2, top + 172)
