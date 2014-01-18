@@ -54,7 +54,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt2Q1rgzAUheGUERQs1P//azuxdnKXYN3ycWLeBwKtm6ua3hOvcw4AAAAAAAAAAAAAUMNc+wDwNjvmQ8kyF2Ptg8DbMhfUhw7qQwv1oYX1XAt5pYW80kJ9aBkd86GEvNJCXmmhPrTQf2ghr7SQV1pU8uoRGb1R6T/myOiNyvrBfKxUzpv5WKnnVW9risr3cAyMHmtG5X43du17qxmVvArVR2xcuWaudj6tU8krrKgPLSr9IFbklRbqQ0uJ9aN0r9Byb1JiPnL0CrHn849Mn1dKiX4wx/U5088Pr9GCGvWRIkfukbHv4W0vv6+h6TXU1KiPWjnSQoaVvL9iPo711H/s80xVC/3H5NLk/dn6SPW5Z/RaH5Orc72PqOdpTIu93idayKueKOXVVb/zZyjVx3+y064Hy2hxfpXqI/ValuLv2X4+9/r/6THfTr7/i+2ZRypH5xaqqdpq5tXX9/Du5zuYej62+9vcUj7bV8irXM9RSt3Lpzx2hfU813yUqo+Ux77vVZf/EXjz3ubrEHntzbYhst0Httn9Yr+z7T+Y1979Pg67j/1Z6DyPtpUaAAAAAAAAAAAAAAAAAAAAAAAA1hPJtRWH
+   eJzt2YFOgzAUheEaQyDBZHv/l/NVlDAit9IwtO09Xf8vabKhOODs3lIMAQAAAACAfn2KDKy8cyAPyzsH8rC8cyAPyzsH8rC8cyAPyzsH8rC8cyAPyzsH8rC8c9jGvfSJNsI7B/KwvHPYxlT6RBvhnQP1YXnnQH1Y3jlQH5Z3DuRheedAv7K8c6A+LO8cqA/LOwfy0LNkQb/SsWRBfeigPrTcA3kooV9poV9pUelXt8TozRQ0+tU9MXqjMn+Qx0rlvMljpd6veptTVL6H08HosWZU7ndT1763mlHpV0f1kRqvXDOvdj6tU+lXWFEfWlTWg1jRr7RQH1pqzB+11wotr01q5FFirZB6Pn8r9Hm11FgPlrg+V9bz42O0wKM+cvSRj8TYr+Hjtfy+hubHUONRH159pIUeVvP+ijzO9bT+2PczVS2sP+aQp99frY9cn3tFr/UxB5/rfUa9n6a0uNZ7Rgv9qidK/epVv/NXKNXHf3pnPB8so8V8leoj91yW4+/F6/nS8/+zx/x28f1fbM88cjk7t6Oa8ubZr96/xxB+voO589jub0vL+WxfoV+Veo5S614+57ErzOel8qhVHzmPfb9WXf5HMETv4/46Jl4P0bYxsX042Bbvl/qdbf8xej2E38cR7xP/7Og8z7bVGgAAAAAAAAAAAAAAAAAAAAAAALEvYyNlfQ==
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Ground" width="100" height="100">
@@ -348,7 +348,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object name="start2" x="3104" y="2080" width="32" height="32">
+  <object name="start2" x="192" y="2112" width="32" height="32">
    <ellipse/>
   </object>
  </objectgroup>
