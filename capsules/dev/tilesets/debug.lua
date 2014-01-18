@@ -3,3 +3,4 @@ return {
 	{ name = "body", imagepath = "LPC/body/male/light", tilewidth = 64, tileheight = 64, spacing = 0, margin = 0, pad = false},
 	{ name = "elisa", imagepath = "Elisa", tilewidth = 96, tileheight = 64, spacing = 0, margin = 0, pad = false}
 }
+
