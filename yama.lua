@@ -1,3 +1,4 @@
+require("strict")
 local yama = {}
 
 function info(text)
@@ -37,6 +38,8 @@ yama.paths.tilesets = "tilesets/"
 yama.v = {}
 yama.v.paused = false
 yama.v.timescale = 1
+yama.v.gcInterval = 10
+yama.v.gcTimer = 10
 
 
 function yama.start(capsule)
@@ -60,24 +63,23 @@ function yama.load()
 end
 
 function yama.update(dt)
-	yama.assets.update()
 	yama.capsule.update(dt)
 	if not yama.v.paused then
 		yama.viewports.update(dt * yama.v.timescale)
 		yama.scenes.update(dt * yama.v.timescale)
-		--yama.maps.update(dt * yama.v.timescale)
 	end
 end
 
 function yama.draw()
 	yama.viewports.draw()
 
-	local fps = love.timer.getFPS()
-	love.graphics.setColor(0, 0, 0, 255)
-	love.graphics.printf("FPS: " .. fps, 3, 3, 100, "left")
+	--local fps = love.timer.getFPS()
+	--love.graphics.setColor(0, 0, 0, 255)
+	--love.graphics.printf("FPS: " .. fps, 3, 3, 100, "left")
 
-	love.graphics.setColor(255, 255, 255, 255)
-	love.graphics.printf("FPS: " .. fps, 2, 2, 100, "left")
+	--love.graphics.setColor(255, 255, 255, 255)
+	--love.graphics.printf("FPS: " .. fps, 2, 2, 100, "left")
+	--fps = nil
 end
 
 return yama
