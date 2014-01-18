@@ -23,6 +23,20 @@ function capsule.load()
 	capsule.vp1 = yama.viewports.new()
 	capsule.vp1.connect(capsule.scene, capsule.p1)
 
+	function love.gamepadpressed(joystick, button)
+		if button == "a" then
+			capsule.p1.gamepadpressed( button )
+		end
+	end
+
+	function love.gamepadreleased(joystick, button)
+		if button == "a" then
+			capsule.p1.gamepadreleased( button )
+		end
+	end
+
+
+
 	function love.keypressed(key)
 		if key == "escape" then
 			love.event.push("quit")

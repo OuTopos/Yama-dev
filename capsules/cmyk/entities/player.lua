@@ -6,7 +6,7 @@ function player.new( map, x, y, z )
 	self.worldstates = {}
 	self.forces = {}
 	self.mass = 1
-	self.forceAdjuster = 1
+	self.forces.forceAdjuster = 1
 
 	self.x = x
 	self.y = y
@@ -58,7 +58,7 @@ function player.new( map, x, y, z )
 	self.joystick = 1
 	self.worldstates.onGround = false
 	self.worldstates.onWall = false
-	
+
 	self.state = nil
 
 	-- BUTTONS --	
@@ -70,10 +70,10 @@ function player.new( map, x, y, z )
 	local ctrlMelee = self.buttonShoulderR
 	local ctrlAimShoot = 1
 
-	self.jumpMaxTimer = 0.35	
-	self.jumpVelocity = -950
+	self.jumpMaxTimer = 0.55	
+	self.jumpVelocity = -900
 	self.forces.jump = 900
-	self.forces.jumpIncreaser = 1900
+	self.forces.jumpIncreaser = 2200
 	self.forces.run = 3000
 	self.forces.runJump = 1900
 	
@@ -134,15 +134,15 @@ function player.new( map, x, y, z )
 	--spriteShield.blendmode = "additive"
 
 	-- shield hit effect --
-	--[[
-	local ptcSpark = love.graphics.newParticleSystem( images.load( "spark" ), 1000 )
+	---[[
+	local ptcSpark = love.graphics.newParticleSystem( yama.assets.loadImage( "spark" ), 1000 )
 	ptcSpark:setEmissionRate( 2000 )
 	ptcSpark:setSpeed( 100, 200 )
 	ptcSpark:setSizes( 0, 1 )
-	ptcSpark:setColors( 200, 200, 255, 255, 200, 200, 255, 0 )
+	ptcSpark:setColors( 255, 255, 255, 255, 255, 255, 255, 0 )
 	ptcSpark:setPosition( x, y )
-	ptcSpark:setLifetime(0.09)
-	ptcSpark:setParticleLife(0.25)
+	ptcSpark:setEmitterLifetime(0.09)
+	ptcSpark:setParticleLifetime(0.25)
 	--ptcSpark:setDirection(10)
 	ptcSpark:setSpread( math.rad( 90 ) )
 	ptcSpark:setTangentialAcceleration(200)
@@ -150,18 +150,18 @@ function player.new( map, x, y, z )
 	--ptcSpark:stop()
 	local sparks = yama.buffers.newDrawable( ptcSpark, 0, 0, 24 )
 	sparks.blendmode = "additive"
-	local distSparkX = 0
-	local distSparkY = 0
+	self.distSparkX = 0
+	self.distSparkY = 0
 
 
-	local ptcShieldDestroyed = love.graphics.newParticleSystem( images.load( "spark" ), 1000 )
+	local ptcShieldDestroyed = love.graphics.newParticleSystem( yama.assets.loadImage( "spark" ), 1000 )
 	ptcShieldDestroyed:setEmissionRate( 2000 )
 	ptcShieldDestroyed:setSpeed( 1, 2 )
 	ptcShieldDestroyed:setSizes( 0, 1 )
-	ptcShieldDestroyed:setColors( 200, 200, 255, 255, 200, 200, 255, 0 )
+	ptcShieldDestroyed:setColors( 255, 255, 255, 255, 255, 255, 255, 0 )
 	ptcShieldDestroyed:setPosition( x, y )
-	ptcShieldDestroyed:setLifetime(0.3)
-	ptcShieldDestroyed:setParticleLife(0.2)
+	ptcShieldDestroyed:setEmitterLifetime(0.3)
+	ptcShieldDestroyed:setParticleLifetime(0.2)
 	ptcShieldDestroyed:setDirection(10)
 	ptcShieldDestroyed:setSpread( math.rad( 0 ) )
 	ptcShieldDestroyed:setTangentialAcceleration(200)
@@ -176,8 +176,8 @@ function player.new( map, x, y, z )
 	table.insert( self.bufferBatch.data, spriteJumper )
 	table.insert( self.bufferBatch.data, weapon_meleeSprite )
 	table.insert( self.bufferBatch.data, spriteShield )
-	--table.insert( self.bufferBatch.data, sparks )
-	--table.insert( self.bufferBatch.data, ShieldDestroyed )
+	table.insert( self.bufferBatch.data, sparks )
+	table.insert( self.bufferBatch.data, ShieldDestroyed )
 
 	-- Physics
 	
@@ -249,8 +249,10 @@ function player.new( map, x, y, z )
 	--]]
 
 	self.joystick = love.joystick.getJoysticks()[1]
+	local boostah = 0
 	local jumpTimer = 0
 	function self.update( dt )
+		self.deltaT = dt
 		self.xv, self.yv = self.fixtures.main:getBody( ):getLinearVelocity( )
 		self.x = x
 		self.y = y
@@ -261,14 +263,14 @@ function player.new( map, x, y, z )
 		self.updateShield( dt )
 
 		--ptcSpark:start()
-		--ptcSpark:setPosition( x+distSparkX, y+distSparkY )
-		--ptcSpark:update( dt )
+		ptcSpark:setPosition( x+self.distSparkX, y+self.distSparkY )
+		ptcSpark:update( dt )
 
 		--ptcSpark:start()
-		randOffsetX = math.random( -32, 32 )
-		randOffsetY = math.random( -32, 32 )
-		--ptcShieldDestroyed:setPosition( x+randOffsetX, y+randOffsetY )
-		--ptcShieldDestroyed:update( dt )
+		local randOffsetX = math.random( -32, 32 )
+		local randOffsetY = math.random( -32, 32 )
+		ptcShieldDestroyed:setPosition( x+randOffsetX, y+randOffsetY )
+		ptcShieldDestroyed:update( dt )
 		
 
 		local count = 0
@@ -276,7 +278,7 @@ function player.new( map, x, y, z )
 				count = count + 1
 		end
 		if count > 0 then
-			--self.fixtures.main:getBody():applyLinearImpulse( 0, -self.forces.jump*self.forceAdjuster )
+			--self.fixtures.main:getBody():applyLinearImpulse( 0, -self.forces.jump*self.forces.forceAdjuster )
 			allowjump = true
 			self.worldstates.onGround = true								
 			jumpTimer = 0
@@ -300,7 +302,8 @@ function player.new( map, x, y, z )
 		--print( self.xv )
 	end
 	function self.updateInput( dt )
-		self.jumping( dt )
+		--self.jumping( dt )
+		self.boostJump( dt )
 		self.movement( dt )
 		self.bulletSpawn( dt )
 		self.melee( dt )
@@ -323,7 +326,7 @@ function player.new( map, x, y, z )
 				--print('walk')
 				fx = self.forces.run * stickdistance
 				self.state = "walk"
-				print( self.xv )
+				--print( self.xv )
 			else
 				fx = self.forces.runJump * stickdistance
 				--print('runJump')
@@ -350,19 +353,19 @@ function player.new( map, x, y, z )
 	end
 
 	function self.jumping(dt)
+		
 		-- JUMPING --
 		--not allowing jump boost if jump boost button is released and pressed again mid air, must release jump button to be able to jump again (no bunny hopping)
 		--print( self.state )
-
-		--if not self.ctrlJumpDown and allowjump and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
-		if not self.ctrlJumpDown and self.worldstates.onGround and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
-			--allowjump
+				--if not self.ctrlJumpDown and self.worldstates.onGround and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
+		--allowjump
+		if not self.ctrlJumpDown and allowjump and ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
 			self.ctrlJumpDown = true
 			self.fixtures.main:getBody():setLinearVelocity( self.xv, self.jumpVelocity )		
 		end
 
 		if ( love.keyboard.isDown( " " ) or self.joystick:isDown( ctrlJumpButtom ) ) then
-			self.jumpAccelerator( dt, ctrlJumpButtom, self.jumpMaxTimer, self.forces.jumpIncreaser*self.forceAdjuster )
+			self.jumpAccelerator( dt, ctrlJumpButtom, self.jumpMaxTimer, self.forces.jumpIncreaser*self.forces.forceAdjuster )
 		end
 	end
 	function self.jumpAccelerator( dt, button, jMaxTimer, jumpIncreaser )
@@ -371,7 +374,40 @@ function player.new( map, x, y, z )
 			jumpTimer = jumpTimer + dt
 		end
 	end
+	
+	function self.boostJump( dt )
+		if self.isJumping and self.joystick:isGamepadDown( "a" ) then
+			if jumpTimer < self.jumpMaxTimer and self.isJumping and self.yv < -200 then
+				self.applyForce( 0, -self.forces.jumpIncreaser*self.forces.forceAdjuster )
+				jumpTimer = jumpTimer + dt
+				--boostah = boostah*(self.xv/self.jumpVelocity)
+			end
+		end
+	end
+	
+	function self.gamepadpressed( button )
+		if button == "a" then
+			self.beginJump()
+		end
+	end
+	function self.gamepadreleased( button )
+		if button == "a" then
+			self.endJump()
+		end
+	end
 
+	function self.beginJump( )
+		if self.worldstates.onGround then
+			self.fixtures.main:getBody():setLinearVelocity( self.xv, self.jumpVelocity )
+			self.isJumping = true	
+		end	
+	end
+
+	function self.endJump( )
+		self.isJumping = false
+	end
+
+	
 	function self.bulletSpawn( dt )
 		-- BULLETS --
 
@@ -388,20 +424,20 @@ function player.new( map, x, y, z )
 				end
 
 				self.aim = math.atan2( ny, nx )
-				invaim = math.atan2( -ny, -nx )
-				xrad = math.cos( self.aim )
-				yrad = math.sin( self.aim )
+				local invaim = math.atan2( -ny, -nx )
+				local xrad = math.cos( self.aim )
+				local yrad = math.sin( self.aim )
 				
-				xPosBulletSpawn = x + 38*xrad
-				yPosBulletSpawn = y + 38*yrad
+				local xPosBulletSpawn = x + 38*xrad
+				local yPosBulletSpawn = y + 38*yrad
 				--print( xPosBulletSpawn, xPosBulletSpawn )
-				bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
-				fxbullet = bulletImpulse * nx
-				fybullet = bulletImpulse * ny				
+				self.bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
+				local fxbullet = bulletImpulse * nx
+				local fybullet = bulletImpulse * ny				
 				
-				bullet.shoot( fxbullet, fybullet, invaim )
-				table.insert( bullets, bullet )
-				lenBullets = #bullets				
+				self.bullet.shoot( fxbullet, fybullet, invaim )
+				table.insert( bullets, self.bullet )
+				local lenBullets = #bullets				
 				if lenBullets >= nAllowedBullets then
 					bullets[1].destroy()
 					table.remove( bullets, 1 )
@@ -520,7 +556,7 @@ function player.new( map, x, y, z )
 		self.refreshBufferBatch()
 		shieldKilled = killed
 		if killed == true then
-			--ptcShieldDestroyed:start( )
+			ptcShieldDestroyed:start( )
 		end
 
 		--self.destroy()
@@ -550,10 +586,9 @@ function player.new( map, x, y, z )
 		
 		self.feetContacts[contact] = true
 
-
 		contact:setRestitution( 1 )
-		userdata = a:getUserData()
-		userdata2 = b:getUserData()
+		local userdata = a:getUserData()
+		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == "floor" or userdata2.type == "player" then
 				print("feet meets floor")				
@@ -571,8 +606,8 @@ function player.new( map, x, y, z )
 
 	--	print('leavefloor')
 		contact:setRestitution( 0 )
-		userdata = a:getUserData()
-		userdata2 = b:getUserData()
+		local userdata = a:getUserData()
+		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == 'floor' then
 				print('feet leaves floor')
@@ -580,10 +615,9 @@ function player.new( map, x, y, z )
 		 end
 	end
 	function self.headUserdata.callbacks.beginContact( a, b, contact )
-		
 		contact:setRestitution( 0 )
-		userdata = a:getUserData()
-		userdata2 = b:getUserData()
+		local userdata = a:getUserData()
+		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == 'floor' then
 				print('leavefloor')
@@ -593,8 +627,8 @@ function player.new( map, x, y, z )
 	end	
 
 	function self.shieldUserdata.callbacks.beginContact( a, b, contact )
-		userdata = b:getUserData()
-		userdata2 = a:getUserData()
+		local userdata = b:getUserData()
+		local userdata2 = a:getUserData()
 		if userdata then
 			if userdata.type == 'bullet' then
 				print('hitShieldBullet!')
@@ -606,13 +640,13 @@ function player.new( map, x, y, z )
 
 				local sparkx1, sparky1, xxx, yyy = contact:getPositions()		
 				
-				distSparkX = sparkx1 - x				
-				distSparkY = sparky1 - y
-				local hitDirection = math.atan2( distSparkY, distSparkX )
+				self.distSparkX = sparkx1 - x				
+				self.distSparkY = sparky1 - y
+				self.hitDirection = math.atan2( self.distSparkY, self.distSparkX )
 				
-				--ptcSpark:setPosition( sparkx1, sparky1 )
-				--ptcSpark:setDirection( hitDirection )
-				--ptcSpark:start( )
+				ptcSpark:setPosition( sparkx1, sparky1 )
+				ptcSpark:setDirection( self.hitDirection )
+				ptcSpark:start( )
 			elseif userdata.type == 'melee' and userdata.playerId ~= userdata2.playerId then
 				print('hitShieldMelee!')
 				self.shieldPower( meleeStandardShieldDamage )
@@ -622,8 +656,8 @@ function player.new( map, x, y, z )
 
 	function self.bodyUserdata.callbacks.beginContact( a, b, contact )
 		contact:setRestitution( 0 )
-		userdata = a:getUserData()
-		userdata2 = b:getUserData()
+		local userdata = a:getUserData()
+		local userdata2 = b:getUserData()
 		if userdata2 then
 		 	if userdata2.type == 'bullet' then
 		 		print('hitbodybullet!')

@@ -62,15 +62,15 @@ function bullet.new( map, x, y, z )
 	bullet:getBody( ):setGravityScale( 1 )
 	bullet:getBody( ):setBullet( true )
 
-	--[[
-	local ptcTrail = love.graphics.newParticleSystem( images.load( "bullet" ), 1000)
+	---[[
+	local ptcTrail = love.graphics.newParticleSystem(  yama.assets.loadImage( "bullet" ), 1000)
 	ptcTrail:setEmissionRate( 300 )
 	ptcTrail:setSpeed( 30, 60 )
 	ptcTrail:setSizes( 1, 1.3 )
 	ptcTrail:setColors( 255, 255, 255, 170, 255, 255, 255, 20, 255, 255, 255, 0 )
 	ptcTrail:setPosition( x, y )
-	ptcTrail:setLifetime(200)
-	ptcTrail:setParticleLife(0.9)
+	ptcTrail:setEmitterLifetime(200)
+	ptcTrail:setParticleLifetime(0.9)
 	ptcTrail:setSpread( math.rad( 30 ) )
 	ptcTrail:setTangentialAcceleration(0.01)
 	ptcTrail:setRadialAcceleration(0.01)
@@ -88,9 +88,9 @@ function bullet.new( map, x, y, z )
 		self.z = z
 
 		xvb, yvb = bullet:getBody():getLinearVelocity()
-		invaim = math.atan2( -yvb, -xvb )
-		--ptcTrail:setEmissionRate( 0.5*math.abs(xvb) )
-		--ptcTrail:setDirection( invaim )
+		local invaim = math.atan2( -yvb, -xvb )
+		ptcTrail:setEmissionRate( 0.5*math.abs(xvb) )
+		ptcTrail:setDirection( invaim )
 		
 		if bulletTimer <= bulletMaxTimer then
 			bulletTimer = bulletTimer + dt
@@ -98,8 +98,8 @@ function bullet.new( map, x, y, z )
 			self.destroy()
 		end
 
-		--ptcTrail:setPosition( x, y )
-		--ptcTrail:update(dt)
+		ptcTrail:setPosition( x, y )
+		ptcTrail:update(dt)
 	end
 	
 	function self.shoot( fx, fy, aim )
