@@ -38,6 +38,9 @@ function bullet.new( map, x, y, z )
 	local xvb = 0
 	local yvb = 0
 
+	self.bulletShieldDeadly = false
+	self.bulletBodyDeadly = false
+
 	-- BUFFER BATCH
 	local bufferBatch = yama.buffers.newBatch( self.x, self.y, self.z )
 
@@ -134,9 +137,27 @@ function bullet.new( map, x, y, z )
 		local userdata = b:getUserData( )
 		if userdata then
 			--print( a:getUserData().type, userdata.type )
-			if userdata.type == 'shield' or userdata.type == 'player' then
-				print('bullet: player hit!')
+			if userdata.type == 'shield' then  
+				print('bullet: shield hit!')
 				self.destroy()
+			elseif userdata.type == 'player' and self.bulletBodyDeadly then
+				print('bullet: body hit!')
+				self.destroy()
+			end
+		end
+	end
+	function self.endContact( a, b, contact )
+		--print( 'bullet: beginContact')
+		--print( a:getBody( ):getMass() )
+		local userdata = b:getUserData( )
+		if userdata then
+			--print( a:getUserData().type, userdata.type )
+			if userdata.type == 'shield' then  
+				print('bullet: shield hit!')
+				--self.destroy()
+			elseif userdata.type == 'player' then
+				print('bullet: body hit!')
+				--self.destroy()
 			end
 		end
 	end
