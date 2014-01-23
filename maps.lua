@@ -66,7 +66,7 @@ function maps.new(path)
 						if b:getUserData().callbacks then
 							if b:getUserData().callbacks.endContact then
 								b:getUserData().callbacks.endContact(b, a, contact)
-							end
+							end§
 						end
 					end
 				end

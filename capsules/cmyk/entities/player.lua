@@ -72,11 +72,12 @@ function player.new( map, x, y, z )
 
 	self.jumpMaxTimer = 0.55	
 	self.jumpVelocity = -900
-	self.forces.jump = 850
-	self.forces.jumpIncreaser = 1900
+	self.forces.jump = 950
+	self.forces.jumpIncreaser = 2000
 	self.forces.run = 3000
 	self.forces.runJump = 1900
-	
+	self.forces.meleeForce = 650
+
 	local maxSpeed = 600
 	local friction = 0.2
 	local stopFriction = 1.0
@@ -398,13 +399,18 @@ function player.new( map, x, y, z )
 			ctrlMeleeDown = true
 			--print('whopp')
 			if meleeTimer == 0 then
-				--print('WHAM')
+				print('WHAM')
 				self.fixtures.sword:setMask( )
 				self.fixtures.sword:setGroupIndex( 2 )
 				meleeing = true
 				self.refreshBufferBatch()
 				allowMelee = false
 				meleeCoolDownTimer = 0
+				if self.direction == 'right' then
+					self.fixtures.main:getBody():applyLinearImpulse( self.forces.meleeForce, 0 )
+				else
+					self.fixtures.main:getBody():applyLinearImpulse( -self.forces.meleeForce, 0 )
+				end
 			end
 		end
 		if meleeing then
