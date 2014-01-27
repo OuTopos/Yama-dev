@@ -15,7 +15,8 @@ function assets.load()
 		local files = love.filesystem.getDirectoryItems(yama.paths.capsule .. "tilesets")
 		for k, file in ipairs(files) do
 			--info("Autoloading file #" .. k .. ": " .. file)
-			local tilesets = dofile(yama.paths.capsule .. "tilesets/" .. file)
+			local chunk = love.filesystem.load(yama.paths.capsule .. "tilesets/" .. file)
+			local tilesets = chunk()
 			for i = 1, #tilesets do
 				assets.loadTileset(tilesets[i].name, tilesets[i].imagepath, tilesets[i].tilewidth, tilesets[i].tileheight, tilesets[i].spacing, tilesets[i].margin, tilesets[i].margin)
 				info("Autoloaded tileset (" .. file .. ") " .. tilesets[i].name)
