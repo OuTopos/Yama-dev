@@ -11,13 +11,7 @@ function bullet.new( map, x, y, z )
 
 	self.x = x
 	self.y = y
-	self.z = z
-
-	--local camera = vp.getCamera()
-	--local buffer = vp.getBuffer()
-	--local map = vp.getMap()
-	--local swarm = vp.getSwarm()
-	
+	self.z = z	
 
 	-- Common variables
 	local width, height = 5, 5

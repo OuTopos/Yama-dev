@@ -7,6 +7,7 @@ function player.new( map, x, y, z )
 	self.forces = {}
 	self.mass = 1
 	self.forces.forceAdjuster = 1
+	self.lives = 3
 
 	self.x = x
 	self.y = y
@@ -17,6 +18,7 @@ function player.new( map, x, y, z )
 	self.bodyUserdata.type = "player"
 	self.bodyUserdata.properties = {}
 	self.bodyUserdata.callbacks = {}
+
 
 	self.feetUserdata = {}
 	self.feetUserdata.name = "Unnamed"
@@ -42,10 +44,6 @@ function player.new( map, x, y, z )
 	self.swordUserdata.properties = {}
 	self.swordUserdata.callbacks = {}
 
-	--local camera = vp.getCamera()
-	--local buffer = vp.addToBuffer()
-	--local map = vp.getMap()
-	--local swarm = vp.getSwarm()
 
 	-- Common variables
 	local width, height = 128, 128
@@ -71,9 +69,9 @@ function player.new( map, x, y, z )
 	local ctrlAimShoot = 1
 
 	self.jumpMaxTimer = 0.55	
-	self.jumpVelocity = -900
+	self.jumpVelocity = -1200
 	self.forces.jump = 950
-	self.forces.jumpIncreaser = 2000
+	self.forces.jumpIncreaser = 1100
 	self.forces.run = 3000
 	self.forces.runJump = 1900
 	self.forces.meleeForce = 650
@@ -323,6 +321,7 @@ function player.new( map, x, y, z )
 	function self.boostJump( dt )
 		if self.isJumping and self.joystick:isGamepadDown( "a" ) and self.yv < 0 then
 			if self.isJumping and self.yv < -350 then
+
 			--if jumpTimer < self.jumpMaxTimer and self.isJumping and self.yv < -200 then
 				self.applyForce( 0, -self.forces.jumpIncreaser*self.forces.forceAdjuster )
 				--jumpTimer = jumpTimer + dt
@@ -484,7 +483,11 @@ function player.new( map, x, y, z )
 	function self.bodyEnergy( damage )
 		bodyHealth = bodyHealth - damage
 		if bodyHealth <= 0 then
-			self.destroy()
+			self.lives = self.lives -1
+			self.resetPlayerPos()
+			if self.lives == 0 then
+				self.destroy()
+			end
 		end
 	end
 
@@ -581,6 +584,7 @@ function player.new( map, x, y, z )
 				ptcSpark:setPosition( sparkx1, sparky1 )
 				ptcSpark:setDirection( self.hitDirection )
 				ptcSpark:start( )
+
 			elseif userdata.type == 'melee' and userdata.playerId ~= userdata2.playerId then
 				print('hitShieldMelee!')
 				self.shieldPower( meleeStandardShieldDamage )
@@ -602,9 +606,11 @@ function player.new( map, x, y, z )
 		local userdata = a:getUserData()
 		local userdata2 = b:getUserData()
 		if userdata2 then
-		 	if userdata2.type == 'bullet' and self.bullet.bulletBodyDeadly then
-		 		print('hitbodybullet!')
-				self.bodyEnergy( bulletStandardBodyDamage )
+			if self.bullet then
+			 	if userdata2.type == 'bullet' and self.bullet.bulletBodyDeadly then
+			 		print('hitbodybullet!')
+					self.bodyEnergy( bulletStandardBodyDamage )
+				end
 			elseif userdata2.type == 'melee' and not shieldOn and userdata.playerId ~= userdata2.playerId then
 				print('hitBodyMelee!')
 				self.bodyEnergy( meleeStandardBodyDamage )
@@ -617,7 +623,7 @@ function player.new( map, x, y, z )
 		local userdata = a:getUserData()
 		local userdata2 = b:getUserData()
 		if userdata2 then
-		 	if userdata2.type == 'bullet' then
+		 	if userdata2.type == 'bullet' and self.bullet then
 		 		self.bullet.bulletBodyDeadly = true
 
 			end
@@ -641,6 +647,17 @@ function player.new( map, x, y, z )
 		if meleeing then
 			table.insert( self.bufferBatch.data, weapon_meleeSprite )
 		end
+	end
+
+	function self.resetPlayerPos( )
+		local x4 = map.locations["start"].x
+		local y4 = map.locations["start"].y
+		local r4 = map.locations["start"].r
+
+		self.fixtures.main:getBody():setX( x4 )
+		self.fixtures.main:getBody():setY( y4 )
+		self.fixtures.main:getBody():setLinearVelocity( 0, 0 )
+
 	end
 
 	function self.updatePosition(xn, yn)		

@@ -5,7 +5,7 @@ function capsule.load()
 	love.window.setMode(800, 600, {
 		fullscreen = false,
 		fullscreentype = "desktop",
-		vsync = false,
+		vsync = true,
 		fsaa = 0,
 		resizable = true,
 		borderless = false,
@@ -34,8 +34,6 @@ function capsule.load()
 			capsule.p1.gamepadreleased( button )
 		end
 	end
-
-
 
 	function love.keypressed(key)
 		if key == "escape" then
