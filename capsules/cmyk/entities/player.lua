@@ -303,9 +303,11 @@ function player.new( map, x, y, z )
 			end
 		elseif self.worldstates.onGround then
 			self.state = "idle"
-			if self.xv < - 0.1 then
+			if self.xv < - 45 then
+				print( self.xv )
 				self.applyForce( 4000, 0 )
-			elseif self.xv > 0.1 then
+			elseif self.xv > 45 then
+				print( self.xv )
 				self.applyForce( -4000, 0 )
 			end
 		end
@@ -359,7 +361,7 @@ function player.new( map, x, y, z )
 				spawntimer = 0.09 - leftover
 
 				if shieldOn then
-					self.removeShield( false )
+					--self.removeShield( false )
 				end
 
 				self.aim = math.atan2( ny, nx )
@@ -367,8 +369,8 @@ function player.new( map, x, y, z )
 				local xrad = math.cos( self.aim )
 				local yrad = math.sin( self.aim )
 				
-				local xPosBulletSpawn = x + 38*xrad * 0.5
-				local yPosBulletSpawn = y + 38*yrad	* 0.5
+				local xPosBulletSpawn = x + 38*xrad * 0.75
+				local yPosBulletSpawn = y + 38*yrad	* 0.75
 				--print( xPosBulletSpawn, xPosBulletSpawn )
 				self.bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
 				local fxbullet = bulletImpulse * nx
@@ -383,7 +385,7 @@ function player.new( map, x, y, z )
 				end
 			end
 		elseif not shieldOn and not shieldKilled then
-			self.createShield( shieldHealth )
+			--self.createShield( shieldHealth )
 		end
 	end
 
@@ -455,17 +457,18 @@ function player.new( map, x, y, z )
 	function self.updateShield( dt )
 		if shieldHealth < shieldMaxHealth then
 			if shieldTimer <= shieldMaxTimer then
-			shieldTimer = shieldTimer + dt
+				shieldTimer = shieldTimer + dt
 			elseif not shieldOn and shieldKilled then
 				local nxx = self.joystick:getAxis( 3 )
 				local nyy = self.joystick:getAxis( 4 )
 				if yama.tools.getDistance( 0, 0, nxx, nyy ) < 0.26 then
 					self.createShield( shieldMaxHealth, false )
 				end
+			elseif shieldOn then
+				print( 'reset' )
+				shieldHealth = shieldMaxHealth
+				spriteShield.color = { 255, 255, 255, math.floor( 255*( shieldHealth/shieldMaxHealth )+0.5 ) }
 			end
-		else
-			shieldHealth = shieldMaxHealth
-			spriteShield.color = { 255, 255, 255, math.floor( 255*( shieldHealth/shieldMaxHealth )+0.5 ) }
 		end
 	end
 	function self.updateParticles( dt )
@@ -606,11 +609,10 @@ function player.new( map, x, y, z )
 		local userdata = a:getUserData()
 		local userdata2 = b:getUserData()
 		if userdata2 then
-			if self.bullet then
-			 	if userdata2.type == 'bullet' and self.bullet.bulletBodyDeadly then
-			 		print('hitbodybullet!')
-					self.bodyEnergy( bulletStandardBodyDamage )
-				end
+			if userdata2.type == 'bullet' then
+			 	print('hitbodybullet!')
+				self.bodyEnergy( bulletStandardBodyDamage )
+
 			elseif userdata2.type == 'melee' and not shieldOn and userdata.playerId ~= userdata2.playerId then
 				print('hitBodyMelee!')
 				self.bodyEnergy( meleeStandardBodyDamage )
@@ -623,9 +625,8 @@ function player.new( map, x, y, z )
 		local userdata = a:getUserData()
 		local userdata2 = b:getUserData()
 		if userdata2 then
-		 	if userdata2.type == 'bullet' and self.bullet then
+		 	if userdata2.type == 'bullet' then
 		 		self.bullet.bulletBodyDeadly = true
-
 			end
 		end
 	end

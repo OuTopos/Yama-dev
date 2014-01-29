@@ -134,7 +134,7 @@ function bullet.new( map, x, y, z )
 			if userdata.type == 'shield' then  
 				print('bullet: shield hit!')
 				self.destroy()
-			elseif userdata.type == 'player' and self.bulletBodyDeadly then
+			elseif userdata.type == 'player' then
 				print('bullet: body hit!')
 				self.destroy()
 			end
