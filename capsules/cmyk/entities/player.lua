@@ -9,6 +9,8 @@ function player.new( map, x, y, z )
 	self.forces.forceAdjuster = 1
 	self.lives = 3
 
+	self.bulletId = 0
+
 	self.x = x
 	self.y = y
 	self.z = z
@@ -54,7 +56,7 @@ function player.new( map, x, y, z )
 	self.weapon.aim = nil
 	self.weapon.properties.rps = 0.1
 	self.weapon.properties.damageBody = 6
-	self.weapon.properties.damageShield = 17
+	self.weapon.properties.damageShield = 18
 	self.weapon.properties.impulseForce = 900
 	self.weapon.properties.nrBulletsPerShot = 1
 	self.weapon.properties.magCapacity = 50
@@ -62,7 +64,6 @@ function player.new( map, x, y, z )
 	self.weapon.properties.nrBounces = 1
 	self.weapon.properties.blastRadius = 1
 	self.weapon.properties.blastDamageFallof = 1
-
 
 	-- Common variables
 	local width, height = 128, 128
@@ -114,12 +115,12 @@ function player.new( map, x, y, z )
 	local ctrlMeleeDown = false
 
 	-- SHIELD--
-	local shieldMaxHealth = 13000
+	local shieldMaxHealth = 1300000
 	local shieldKilled = false
 	local shieldHealth = shieldMaxHealth
 	local shieldOn = true
 	local shieldTimer = 0
-	local shieldMaxTimer = 3
+	local shieldMaxTimer = 4
 
 	-- vars for body --
 	local bodyHealth = 100
@@ -201,6 +202,7 @@ function player.new( map, x, y, z )
 	self.fixtures.main = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newPolygonShape(-13,16, -16,13, -16,-13, -13,-16, 13,-16, 16,-13, 16,13, 13,16), self.mass)
 	self.fixtures.main:setGroupIndex( 1 )
 	self.fixtures.main:setCategory( 1 )
+	self.fixtures.main:setMask( 2 )
 	self.fixtures.main:setUserData( self.bodyUserdata )
 	self.fixtures.main:setRestitution( 0 )
 	self.fixtures.main:getBody():setFixedRotation( true )
@@ -224,7 +226,7 @@ function player.new( map, x, y, z )
 	self.fixtures.sword:getBody():setMass( self.mass )
 
 	--self.fixtures.shield = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newCircleShape( 26 ), 0 )
-	self.fixtures.shield = love.physics.newFixture( love.physics.newBody( map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape( 40 ), 0 )
+	self.fixtures.shield = love.physics.newFixture( love.physics.newBody( map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape( 25 ), 0 )
 	self.fixtures.shield:setUserData( self.shieldUserdata )
 	--self.fixtures.shield:setSensor(true)
 	--self.fixtures.shield = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 38 ) )
@@ -374,14 +376,15 @@ function player.new( map, x, y, z )
 				local xrad = math.cos( self.weapon.aim )
 				local yrad = math.sin( self.weapon.aim )
 				
-				local xPosBulletSpawn = x + 38*xrad * 2
-				local yPosBulletSpawn = y + 38*yrad	* 2
+				local xPosBulletSpawn = x + 38*xrad * 0.8
+				local yPosBulletSpawn = y + 38*yrad	* 0.8
 				--print( xPosBulletSpawn, xPosBulletSpawn )
 				self.bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
 				local fxbullet = self.weapon.properties.impulseForce * self.axisRightX
 				local fybullet = self.weapon.properties.impulseForce * self.axisRightY
-				
 				self.bullet.shoot( fxbullet, fybullet, invaim )
+				self.bulletId = self.bulletId + 1
+				self.bullet.setId( self.bulletId )
 			end
 		end
 	end
@@ -502,6 +505,7 @@ function player.new( map, x, y, z )
 
 	function self.removeShield( killed )
 		self.fixtures.shield:setMask( 1, 2 )
+		self.fixtures.main:setMask( )
 		shieldOn = false
 		self.refreshBufferBatch()
 		shieldKilled = killed
@@ -512,6 +516,7 @@ function player.new( map, x, y, z )
 
 	function self.createShield( health, killed )
 		self.fixtures.shield:setMask( 1 )
+		self.fixtures.main:setMask( 2 )
 		shieldHealth = health
 		spriteShield.color = { 255, 255, 255, math.floor( 255 * ( shieldHealth/shieldMaxHealth ) + 0.5 ) }
 		shieldOn = true
@@ -572,7 +577,7 @@ function player.new( map, x, y, z )
 		local userdata2 = a:getUserData()
 		if userdata then
 			if userdata.type == 'bullet' then
-				print('Shield: bullet hit!')
+				print('Shield: bullet hit!...Userdata: ', userdata.id )
 				--self.bullet.destroy()
 				self.shieldPower( self.weapon.properties.damageShield )
 
@@ -608,7 +613,7 @@ function player.new( map, x, y, z )
 		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == 'bullet' then
-			 	print('Body: bullet hit!')
+			 	print('Body: bullet hit!...Userdata: ', userdata2.id )
 			 	--self.bullet.destroy()
 				self.bodyEnergy( self.weapon.properties.damageBody )
 

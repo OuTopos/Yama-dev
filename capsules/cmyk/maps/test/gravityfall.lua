@@ -571,9 +571,9 @@ return {
           name = "",
           type = "floor",
           shape = "rectangle",
-          x = 128,
+          x = 32,
           y = 2176,
-          width = 3072,
+          width = 3136,
           height = 32,
           visible = true,
           properties = {
@@ -972,20 +972,6 @@ return {
           x = 832,
           y = 1760,
           width = 64,
-          height = 32,
-          visible = true,
-          properties = {
-            ["category"] = "1",
-            ["groupindex"] = "1"
-          }
-        },
-        {
-          name = "",
-          type = "floor",
-          shape = "rectangle",
-          x = 32,
-          y = 2176,
-          width = 96,
           height = 32,
           visible = true,
           properties = {

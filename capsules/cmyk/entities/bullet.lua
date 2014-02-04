@@ -7,6 +7,7 @@ function bullet.new( map, x, y, z )
 	bulletUserdata.name = "Unnamed"
 	bulletUserdata.type = "bullet"
 	bulletUserdata.properties = {}
+	bulletUserdata.id = 0
 	bulletUserdata.callbacks = self
 
 	self.x = x
@@ -109,6 +110,13 @@ function bullet.new( map, x, y, z )
 	
 	function self.shoot( fx, fy, aim )
 		bullet:getBody( ):applyLinearImpulse( fx, fy )
+
+		--ptcTrail:setDirection( aim )
+	end
+
+	function self.setId( id )
+		bulletUserdata.id = id
+		bullet:setUserData( bulletUserdata )
 		--ptcTrail:setDirection( aim )
 	end
 
@@ -140,10 +148,10 @@ function bullet.new( map, x, y, z )
 		if userdata then
 			--print( a:getUserData().type, userdata.type )
 			if userdata.type == 'shield' then  
-				print('bullet: shield hit!')
+				--print('bullet: shield hit!')
 				self.destroy()
 			elseif userdata.type == 'player' then
-				print('bullet: body hit!')
+				--print('bullet: body hit!')
 				self.destroy()
 			end
 		end
