@@ -44,6 +44,25 @@ function player.new( map, x, y, z )
 	self.swordUserdata.properties = {}
 	self.swordUserdata.callbacks = {}
 
+	self.weaponList = {}
+	self.weaponList.bouncer = {}
+	self.weaponList.shotgun = {}
+
+	self.weapon = {}
+	self.weapon.type = ''
+	self.weapon.properties = {}
+	self.weapon.aim = nil
+	self.weapon.properties.rps = 0.1
+	self.weapon.properties.damageBody = 6
+	self.weapon.properties.damageShield = 17
+	self.weapon.properties.impulseForce = 900
+	self.weapon.properties.nrBulletsPerShot = 1
+	self.weapon.properties.magCapacity = 50
+	self.weapon.properties.spread = 0
+	self.weapon.properties.nrBounces = 1
+	self.weapon.properties.blastRadius = 1
+	self.weapon.properties.blastDamageFallof = 1
+
 
 	-- Common variables
 	local width, height = 128, 128
@@ -77,21 +96,11 @@ function player.new( map, x, y, z )
 	self.forces.meleeForce = 650
 
 	local maxSpeed = 600
-	local friction = 0.2
-	local stopFriction = 1.0
-	local allowjump = true
 	local feetContact = nil
 
 	-- SHOOTING --
 	local spawntimer = 0
 	local bullet = nil
-	local bullets = {}
-	local bulletImpulse = 900
-	local nAllowedBullets = 75
-
-	-- bullet types
-	local bulletStandardShieldDamage = 17
-	local bulletStandardBodyDamage = 6
 
 	-- MELEE --
 	local meleeStandardShieldDamage = 20
@@ -105,7 +114,7 @@ function player.new( map, x, y, z )
 	local ctrlMeleeDown = false
 
 	-- SHIELD--
-	local shieldMaxHealth = 140
+	local shieldMaxHealth = 13000
 	local shieldKilled = false
 	local shieldHealth = shieldMaxHealth
 	local shieldOn = true
@@ -215,7 +224,7 @@ function player.new( map, x, y, z )
 	self.fixtures.sword:getBody():setMass( self.mass )
 
 	--self.fixtures.shield = love.physics.newFixture( self.fixtures.main:getBody(), love.physics.newCircleShape( 26 ), 0 )
-	self.fixtures.shield = love.physics.newFixture( love.physics.newBody( map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape( 26 ), 0 )
+	self.fixtures.shield = love.physics.newFixture( love.physics.newBody( map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape( 40 ), 0 )
 	self.fixtures.shield:setUserData( self.shieldUserdata )
 	--self.fixtures.shield:setSensor(true)
 	--self.fixtures.shield = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 38 ) )
@@ -223,22 +232,28 @@ function player.new( map, x, y, z )
 	--self.fixtures.shield:setCategory( 2 )
 	self.fixtures.shield:setMask( 1 )
 	self.fixtures.shield:getBody( ):setMass( self.mass )
+	self.fixtures.shield:getBody():setBullet( true )
 
 
 	self.joystick = love.joystick.getJoysticks()[1]
 	local boostah = 0
 	local jumpTimer = 0
 	function self.update( dt )
-		self.deltaT = dt
 		self.xv, self.yv = self.fixtures.main:getBody( ):getLinearVelocity( )
+		self.axisRightX = self.joystick:getAxis( 3 )
+		self.axisRightY = self.joystick:getAxis( 4 )
+		self.axisLeftX = self.joystick:getAxis( 1 )
+		self.axisLeftY = self.joystick:getAxis( 2 )
+		
 		self.x = x
 		self.y = y
 		self.z = z
+		
 		self.updateFeet()
 		self.updateInput( dt )
-		self.updatePosition( )
-		self.updateAnimation( dt )		
 		self.updateShield( dt )
+		self.updatePosition( )
+		self.updateAnimation( dt )
 		self.updateParticles( dt )
 	end
 		
@@ -249,7 +264,6 @@ function player.new( map, x, y, z )
 		end
 		if count > 0 then
 			--self.fixtures.main:getBody():applyLinearImpulse( 0, -self.forces.jump*self.forces.forceAdjuster )
-			allowjump = true
 			self.worldstates.onGround = true								
 			jumpTimer = 0
 		else
@@ -277,10 +291,8 @@ function player.new( map, x, y, z )
 
 	function self.movement( dt )
 		local fx, fy = 0, 0
-		local nx = self.joystick:getAxis( 1 )
-		local ny = self.joystick:getAxis( 2 )
-		local stickdistance = yama.tools.getDistance( 0, 0, nx, ny )
-		if stickdistance > 0.22 then			
+		local stickdistance = yama.tools.getDistance( 0, 0, self.axisLeftX , self.axisLeftY )
+		if stickdistance > 0.22 then
 			if self.worldstates.onGround then
 				--print('walk')
 				fx = self.forces.run * stickdistance
@@ -291,7 +303,7 @@ function player.new( map, x, y, z )
 				--print('runJump')
 			end
 			
-			self.direction = yama.tools.getRelativeDirection( math.atan2( ny, nx ) )
+			self.direction = yama.tools.getRelativeDirection( math.atan2( self.axisLeftY, self.axisLeftX  ) )
 			if love.keyboard.isDown( "right" ) or self.direction == "right" then
 				spriteJumper.sx = 1
 			elseif love.keyboard.isDown("left") or self.direction == "left" then
@@ -304,10 +316,10 @@ function player.new( map, x, y, z )
 		elseif self.worldstates.onGround then
 			self.state = "idle"
 			if self.xv < - 45 then
-				print( self.xv )
+				--print( 'body velocity x:' self.xv )
 				self.applyForce( 4000, 0 )
 			elseif self.xv > 45 then
-				print( self.xv )
+				--print( 'body velocity x:'  self.xv )
 				self.applyForce( -4000, 0 )
 			end
 		end
@@ -351,41 +363,26 @@ function player.new( map, x, y, z )
 	
 	function self.bulletSpawn( dt )
 		-- BULLETS --
-
-		local nx = self.joystick:getAxis( 3 )
-		local ny = self.joystick:getAxis( 4 )
-		if yama.tools.getDistance( 0, 0, nx, ny ) > 0.26 then	
+		if yama.tools.getDistance( 0, 0, self.axisRightX, self.axisRightY ) > 0.26 then
 			spawntimer = spawntimer - dt
 			if spawntimer <= 0 then
 				local leftover = math.abs( spawntimer )
-				spawntimer = 0.09 - leftover
+				spawntimer = self.weapon.properties.rps - leftover
 
-				if shieldOn then
-					--self.removeShield( false )
-				end
-
-				self.aim = math.atan2( ny, nx )
-				local invaim = math.atan2( -ny, -nx )
-				local xrad = math.cos( self.aim )
-				local yrad = math.sin( self.aim )
+				self.weapon.aim = math.atan2( self.axisRightY, self.axisRightX )
+				local invaim = math.atan2( -self.axisRightY, -self.axisRightX )
+				local xrad = math.cos( self.weapon.aim )
+				local yrad = math.sin( self.weapon.aim )
 				
-				local xPosBulletSpawn = x + 38*xrad * 0.75
-				local yPosBulletSpawn = y + 38*yrad	* 0.75
+				local xPosBulletSpawn = x + 38*xrad * 2
+				local yPosBulletSpawn = y + 38*yrad	* 2
 				--print( xPosBulletSpawn, xPosBulletSpawn )
 				self.bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
-				local fxbullet = bulletImpulse * nx
-				local fybullet = bulletImpulse * ny			
+				local fxbullet = self.weapon.properties.impulseForce * self.axisRightX
+				local fybullet = self.weapon.properties.impulseForce * self.axisRightY
 				
 				self.bullet.shoot( fxbullet, fybullet, invaim )
-				table.insert( bullets, self.bullet )
-				local lenBullets = #bullets				
-				if lenBullets >= nAllowedBullets then
-					bullets[1].destroy()
-					table.remove( bullets, 1 )
-				end
 			end
-		elseif not shieldOn and not shieldKilled then
-			--self.createShield( shieldHealth )
 		end
 	end
 
@@ -459,13 +456,10 @@ function player.new( map, x, y, z )
 			if shieldTimer <= shieldMaxTimer then
 				shieldTimer = shieldTimer + dt
 			elseif not shieldOn and shieldKilled then
-				local nxx = self.joystick:getAxis( 3 )
-				local nyy = self.joystick:getAxis( 4 )
-				if yama.tools.getDistance( 0, 0, nxx, nyy ) < 0.26 then
-					self.createShield( shieldMaxHealth, false )
-				end
+					print( 'Shield: turn on after killed')
+					self.createShield( shieldMaxHealth, false )					
 			elseif shieldOn then
-				print( 'reset' )
+				print( 'Shield: reset' )
 				shieldHealth = shieldMaxHealth
 				spriteShield.color = { 255, 255, 255, math.floor( 255*( shieldHealth/shieldMaxHealth )+0.5 ) }
 			end
@@ -484,6 +478,7 @@ function player.new( map, x, y, z )
 	end
 
 	function self.bodyEnergy( damage )
+		print( 'Body: damage:', damage )
 		bodyHealth = bodyHealth - damage
 		if bodyHealth <= 0 then
 			self.lives = self.lives -1
@@ -495,10 +490,12 @@ function player.new( map, x, y, z )
 	end
 
 	function self.shieldPower( damage )
+		print( 'Shield: damage:', damage )
 		shieldHealth = shieldHealth - damage
 		spriteShield.color = { 255, 255, 255, math.floor( 255*( shieldHealth/shieldMaxHealth )+0.5 ) } 
 		shieldTimer = 0
 		if shieldHealth <= 0 and shieldOn then
+			print( 'Shield: remove')
 			self.removeShield( true )
 		end
 	end
@@ -575,8 +572,9 @@ function player.new( map, x, y, z )
 		local userdata2 = a:getUserData()
 		if userdata then
 			if userdata.type == 'bullet' then
-				print('hitShieldBullet!')
-				self.shieldPower( bulletStandardShieldDamage )
+				print('Shield: bullet hit!')
+				--self.bullet.destroy()
+				self.shieldPower( self.weapon.properties.damageShield )
 
 				local sparkx1, sparky1, xxx, yyy = contact:getPositions()		
 				
@@ -610,8 +608,9 @@ function player.new( map, x, y, z )
 		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == 'bullet' then
-			 	print('hitbodybullet!')
-				self.bodyEnergy( bulletStandardBodyDamage )
+			 	print('Body: bullet hit!')
+			 	--self.bullet.destroy()
+				self.bodyEnergy( self.weapon.properties.damageBody )
 
 			elseif userdata2.type == 'melee' and not shieldOn and userdata.playerId ~= userdata2.playerId then
 				print('hitBodyMelee!')
@@ -694,7 +693,7 @@ function player.new( map, x, y, z )
 		spriteArrow.x = x --math.floor(x + 0.5)
 		spriteArrow.y = y --math.floor(y-16 + 0.5)
 		spriteArrow.z = 0
-		spriteArrow.r = self.aim
+		spriteArrow.r = self.weapon.aim
 		
 		self.bufferBatch.x = x
 		self.bufferBatch.y = y
@@ -704,7 +703,58 @@ function player.new( map, x, y, z )
 
 	self.callbacks = {}
 	self.callbacks.shield = {}
+	function self.setWeapon( weapon )
+		if weapon == 'bouncer' then
+			self.weapon.properties.rps = self.weaponList.bouncer.rps
+			self.weapon.properties.damageBody = self.weaponList.bouncer.damageBody
+			self.weapon.properties.damageShield = self.weaponList.bouncer.damageShield
+			self.weapon.properties.impulseForce = self.weaponList.bouncer.impulseForce
+			self.weapon.properties.nrBulletsPerShot = self.weaponList.bouncer.nrBulletsPerShot
+			self.weapon.properties.magCapacity = self.weaponList.bouncer.magCapacity
+			self.weapon.properties.spread = self.weaponList.bouncer.spread 
+			self.weapon.properties.nrBounces = self.weaponList.bouncer.nrBounces
+			self.weapon.properties.blastRadius = self.weaponList.bouncer.blastRadius
+			self.weapon.properties.blastDamageFallof = self.weaponList.bouncer.blastDamageFallof
+		end
+	
+		if weapon == 'shotgun' then
+			self.weapon.properties.rps = self.weaponList.bouncer.rps
+			self.weapon.properties.damageBody = self.weaponList.bouncer.damageBody
+			self.weapon.properties.damageShield = self.weaponList.bouncer.damageShield
+			self.weapon.properties.impulseForce = self.weaponList.bouncer.impulseForce
+			self.weapon.properties.nrBulletsPerShot = self.weaponList.bouncer.nrBulletsPerShot
+			self.weapon.properties.magCapacity = self.weaponList.bouncer.magCapacity
+			self.weapon.properties.spread = self.weaponList.bouncer.spread 
+			self.weapon.properties.nrBounces = self.weaponList.bouncer.nrBounces
+			self.weapon.properties.blastRadius = self.weaponList.bouncer.blastRadius
+			self.weapon.properties.blastDamageFallof = self.weaponList.bouncer.blastDamageFallof
+		end
+	end
 
+	function self.weaponSetup()
+
+		self.weaponList.bouncer.rps = 0.1
+		self.weaponList.bouncer.damageBody = 6
+		self.weaponList.bouncer.damageShield = 17
+		self.weaponList.bouncer.impulseForce = 900
+		self.weaponList.bouncer.nrBulletsPerShot = 1
+		self.weaponList.bouncer.magCapacity = 50
+		self.weaponList.bouncer.spread = 0
+		self.weaponList.bouncer.nrBounces = 3
+		self.weaponList.bouncer.blastRadius = 1
+		self.weaponList.bouncer.blastDamageFallof = 1
+
+		self.weaponList.shotgun.rps = 1
+		self.weaponList.shotgun.damageBody = 12
+		self.weaponList.shotgun.damageShield = 12
+		self.weaponList.shotgun.impulseForce = 2000
+		self.weaponList.shotgun.nrBulletsPerShot = 1
+		self.weaponList.shotgun.magCapacity = 50
+		self.weaponList.shotgun.spread = 0
+		self.weaponList.shotgun.nrBounces = 0
+		self.weaponList.shotgun.blastRadius = 0
+		self.weaponList.shotgun.blastDamageFallof = 0
+	end
 
 	function self.draw( )
 		love.graphics.setColorMode( "modulate" )
@@ -722,10 +772,6 @@ function player.new( map, x, y, z )
 	function self.setPosition( x, y )
 		self.fixtures.main.body:setPosition( x, y )
 		self.fixtures.main.body:setLinearVelocity( 0, 0 )
-	end
-	
-	function self.getPosition( )
-		return self.x, self.y
 	end
 
 	function self.destroy( )

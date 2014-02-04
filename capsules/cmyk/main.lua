@@ -2,7 +2,7 @@ local capsule = {}
 
 function capsule.load()
 	love.window.setTitle("Mattias CMYK")
-	love.window.setMode(800, 600, {
+	love.window.setMode(1200, 800, {
 		fullscreen = false,
 		fullscreentype = "desktop",
 		vsync = true,

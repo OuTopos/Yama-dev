@@ -28,7 +28,7 @@ function bullet.new( map, x, y, z )
 	local bulletImpulse = 2
 	local maxSpeed = 100
 	local bulletTimer = 0
-	local bulletMaxTimer = 6.5
+	local bulletMaxTimer = 10.0
 	local xvb = 0
 	local yvb = 0
 
@@ -46,12 +46,12 @@ function bullet.new( map, x, y, z )
 	table.insert( bufferBatch.data, bulletsprite )
 
 	-- Physics
-	local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 2 ) )
+	local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
 	--local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( 8, 8 ) )
 	bullet:setGroupIndex( 2 )
 	bullet:setCategory( 2 )
 	bullet:setUserData( bulletUserdata )
-	bullet:setRestitution( 0.70 )
+	bullet:setRestitution( 0.90 )
 	bullet:getBody( ):setFixedRotation( false )
 	bullet:getBody( ):setLinearDamping( 0.3 )
 	bullet:getBody( ):setMass( 0.4 )
@@ -61,7 +61,7 @@ function bullet.new( map, x, y, z )
 
 	---[[
 	local ptcTrail = love.graphics.newParticleSystem(  yama.assets.loadImage( "bullet" ), 1000)
-	ptcTrail:setEmissionRate( 300 )
+	ptcTrail:setEmissionRate( 600 )
 	ptcTrail:setSpeed( 30, 60 )
 	ptcTrail:setSizes( 1, 1.3 )
 	ptcTrail:setColors( 255, 255, 255, 170, 255, 255, 255, 20, 255, 255, 255, 0 )
@@ -86,8 +86,13 @@ function bullet.new( map, x, y, z )
 
 		xvb, yvb = bullet:getBody():getLinearVelocity()
 		local invaim = math.atan2( -yvb, -xvb )
-		ptcTrail:setEmissionRate( 0.5*math.abs(xvb) )
+		xvb = math.abs( xvb )
+		yvb = math.abs( yvb )
+		local velxy = xvb + yvb
+		ptcTrail:setEmissionRate( math.abs(velxy) )
 		ptcTrail:setDirection( invaim )
+		ptcTrail:setPosition( x, y )
+		ptcTrail:update(dt)
 		
 		if bulletTimer <= bulletMaxTimer then
 			bulletTimer = bulletTimer + dt
@@ -95,8 +100,11 @@ function bullet.new( map, x, y, z )
 			self.destroy()
 		end
 
-		ptcTrail:setPosition( x, y )
-		ptcTrail:update(dt)
+		if velxy < 75 then
+			self.destroy()
+		end
+		--ptcTrail:setEmissionRate( velxy )
+
 	end
 	
 	function self.shoot( fx, fy, aim )
@@ -147,11 +155,9 @@ function bullet.new( map, x, y, z )
 		if userdata then
 			--print( a:getUserData().type, userdata.type )
 			if userdata.type == 'shield' then  
-				print('bullet: shield hit!')
-				--self.destroy()
+				--print('bullet: shield end contact!')
 			elseif userdata.type == 'player' then
-				print('bullet: body hit!')
-				--self.destroy()
+				--print('bullet: body end contact!')
 			end
 		end
 	end
