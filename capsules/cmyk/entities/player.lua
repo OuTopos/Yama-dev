@@ -115,7 +115,7 @@ function player.new( map, x, y, z )
 	local ctrlMeleeDown = false
 
 	-- SHIELD--
-	local shieldMaxHealth = 1300000
+	local shieldMaxHealth = 130
 	local shieldKilled = false
 	local shieldHealth = shieldMaxHealth
 	local shieldOn = true
@@ -189,11 +189,14 @@ function player.new( map, x, y, z )
 	table.insert( self.bufferBatch.data, ShieldDestroyed )
 
 	-- Physics
-	
+
 	function self.initialize( properties )
 		self.bodyUserdata.playerId = properties.id
 		self.swordUserdata.playerId = properties.id
 		self.shieldUserdata.playerId = properties.id
+
+		self.weaponSetup()
+		self.setWeapon( 'shotgun' )
 
 		self.refreshBufferBatch()
 	end
@@ -235,7 +238,6 @@ function player.new( map, x, y, z )
 	self.fixtures.shield:setMask( 1 )
 	self.fixtures.shield:getBody( ):setMass( self.mass )
 	self.fixtures.shield:getBody():setBullet( true )
-
 
 	self.joystick = love.joystick.getJoysticks()[1]
 	local boostah = 0
@@ -365,26 +367,67 @@ function player.new( map, x, y, z )
 	
 	function self.bulletSpawn( dt )
 		-- BULLETS --
-		if yama.tools.getDistance( 0, 0, self.axisRightX, self.axisRightY ) > 0.26 then
+
+		--[[		
+		self.weapon.properties.nrBounces
+		self.weapon.properties.blastRadius
+		self.weapon.properties.blastDamageFallof
+		--]]
+		
+		if yama.tools.getDistance( 0, 0, self.axisRightX, self.axisRightY ) > 0.3 then
+
 			spawntimer = spawntimer - dt
 			if spawntimer <= 0 then
 				local leftover = math.abs( spawntimer )
 				spawntimer = self.weapon.properties.rps - leftover
 
 				self.weapon.aim = math.atan2( self.axisRightY, self.axisRightX )
-				local invaim = math.atan2( -self.axisRightY, -self.axisRightX )
-				local xrad = math.cos( self.weapon.aim )
-				local yrad = math.sin( self.weapon.aim )
-				
-				local xPosBulletSpawn = x + 38*xrad * 0.8
-				local yPosBulletSpawn = y + 38*yrad	* 0.8
-				--print( xPosBulletSpawn, xPosBulletSpawn )
-				self.bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
-				local fxbullet = self.weapon.properties.impulseForce * self.axisRightX
-				local fybullet = self.weapon.properties.impulseForce * self.axisRightY
-				self.bullet.shoot( fxbullet, fybullet, invaim )
-				self.bulletId = self.bulletId + 1
-				self.bullet.setId( self.bulletId )
+
+				local aimDeg = math.deg( self.weapon.aim )
+				--print( 'RAD:', aimDeg )
+
+				local xvector = math.cos( self.weapon.aim )
+				local yvector = math.sin( self.weapon.aim )
+
+				local xPosBulletSpawn = x + 38*xvector * 0.8
+				local yPosBulletSpawn = y + 38*yvector * 0.8
+				--print( 'BULLETPOSSPAWN:', xPosBulletSpawn, yPosBulletSpawn )
+				for i = 1, self.weapon.properties.nrBulletsPerShot do
+
+					bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
+					table.insert( bullets, bullet )
+					lenBullets = #bullets				
+					if lenBullets >= nAllowedBullets then
+						bullets[1].destroy()
+						table.remove( bullets, 1 )
+					end
+
+					local spread = love.math.random(0,self.weapon.properties.spread)
+					spread = spread/100
+					print( spread )
+					if spread > self.weapon.properties.spread then
+						spread = self.weapon.properties.spread
+					end
+					if love.math.random(0,1) == 1 then
+						spread = - spread
+					end
+
+					local aimSpread =  self.weapon.aim + spread
+					--local aimSpread =  self.weapon.aim
+					--print( 'RAD SPREAD:', self.weapon.aimDeg )
+					local bulletDir = math.rad(aimDeg)
+					local xvectorspread = math.cos( aimSpread )
+					local yvectorspread = math.sin( aimSpread )
+					
+					local fxbullet = self.weapon.properties.impulseForce * xvectorspread
+					local fybullet = self.weapon.properties.impulseForce * yvectorspread
+
+					--print( 'Bullet direction X:', fxbullet, 'Bullet direction Y:', fybullet )
+
+					bullet.shoot( fxbullet, fybullet, self.weapon.properties.lifetime, self.weapon.properties.nrBounces, self.weapon.properties.bulletTravelDistance )
+					self.bulletId = self.bulletId + 1
+					bullet.setId( self.bulletId )
+				end
 			end
 		end
 	end
@@ -474,8 +517,8 @@ function player.new( map, x, y, z )
 		ptcSpark:update( dt )
 
 		--ptcSpark:start()
-		local randOffsetX = math.random( -32, 32 )
-		local randOffsetY = math.random( -32, 32 )
+		local randOffsetX = love.math.random( -32, 32 )
+		local randOffsetY = love.math.random( -32, 32 )
 		ptcShieldDestroyed:setPosition( x+randOffsetX, y+randOffsetY )
 		ptcShieldDestroyed:update( dt )
 	end
@@ -539,7 +582,7 @@ function player.new( map, x, y, z )
 		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == "floor" or userdata2.type == "player" then
-				print("feet meets floor")				
+				--print("feet meets floor")				
 		 		if self.state == "falling" then
 		 			--bajs
 		 		end
@@ -556,7 +599,7 @@ function player.new( map, x, y, z )
 		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == 'floor' then
-				print('feet leaves floor')
+				--print('feet leaves floor')
 		 	end
 		 end
 	end
@@ -566,7 +609,7 @@ function player.new( map, x, y, z )
 		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == 'floor' then
-				print('leavefloor')
+				--print('leavefloor')
 				jumpTimer = 1
 		 	end
 		 end
@@ -577,7 +620,7 @@ function player.new( map, x, y, z )
 		local userdata2 = a:getUserData()
 		if userdata then
 			if userdata.type == 'bullet' then
-				print('Shield: bullet hit!...Userdata: ', userdata.id )
+				--print('Shield: bullet hit!...Userdata: ', userdata.id )
 				--self.bullet.destroy()
 				self.shieldPower( self.weapon.properties.damageShield )
 
@@ -592,7 +635,7 @@ function player.new( map, x, y, z )
 				ptcSpark:start( )
 
 			elseif userdata.type == 'melee' and userdata.playerId ~= userdata2.playerId then
-				print('hitShieldMelee!')
+				--print('hitShieldMelee!')
 				self.shieldPower( meleeStandardShieldDamage )
 			end
 		end
@@ -613,12 +656,12 @@ function player.new( map, x, y, z )
 		local userdata2 = b:getUserData()
 		if userdata2 then
 			if userdata2.type == 'bullet' then
-			 	print('Body: bullet hit!...Userdata: ', userdata2.id )
+			 	--print('Body: bullet hit!...Userdata: ', userdata2.id )
 			 	--self.bullet.destroy()
 				self.bodyEnergy( self.weapon.properties.damageBody )
 
 			elseif userdata2.type == 'melee' and not shieldOn and userdata.playerId ~= userdata2.playerId then
-				print('hitBodyMelee!')
+				--print('hitBodyMelee!')
 				self.bodyEnergy( meleeStandardBodyDamage )
 			end
 		end
@@ -630,7 +673,7 @@ function player.new( map, x, y, z )
 		local userdata2 = b:getUserData()
 		if userdata2 then
 		 	if userdata2.type == 'bullet' then
-		 		self.bullet.bulletBodyDeadly = true
+
 			end
 		end
 	end
@@ -674,7 +717,7 @@ function player.new( map, x, y, z )
 		spriteJumper.y = y
 		spriteJumper.z = 0
 		spriteJumper.r = r
-		
+
 		spriteShield.x = x
 		spriteShield.y = y
 		spriteShield.z = 0
@@ -710,6 +753,7 @@ function player.new( map, x, y, z )
 	self.callbacks.shield = {}
 	function self.setWeapon( weapon )
 		if weapon == 'bouncer' then
+			self.weapon.properties.type = 'bouncer'
 			self.weapon.properties.rps = self.weaponList.bouncer.rps
 			self.weapon.properties.damageBody = self.weaponList.bouncer.damageBody
 			self.weapon.properties.damageShield = self.weaponList.bouncer.damageShield
@@ -720,45 +764,55 @@ function player.new( map, x, y, z )
 			self.weapon.properties.nrBounces = self.weaponList.bouncer.nrBounces
 			self.weapon.properties.blastRadius = self.weaponList.bouncer.blastRadius
 			self.weapon.properties.blastDamageFallof = self.weaponList.bouncer.blastDamageFallof
+			self.weapon.properties.lifetime = self.weaponList.bouncer.lifetime
+			self.weapon.properties.bulletTravelDistance = self.weaponList.bouncer.bulletTravelDistance
 		end
-	
+
 		if weapon == 'shotgun' then
-			self.weapon.properties.rps = self.weaponList.bouncer.rps
-			self.weapon.properties.damageBody = self.weaponList.bouncer.damageBody
-			self.weapon.properties.damageShield = self.weaponList.bouncer.damageShield
-			self.weapon.properties.impulseForce = self.weaponList.bouncer.impulseForce
-			self.weapon.properties.nrBulletsPerShot = self.weaponList.bouncer.nrBulletsPerShot
-			self.weapon.properties.magCapacity = self.weaponList.bouncer.magCapacity
-			self.weapon.properties.spread = self.weaponList.bouncer.spread 
-			self.weapon.properties.nrBounces = self.weaponList.bouncer.nrBounces
-			self.weapon.properties.blastRadius = self.weaponList.bouncer.blastRadius
-			self.weapon.properties.blastDamageFallof = self.weaponList.bouncer.blastDamageFallof
+			self.weapon.properties.type = 'shotgun'
+			self.weapon.properties.rps = self.weaponList.shotgun.rps
+			self.weapon.properties.damageBody = self.weaponList.shotgun.damageBody
+			self.weapon.properties.damageShield = self.weaponList.shotgun.damageShield
+			self.weapon.properties.impulseForce = self.weaponList.shotgun.impulseForce
+			self.weapon.properties.nrBulletsPerShot = self.weaponList.shotgun.nrBulletsPerShot
+			self.weapon.properties.magCapacity = self.weaponList.shotgun.magCapacity
+			self.weapon.properties.spread = self.weaponList.shotgun.spread 
+			self.weapon.properties.nrBounces = self.weaponList.shotgun.nrBounces
+			self.weapon.properties.blastRadius = self.weaponList.shotgun.blastRadius
+			self.weapon.properties.blastDamageFallof = self.weaponList.shotgun.blastDamageFallof
+			self.weapon.properties.lifetime = self.weaponList.shotgun.lifetime
+			self.weapon.properties.bulletTravelDistance = self.weaponList.shotgun.bulletTravelDistance
 		end
 	end
 
 	function self.weaponSetup()
 
-		self.weaponList.bouncer.rps = 0.1
+		self.weaponList.bouncer.rps = 0.09
 		self.weaponList.bouncer.damageBody = 6
 		self.weaponList.bouncer.damageShield = 17
 		self.weaponList.bouncer.impulseForce = 900
 		self.weaponList.bouncer.nrBulletsPerShot = 1
 		self.weaponList.bouncer.magCapacity = 50
-		self.weaponList.bouncer.spread = 0
+		self.weaponList.bouncer.spread = 5
 		self.weaponList.bouncer.nrBounces = 3
 		self.weaponList.bouncer.blastRadius = 1
 		self.weaponList.bouncer.blastDamageFallof = 1
+		self.weaponList.bouncer.lifetime = 7
+		self.weaponList.bouncer.bulletTravelDistance = 200000
 
-		self.weaponList.shotgun.rps = 1
+
+		self.weaponList.shotgun.rps = 0.4
 		self.weaponList.shotgun.damageBody = 12
 		self.weaponList.shotgun.damageShield = 12
-		self.weaponList.shotgun.impulseForce = 2000
-		self.weaponList.shotgun.nrBulletsPerShot = 1
+		self.weaponList.shotgun.impulseForce = 900
+		self.weaponList.shotgun.nrBulletsPerShot = 20
 		self.weaponList.shotgun.magCapacity = 50
-		self.weaponList.shotgun.spread = 0
+		self.weaponList.shotgun.spread = 50
 		self.weaponList.shotgun.nrBounces = 0
 		self.weaponList.shotgun.blastRadius = 0
 		self.weaponList.shotgun.blastDamageFallof = 0
+		self.weaponList.shotgun.lifetime = 0.2
+		self.weaponList.shotgun.bulletTravelDistance = 200
 	end
 
 	function self.draw( )

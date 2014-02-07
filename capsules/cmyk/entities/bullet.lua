@@ -29,12 +29,17 @@ function bullet.new( map, x, y, z )
 	local bulletImpulse = 2
 	local maxSpeed = 100
 	local bulletTimer = 0
-	local bulletMaxTimer = 10.0
+	self.bulletMaxTimer = 7.0
 	local xvb = 0
 	local yvb = 0
+	self.firePositionX = 0
+	self.firePositionY = 0
+	self.bulletMaxTravelDistance = 90000
 
 	self.bulletShieldDeadly = false
 	self.bulletBodyDeadly = false
+	self.maxBounces = 0
+	self.bounces = 0
 
 	-- BUFFER BATCH
 	local bufferBatch = yama.buffers.newBatch( self.x, self.y, self.z )
@@ -49,8 +54,9 @@ function bullet.new( map, x, y, z )
 	-- Physics
 	local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
 	--local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( 8, 8 ) )
-	bullet:setGroupIndex( 2 )
+	bullet:setGroupIndex( -1 )
 	bullet:setCategory( 2 )
+	bullet:setMask( 2 )
 	bullet:setUserData( bulletUserdata )
 	bullet:setRestitution( 0.90 )
 	bullet:getBody( ):setFixedRotation( false )
@@ -64,7 +70,7 @@ function bullet.new( map, x, y, z )
 	local ptcTrail = love.graphics.newParticleSystem(  yama.assets.loadImage( "bullet" ), 1000)
 	ptcTrail:setEmissionRate( 600 )
 	ptcTrail:setSpeed( 30, 60 )
-	ptcTrail:setSizes( 1, 1.3 )
+	ptcTrail:setSizes( 1, 3 )
 	ptcTrail:setColors( 255, 255, 255, 170, 255, 255, 255, 20, 255, 255, 255, 0 )
 	ptcTrail:setPosition( x, y )
 	ptcTrail:setEmitterLifetime(200)
@@ -90,34 +96,48 @@ function bullet.new( map, x, y, z )
 		xvb = math.abs( xvb )
 		yvb = math.abs( yvb )
 		local velxy = xvb + yvb
-		ptcTrail:setEmissionRate( math.abs(velxy) )
+		ptcTrail:setEmissionRate( 500 )
 		ptcTrail:setDirection( invaim )
 		ptcTrail:setPosition( x, y )
-		ptcTrail:update(dt)
-		
-		if bulletTimer <= bulletMaxTimer then
+		if bullet then
+			ptcTrail:update(dt)
+		end
+
+
+		if bulletTimer <= self.bulletMaxTimer then
 			bulletTimer = bulletTimer + dt
 		else
+			bulletTimer = 0
+			self.destroy()
+		end
+
+		self.bulletTravelDistance = yama.tools.getDistance( self.firePositionX, self.firePositionY, self.x, self.y )
+		if self.bulletTravelDistance > self.bulletMaxTravelDistance then
 			self.destroy()
 		end
 
 		if velxy < 75 then
 			self.destroy()
 		end
+
 		--ptcTrail:setEmissionRate( velxy )
 
 	end
 	
-	function self.shoot( fx, fy, aim )
+	function self.shoot( fx, fy, lifetime, maxbounces, bulletMaxTravelDistance )
+		self.maxBounces = maxbounces
+		self.bulletMaxTimer = lifetime
+		self.firePositionX = self.x
+		self.firePositionY = self.y
+		self.bulletMaxTravelDistance = bulletMaxTravelDistance
 		bullet:getBody( ):applyLinearImpulse( fx, fy )
 
-		--ptcTrail:setDirection( aim )
 	end
 
 	function self.setId( id )
 		bulletUserdata.id = id
 		bullet:setUserData( bulletUserdata )
-		--ptcTrail:setDirection( aim )
+
 	end
 
 	function self.updatePosition( xn, yn )
@@ -154,6 +174,10 @@ function bullet.new( map, x, y, z )
 				--print('bullet: body hit!')
 				self.destroy()
 			end
+		end
+		self.bounces = self.bounces + 1
+		if self.bounces > self.maxBounces then
+			self.destroy()
 		end
 	end
 	function self.endContact( a, b, contact )
