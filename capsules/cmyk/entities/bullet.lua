@@ -41,6 +41,8 @@ function bullet.new( map, x, y, z )
 	self.maxBounces = 0
 	self.bounces = 0
 
+	self.trail = map.newEntity( "trail", {self.x, self.y, 0})
+
 	-- BUFFER BATCH
 	local bufferBatch = yama.buffers.newBatch( self.x, self.y, self.z )
 
@@ -66,7 +68,7 @@ function bullet.new( map, x, y, z )
 	bullet:getBody( ):setGravityScale( 1 )
 	bullet:getBody( ):setBullet( true )
 
-	---[[
+	--[[
 	local ptcTrail = love.graphics.newParticleSystem(  yama.assets.loadImage( "bullet" ), 1000)
 	ptcTrail:setEmissionRate( 600 )
 	ptcTrail:setSpeed( 30, 60 )
@@ -82,6 +84,11 @@ function bullet.new( map, x, y, z )
 	local trail = yama.buffers.newDrawable( ptcTrail, 0, 0, 24 )
 	table.insert( bufferBatch.data, trail )
 	--]]
+	function self.initialize( properties )
+
+	end
+
+	
 
 	function self.update( dt )
 
@@ -96,12 +103,17 @@ function bullet.new( map, x, y, z )
 		xvb = math.abs( xvb )
 		yvb = math.abs( yvb )
 		local velxy = xvb + yvb
+
+		self.trail.x = self.x
+		self.trail.y = self.y
+		self.trail.invaim = invaim
+		
+		--[[
 		ptcTrail:setEmissionRate( 500 )
 		ptcTrail:setDirection( invaim )
-		ptcTrail:setPosition( x, y )
-		if bullet then
-			ptcTrail:update(dt)
-		end
+		ptcTrail:setPosition( self.x, self.y )
+		--ptcTrail:update(dt)
+		--]]
 
 
 		if bulletTimer <= self.bulletMaxTimer then
@@ -124,14 +136,14 @@ function bullet.new( map, x, y, z )
 
 	end
 	
-	function self.shoot( fx, fy, lifetime, maxbounces, bulletMaxTravelDistance )
+	function self.shoot( fx, fy, lifetime, maxbounces, bulletMaxTravelDistance, type )
 		self.maxBounces = maxbounces
 		self.bulletMaxTimer = lifetime
 		self.firePositionX = self.x
 		self.firePositionY = self.y
+		self.type = type
 		self.bulletMaxTravelDistance = bulletMaxTravelDistance
 		bullet:getBody( ):applyLinearImpulse( fx, fy )
-
 	end
 
 	function self.setId( id )
@@ -231,6 +243,7 @@ function bullet.new( map, x, y, z )
 		if not self.destroyed then
 			bullet:getBody():destroy()
 			self.destroyed = true
+			self.trail.isDestroyed = true
 		end
 	end
 

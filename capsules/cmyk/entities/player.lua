@@ -88,6 +88,7 @@ function player.new( map, x, y, z )
 	local ctrlMelee = self.buttonShoulderR
 	local ctrlAimShoot = 1
 
+	self.bullets = {}
 	self.jumpMaxTimer = 0.55	
 	self.jumpVelocity = -1200
 	self.forces.jump = 950
@@ -179,7 +180,6 @@ function player.new( map, x, y, z )
 	local ShieldDestroyed = yama.buffers.newDrawable( ptcShieldDestroyed, 0, 0, 24 )
 	ShieldDestroyed.blendmode = "additive"
 	--]]
-
 	
 	table.insert( self.bufferBatch.data, spriteArrow )
 	table.insert( self.bufferBatch.data, spriteJumper )
@@ -196,7 +196,7 @@ function player.new( map, x, y, z )
 		self.shieldUserdata.playerId = properties.id
 
 		self.weaponSetup()
-		self.setWeapon( 'shotgun' )
+		self.setWeapon( 'bouncer' )
 
 		self.refreshBufferBatch()
 	end
@@ -223,7 +223,7 @@ function player.new( map, x, y, z )
 
 	self.fixtures.sword = love.physics.newFixture( love.physics.newBody( map.world, self.x+25, self.y, "dynamic"), love.physics.newRectangleShape( 50, 7 ), 1 )
 	self.fixtures.sword:setUserData( self.swordUserdata )
-	self.fixtures.sword:setGroupIndex( -2 )
+	self.fixtures.sword:setGroupIndex( -1 )
 	self.fixtures.sword:setMask( 1 )
 	self.fixtures.sword:setSensor( true )
 	self.fixtures.sword:getBody():setMass( self.mass )
@@ -248,7 +248,7 @@ function player.new( map, x, y, z )
 		self.axisRightY = self.joystick:getAxis( 4 )
 		self.axisLeftX = self.joystick:getAxis( 1 )
 		self.axisLeftY = self.joystick:getAxis( 2 )
-		
+
 		self.x = x
 		self.y = y
 		self.z = z
@@ -374,7 +374,7 @@ function player.new( map, x, y, z )
 		self.weapon.properties.blastDamageFallof
 		--]]
 		
-		if yama.tools.getDistance( 0, 0, self.axisRightX, self.axisRightY ) > 0.3 then
+		if yama.tools.getDistance( 0, 0, self.axisRightX, self.axisRightY ) > 0.27 then
 
 			spawntimer = spawntimer - dt
 			if spawntimer <= 0 then
@@ -389,22 +389,19 @@ function player.new( map, x, y, z )
 				local xvector = math.cos( self.weapon.aim )
 				local yvector = math.sin( self.weapon.aim )
 
-				local xPosBulletSpawn = x + 38*xvector * 0.8
-				local yPosBulletSpawn = y + 38*yvector * 0.8
+				local xPosBulletSpawn = x + 38*xvector * 0.75
+				local yPosBulletSpawn = y + 38*yvector * 0.75
 				--print( 'BULLETPOSSPAWN:', xPosBulletSpawn, yPosBulletSpawn )
 				for i = 1, self.weapon.properties.nrBulletsPerShot do
 
 					bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
-					table.insert( bullets, bullet )
-					lenBullets = #bullets				
-					if lenBullets >= nAllowedBullets then
-						bullets[1].destroy()
-						table.remove( bullets, 1 )
-					end
+
+					table.insert( self.bullets, bullet )
+					
 
 					local spread = love.math.random(0,self.weapon.properties.spread)
 					spread = spread/100
-					print( spread )
+
 					if spread > self.weapon.properties.spread then
 						spread = self.weapon.properties.spread
 					end
@@ -419,12 +416,12 @@ function player.new( map, x, y, z )
 					local xvectorspread = math.cos( aimSpread )
 					local yvectorspread = math.sin( aimSpread )
 					
-					local fxbullet = self.weapon.properties.impulseForce * xvectorspread
-					local fybullet = self.weapon.properties.impulseForce * yvectorspread
+					self.fxbullet = self.weapon.properties.impulseForce * xvectorspread
+					self.fybullet = self.weapon.properties.impulseForce * yvectorspread
 
-					--print( 'Bullet direction X:', fxbullet, 'Bullet direction Y:', fybullet )
+					--print( 'Bullet direction X:', self.fxbullet, 'Bullet direction Y:', fybullet )
 
-					bullet.shoot( fxbullet, fybullet, self.weapon.properties.lifetime, self.weapon.properties.nrBounces, self.weapon.properties.bulletTravelDistance )
+					bullet.shoot( self.fxbullet, self.fybullet, self.weapon.properties.lifetime, self.weapon.properties.nrBounces, self.weapon.properties.bulletTravelDistance, self.weapon.properties.type )
 					self.bulletId = self.bulletId + 1
 					bullet.setId( self.bulletId )
 				end
@@ -462,7 +459,7 @@ function player.new( map, x, y, z )
 			meleeTimer = meleeTimer + dt
 			if meleeTimer > meleeMaxTimer then
 				--print( 'NOTMELEE' )
-				self.fixtures.sword:setGroupIndex( -2 )
+				self.fixtures.sword:setGroupIndex( -1 )
 				self.fixtures.sword:setMask( 1 )
 				meleeing = false
 				self.refreshBufferBatch()
@@ -590,7 +587,7 @@ function player.new( map, x, y, z )
 		 end
 	end
 	function self.feetUserdata.callbacks.endContact( a, b, contact )
-		print(self.feetContacts[contact], contact)
+		--print(self.feetContacts[contact], contact)
 		self.feetContacts[contact] = nil
 
 	--	print('leavefloor')
@@ -794,7 +791,7 @@ function player.new( map, x, y, z )
 		self.weaponList.bouncer.nrBulletsPerShot = 1
 		self.weaponList.bouncer.magCapacity = 50
 		self.weaponList.bouncer.spread = 5
-		self.weaponList.bouncer.nrBounces = 3
+		self.weaponList.bouncer.nrBounces = 2
 		self.weaponList.bouncer.blastRadius = 1
 		self.weaponList.bouncer.blastDamageFallof = 1
 		self.weaponList.bouncer.lifetime = 7
