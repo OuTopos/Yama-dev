@@ -791,7 +791,7 @@ function player.new( map, x, y, z )
 		self.weaponList.bouncer.nrBulletsPerShot = 1
 		self.weaponList.bouncer.magCapacity = 50
 		self.weaponList.bouncer.spread = 5
-		self.weaponList.bouncer.nrBounces = 2
+		self.weaponList.bouncer.nrBounces = 0
 		self.weaponList.bouncer.blastRadius = 1
 		self.weaponList.bouncer.blastDamageFallof = 1
 		self.weaponList.bouncer.lifetime = 7
