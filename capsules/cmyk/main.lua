@@ -46,6 +46,15 @@ function capsule.load()
 				yama.hud.enabled = true
 			end
 		end
+		if key == "q" then
+			capsule.p1.setWeapon( 'bouncer')
+		end
+		if key == "e" then
+			capsule.p1.setWeapon( 'shotgun')
+		end
+		if key == "r" then
+			capsule.p1.setWeapon( 'rpg')
+		end
 		if key == "j" then
 			if yama.hud.physics then
 				yama.hud.physics = false
@@ -131,7 +140,7 @@ function capsule.load()
 		end
 	end
 
-	function love.resize(w, h)
+	function capsule.resize(w, h)
 		if capsule.vp1 and capsule.vp2 then
 			capsule.vp1.resize(w/2, h)
 			capsule.vp2.resize(w/2, h)
@@ -140,9 +149,53 @@ function capsule.load()
 			capsule.vp1.resize(w, h)
 		end
 	end
+
 end
 
+function capsule.weaponSetup()
 
+	self.weaponList.bouncer.name = 'bouncer'
+	self.weaponList.bouncer.rps = 0.09
+	self.weaponList.bouncer.damageBody = 6
+	self.weaponList.bouncer.damageShield = 17
+	self.weaponList.bouncer.impulseForce = 900
+	self.weaponList.bouncer.nrBulletsPerShot = 1
+	self.weaponList.bouncer.magCapacity = 50
+	self.weaponList.bouncer.spread = 5
+	self.weaponList.bouncer.nrBounces = 2
+	self.weaponList.bouncer.blastRadius = 1
+	self.weaponList.bouncer.blastDamageFallof = 1
+	self.weaponList.bouncer.lifetime = 7
+	self.weaponList.bouncer.bulletTravelDistance = 200000
+
+	self.weaponList.shotgun.name = 'shotgun'
+	self.weaponList.shotgun.rps = 0.4
+	self.weaponList.shotgun.damageBody = 12
+	self.weaponList.shotgun.damageShield = 12
+	self.weaponList.shotgun.impulseForce = 900
+	self.weaponList.shotgun.nrBulletsPerShot = 20
+	self.weaponList.shotgun.magCapacity = 50
+	self.weaponList.shotgun.spread = 50
+	self.weaponList.shotgun.nrBounces = 0
+	self.weaponList.shotgun.blastRadius = 0
+	self.weaponList.shotgun.blastDamageFallof = 0
+	self.weaponList.shotgun.lifetime = 0.2
+	self.weaponList.shotgun.bulletTravelDistance = 200
+
+	self.weaponList.rpg.name = 'rpg'
+	self.weaponList.rpg.rps = 0.2
+	self.weaponList.rpg.damageBody = 50
+	self.weaponList.rpg.damageShield = 50
+	self.weaponList.rpg.impulseForce = 700
+	self.weaponList.rpg.nrBulletsPerShot = 1
+	self.weaponList.rpg.magCapacity = 1
+	self.weaponList.rpg.spread = 0
+	self.weaponList.rpg.nrBounces = 0
+	self.weaponList.rpg.blastRadius = 20
+	self.weaponList.rpg.blastDamageFallof = 1
+	self.weaponList.rpg.lifetime = 7
+	self.weaponList.rpg.bulletTravelDistance = 200000
+end
 
 
 function capsule.update(dt)

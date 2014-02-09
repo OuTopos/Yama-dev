@@ -40,6 +40,7 @@ function bullet.new( map, x, y, z )
 	self.bulletBodyDeadly = false
 	self.maxBounces = 0
 	self.bounces = 0
+	self.blastRadius = 0
 
 	self.trail = map.newEntity( "trail", {self.x, self.y, 0})
 
@@ -67,6 +68,7 @@ function bullet.new( map, x, y, z )
 	bullet:getBody( ):setInertia( 0.2 )
 	bullet:getBody( ):setGravityScale( 1 )
 	bullet:getBody( ):setBullet( true )
+
 
 	--[[
 	local ptcTrail = love.graphics.newParticleSystem(  yama.assets.loadImage( "bullet" ), 1000)
@@ -104,8 +106,8 @@ function bullet.new( map, x, y, z )
 		yvb = math.abs( yvb )
 		local velxy = xvb + yvb
 
-		self.trail.x = self.x
-		self.trail.y = self.y
+		self.trail.x = x
+		self.trail.y = y
 		self.trail.invaim = invaim
 		
 		--[[
@@ -136,13 +138,15 @@ function bullet.new( map, x, y, z )
 
 	end
 	
-	function self.shoot( fx, fy, lifetime, maxbounces, bulletMaxTravelDistance, type )
+	function self.shoot( fx, fy, lifetime, maxbounces, bulletMaxTravelDistance, type, blastRadius )
 		self.maxBounces = maxbounces
 		self.bulletMaxTimer = lifetime
 		self.firePositionX = self.x
 		self.firePositionY = self.y
 		self.type = type
+		self.blastRadius = blastRadius
 		self.bulletMaxTravelDistance = bulletMaxTravelDistance
+		local blast = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
 		bullet:getBody( ):applyLinearImpulse( fx, fy )
 	end
 
@@ -189,6 +193,26 @@ function bullet.new( map, x, y, z )
 		end
 		self.bounces = self.bounces + 1
 		if self.bounces > self.maxBounces then
+			
+			if self.blastRadius > 0 then
+				---[[
+				--bullet.blast = love.physics.newFixture(bullet:getBody(), love.physics.newCircleShape( 1),1)
+				print( "Blast! Size::", self.blastRadius)
+				local blast = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
+			--	blast:setGroupIndex( -1 )
+			--	blast:setCategory( 2 )
+			--	blast:setMask( 2 )
+			--	blast:setUserData( bulletUserdata )
+				--blast:setRestitution( 0.90 )
+				--blast:setSensor(true)
+				--blast:getBody( ):setFixedRotation( false )
+			--	blast:getBody( ):setLinearDamping( 0.3 )
+				--blast:getBody( ):setMass( 0.01 )
+			--	blast:getBody( ):setInertia( 0.2 )
+			--	blast:getBody( ):setGravityScale( 0.1 )
+			--	blast:getBody( ):setBullet( true )
+				--]]
+			end
 			self.destroy()
 		end
 	end

@@ -8,16 +8,18 @@ function trail.new(scene, x, y, z)
 	self.invaim = 0
 	self.isDestroyed = false
 
-	local emissionRate = 800
+	local emissionRate = 900
 
 	local lifeMaxTimer = 3
 	local lifeTimer = 0
 
 	local ptcTrail = love.graphics.newParticleSystem(  yama.assets.loadImage( "bullet" ), 1000)
+	ptcTrail:setSizes( 1.5, 3.8 )
 	ptcTrail:setEmissionRate( emissionRate )
+	ptcTrail:setBufferSize(50000)
 	--ptcTrail:setSpeed( 10, 20 ) -- shotgun
-	ptcTrail:setSpeed( 20, 40 ) -- bouncer
-	ptcTrail:setSizes( 1, 5 )
+	ptcTrail:setSpeed( 50, 100 ) -- bouncer
+	
 	ptcTrail:setColors(
 		255, 255, 180, 170,
 		255, 255, 0, 170,
@@ -29,9 +31,9 @@ function trail.new(scene, x, y, z)
 		255, 255, 255, 0 
 	)
 	ptcTrail:setPosition( x, y )
-	ptcTrail:setEmitterLifetime(200)
+	ptcTrail:setEmitterLifetime(3)
 	--ptcTrail:setParticleLifetime(1.5)  -- shotgun
-	ptcTrail:setParticleLifetime(0.9)  -- bouncer
+	ptcTrail:setParticleLifetime(1.2)  -- bouncer
 	
 	ptcTrail:setTangentialAcceleration(0.01)
 	ptcTrail:setRadialAcceleration(0.01)
@@ -49,25 +51,31 @@ function trail.new(scene, x, y, z)
 	if self.isDestroyed then
 		if lifeTimer <= lifeMaxTimer then
 			lifeTimer = lifeTimer + dt
-			emissionRate = emissionRate * 0.95
+			emissionRate = emissionRate * 0.85
 			ptcTrail:setEmissionRate( emissionRate )
 			ptcTrail:setDirection( self.invaim ) -- bouncer
-			--ptcTrail:setDirection( love.math.random() )
+			--ptcTrail:setDirection( love.math.random() ) -- shotgun
 			ptcTrail:setSpread( love.math.random( math.rad( -180 ), math.rad( 180 ) ) )
-			ptcTrail:setSpeed( 50, 100 ) -- bouncer
+			ptcTrail:setSpeed( 80, 160 ) -- bouncer
 			--ptcTrail:setColors( 255, 100, 100, 170, 255, 100, 100, 20, 255, 100, 255, 0 )
+			ptcTrail:setParticleLifetime(1.2)
 			ptcTrail:update(dt)
 		else
 			lifeTimer = 0
 			self.destroy()
-			emissionRate = 800
+			--emissionRate = 800
 		end
 	else
-		ptcTrail:setEmissionRate( emissionRate )
+		--ptcTrail:setEmissionRate( emissionRate )
 		ptcTrail:setDirection( self.invaim ) -- bouncer
 		--ptcTrail:setDirection( love.math.random() )
 		ptcTrail:setPosition( self.x, self.y )
-		ptcTrail:setSpread( love.math.random( math.rad( -60 ), math.rad( 60 ) ) )
+		
+		local spread = love.math.random( 25, 50 )
+		if love.math.random(0,1) == 1 then
+			spread = -spread
+		end
+		ptcTrail:setSpread( math.rad(spread) )
 		ptcTrail:update(dt)
 	end
 
