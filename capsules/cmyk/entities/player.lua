@@ -40,16 +40,17 @@ function player.new( map, x, y, z )
 	self.shieldUserdata.properties = {}
 	self.shieldUserdata.callbacks = {}
 
-	self.swordUserdata = {}
-	self.swordUserdata.name = "Unnamed"
-	self.swordUserdata.type = "melee"
+	self.swordUserdata = 			{}
 	self.swordUserdata.properties = {}
-	self.swordUserdata.callbacks = {}
+	self.swordUserdata.callbacks = 	{}
+	self.swordUserdata.name = 		"Unnamed"
+	self.swordUserdata.type = 		"melee"
 
-	self.weaponList = {}
-	self.weaponList.bouncer = {}
-	self.weaponList.shotgun = {}
-	self.weaponList.rpg = {}
+	self.weaponList = 				{}
+	self.weaponList.bouncer =		{}
+	self.weaponList.shotgun =		{}
+	self.weaponList.rpg = 			{}
+	self.weaponList.grenadier=		{}
 
 	self.weapon = {}
 	self.weapon.type = ''
@@ -78,6 +79,7 @@ function player.new( map, x, y, z )
 	self.joystick = 1
 	self.worldstates.onGround = false
 	self.worldstates.onWall = false
+	self.isKilled = false
 
 	self.state = nil
 
@@ -245,6 +247,10 @@ function player.new( map, x, y, z )
 	local boostah = 0
 	local jumpTimer = 0
 	function self.update( dt )
+		if self.isKilled then
+			self.resetPlayerPos()
+		end
+
 		self.xv, self.yv = self.fixtures.main:getBody( ):getLinearVelocity( )
 		self.axisRightX = self.joystick:getAxis( 3 )
 		self.axisRightY = self.joystick:getAxis( 4 )
@@ -416,13 +422,7 @@ function player.new( map, x, y, z )
 
 					--print( 'Bullet direction X:', self.fxbullet, 'Bullet direction Y:', fybullet )
 
-					bullet.shoot( self.fxbullet, self.fybullet, 
-						self.weapon.properties.lifetime,
-						self.weapon.properties.nrBounces,
-						self.weapon.properties.bulletTravelDistance,
-						self.weapon.properties.name,
-						self.weapon.properties.blastRadius
-						 )
+					bullet.shoot( self.fxbullet, self.fybullet, self.weapon.properties )
 					self.bulletId = self.bulletId + 1
 					bullet.setId( self.bulletId )
 				end
@@ -526,8 +526,9 @@ function player.new( map, x, y, z )
 		bodyHealth = bodyHealth - damage
 		if bodyHealth <= 0 then
 			self.lives = self.lives -1
-			self.resetPlayerPos()
-			if self.lives == 0 then
+			self.isKilled = true
+			
+			if self.lives == 0 then				
 				self.destroy()
 			end
 		end
@@ -614,6 +615,7 @@ function player.new( map, x, y, z )
 	end	
 
 	function self.shieldUserdata.callbacks.beginContact( a, b, contact )
+		print( 'shieldhit')
 		local userdata = b:getUserData()
 		local userdata2 = a:getUserData()
 		if userdata then
@@ -624,14 +626,15 @@ function player.new( map, x, y, z )
 				self.shieldPower( self.weapon.properties.damageShield )
 
 				local sparkx1, sparky1, xxx, yyy = contact:getPositions()		
-				
-				self.distSparkX = sparkx1 - x				
-				self.distSparkY = sparky1 - y
-				self.hitDirection = math.atan2( self.distSparkY, self.distSparkX )
-				
-				ptcSpark:setPosition( sparkx1, sparky1 )
-				ptcSpark:setDirection( self.hitDirection )
-				ptcSpark:start( )
+				if sparkx1 then
+					self.distSparkX = sparkx1 - x				
+					self.distSparkY = sparky1 - y
+					self.hitDirection = math.atan2( self.distSparkY, self.distSparkX )
+					
+					ptcSpark:setPosition( sparkx1, sparky1 )
+					ptcSpark:setDirection( self.hitDirection )
+					ptcSpark:start( )
+				end
 
 			elseif userdata.type == 'melee' and userdata.playerId ~= userdata2.playerId then
 				--print('hitShieldMelee!')
@@ -704,7 +707,7 @@ function player.new( map, x, y, z )
 		self.fixtures.main:getBody():setX( x4 )
 		self.fixtures.main:getBody():setY( y4 )
 		self.fixtures.main:getBody():setLinearVelocity( 0, 0 )
-
+		self.isKilled = false
 	end
 
 	function self.updatePosition(xn, yn)		
@@ -762,6 +765,10 @@ function player.new( map, x, y, z )
 		if weapon == 'rpg' then
 			self.weapon.properties = self.weaponList.rpg
 		end
+
+		if weapon == 'grenadier' then
+			self.weapon.properties = self.weaponList.grenadier
+		end
 	end
 
 	function self.weaponSetup()
@@ -775,10 +782,10 @@ function player.new( map, x, y, z )
 		self.weaponList.bouncer.magCapacity = 50
 		self.weaponList.bouncer.spread = 5
 		self.weaponList.bouncer.nrBounces = 2
-		self.weaponList.bouncer.blastRadius = 1
-		self.weaponList.bouncer.blastDamageFallof = 1
-		self.weaponList.bouncer.lifetime = 7
+		self.weaponList.bouncer.blastRadius = 0
+		self.weaponList.bouncer.lifetime = 2000
 		self.weaponList.bouncer.bulletTravelDistance = 200000
+		self.weaponList.bouncer.bulletWeight = 0.4
 
 		self.weaponList.shotgun.name = 'shotgun'
 		self.weaponList.shotgun.rps = 0.4
@@ -790,23 +797,38 @@ function player.new( map, x, y, z )
 		self.weaponList.shotgun.spread = 50
 		self.weaponList.shotgun.nrBounces = 0
 		self.weaponList.shotgun.blastRadius = 0
-		self.weaponList.shotgun.blastDamageFallof = 0
 		self.weaponList.shotgun.lifetime = 0.2
 		self.weaponList.shotgun.bulletTravelDistance = 200
+		self.weaponList.shotgun.bulletWeight = 0.2
 
 		self.weaponList.rpg.name = 'rpg'
 		self.weaponList.rpg.rps = 0.2
-		self.weaponList.rpg.damageBody = 50
-		self.weaponList.rpg.damageShield = 50
-		self.weaponList.rpg.impulseForce = 700
+		self.weaponList.rpg.damageBody = 500
+		self.weaponList.rpg.damageShield = 500
+		self.weaponList.rpg.impulseForce = 900
 		self.weaponList.rpg.nrBulletsPerShot = 1
 		self.weaponList.rpg.magCapacity = 1
 		self.weaponList.rpg.spread = 0
 		self.weaponList.rpg.nrBounces = 0
-		self.weaponList.rpg.blastRadius = 20
-		self.weaponList.rpg.blastDamageFallof = 1
-		self.weaponList.rpg.lifetime = 7
+		self.weaponList.rpg.blastRadius = 50
+		self.weaponList.rpg.lifetime = 2000
 		self.weaponList.rpg.bulletTravelDistance = 200000
+		self.weaponList.rpg.bulletWeight = 0.6
+
+		self.weaponList.grenadier.name = 'grenadier'
+		self.weaponList.grenadier.rps = 0.2
+		self.weaponList.grenadier.damageBody = 500
+		self.weaponList.grenadier.damageShield = 500
+		self.weaponList.grenadier.impulseForce = 1000
+		self.weaponList.grenadier.nrBulletsPerShot = 1
+		self.weaponList.grenadier.magCapacity = 1
+		self.weaponList.grenadier.spread = 0
+		self.weaponList.grenadier.nrBounces = 3
+		self.weaponList.grenadier.blastRadius = 60
+		self.weaponList.grenadier.lifetime = 5
+		self.weaponList.grenadier.bulletTravelDistance = 200000
+		self.weaponList.grenadier.bulletWeight = 4
+
 	end
 
 	function self.draw( )

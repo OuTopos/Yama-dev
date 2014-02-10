@@ -32,15 +32,24 @@ function bullet.new( map, x, y, z )
 	self.bulletMaxTimer = 7.0
 	local xvb = 0
 	local yvb = 0
+	local blastTimer = 0
+	self.doBlast = false
 	self.firePositionX = 0
 	self.firePositionY = 0
 	self.bulletMaxTravelDistance = 90000
+	self.blast = false
+	self.weaponProperties = {}
+	local dummy = nil
+
+	local blastPosX = 0
+	local blastPosY = 0
 
 	self.bulletShieldDeadly = false
 	self.bulletBodyDeadly = false
-	self.maxBounces = 0
+
 	self.bounces = 0
 	self.blastRadius = 0
+	self.isDestroyed = false
 
 	self.trail = map.newEntity( "trail", {self.x, self.y, 0})
 
@@ -55,19 +64,19 @@ function bullet.new( map, x, y, z )
 	table.insert( bufferBatch.data, bulletsprite )
 
 	-- Physics
-	local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
+	self.bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
 	--local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( 8, 8 ) )
-	bullet:setGroupIndex( -1 )
-	bullet:setCategory( 2 )
-	bullet:setMask( 2 )
-	bullet:setUserData( bulletUserdata )
-	bullet:setRestitution( 0.90 )
-	bullet:getBody( ):setFixedRotation( false )
-	bullet:getBody( ):setLinearDamping( 0.3 )
-	bullet:getBody( ):setMass( 0.4 )
-	bullet:getBody( ):setInertia( 0.2 )
-	bullet:getBody( ):setGravityScale( 1 )
-	bullet:getBody( ):setBullet( true )
+	self.bullet:setGroupIndex( -1 )
+	self.bullet:setCategory( 2 )
+	self.bullet:setMask( 2 )
+	self.bullet:setUserData( bulletUserdata )
+	self.bullet:setRestitution( 0.90 )
+	self.bullet:getBody( ):setFixedRotation( false )
+	self.bullet:getBody( ):setLinearDamping( 0.3 )
+	self.bullet:getBody( ):setMass( 0.4 )
+	self.bullet:getBody( ):setInertia( 0.2 )
+	self.bullet:getBody( ):setGravityScale( 1 )
+	self.bullet:getBody( ):setBullet( true )
 
 
 	--[[
@@ -90,26 +99,55 @@ function bullet.new( map, x, y, z )
 
 	end
 
-	
-
 	function self.update( dt )
 
-		self.updatePosition( )
-
-		self.x = x
-		self.y = y
-		self.z = z
-
-		xvb, yvb = bullet:getBody():getLinearVelocity()
+		xvb, yvb = self.bullet:getBody():getLinearVelocity()
 		local invaim = math.atan2( -yvb, -xvb )
 		xvb = math.abs( xvb )
 		yvb = math.abs( yvb )
-		local velxy = xvb + yvb
 
 		self.trail.x = x
 		self.trail.y = y
 		self.trail.invaim = invaim
+
+		self.x = x
+		self.y = y
+		self.z = z
 		
+		self.updatePosition( )
+
+
+		if self.isDestroyed then
+			if self.doBlast then			
+				if not self.blast then
+					self.blast = love.physics.newFixture( self.bullet:getBody(), love.physics.newCircleShape( self.blastRadius ), 1 )
+					print( "Blast! Size::", self.blastRadius)
+					self.blast:setGroupIndex( -1 )
+					self.blast:setCategory( 2 )
+					self.blast:setMask( 2 )
+					self.blast:setSensor( 2 )
+					self.blast:setUserData( bulletUserdata )
+					--blast:setRestitution( 0.90 )
+					--blast:setSensor(true)
+					--blast:getBody( ):setFixedRotation( false )
+				--	bullet.blast:getBody( ):setLinearDamping( 0.3 )
+					self.blast:getBody( ):setMass( 0.01 )
+				--	blast:getBody( ):setInertia( 0.2 )
+				--	blast:getBody( ):setGravityScale( 0.1 )
+					self.blast:getBody( ):setBullet( true )
+				else
+					if blastTimer <= 0.2 then
+						blastTimer = blastTimer + dt
+						self.bullet:getBody():setLinearVelocity( 0,0 )
+					else
+						blastTimer = 0
+						self.doBlast = false
+						self.destroy()
+					end
+				end
+			end
+		end
+
 		--[[
 		ptcTrail:setEmissionRate( 500 )
 		ptcTrail:setDirection( invaim )
@@ -129,37 +167,37 @@ function bullet.new( map, x, y, z )
 		if self.bulletTravelDistance > self.bulletMaxTravelDistance then
 			self.destroy()
 		end
-
-		if velxy < 75 then
-			self.destroy()
-		end
-
-		--ptcTrail:setEmissionRate( velxy )
-
 	end
 	
-	function self.shoot( fx, fy, lifetime, maxbounces, bulletMaxTravelDistance, type, blastRadius )
-		self.maxBounces = maxbounces
-		self.bulletMaxTimer = lifetime
+	function self.shoot( fx, fy, weaponProperties )
+
 		self.firePositionX = self.x
 		self.firePositionY = self.y
-		self.type = type
-		self.blastRadius = blastRadius
-		self.bulletMaxTravelDistance = bulletMaxTravelDistance
-		local blast = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
-		bullet:getBody( ):applyLinearImpulse( fx, fy )
+
+
+		self.weaponProperties = weaponProperties
+
+		self.bullet:getBody( ):setMass( self.weaponProperties.bulletWeight )
+		
+		self.maxBounces = 				weaponProperties.nrBounces
+		self.bulletMaxTimer = 			weaponProperties.lifetime
+		self.type = 					weaponProperties.name
+		self.blastRadius = 				weaponProperties.blastRadius
+		self.bulletMaxTravelDistance = 	weaponProperties.bulletTravelDistance
+
+		self.bullet:getBody( ):applyLinearImpulse( fx, fy )
 	end
 
 	function self.setId( id )
 		bulletUserdata.id = id
-		bullet:setUserData( bulletUserdata )
+		self.bullet:setUserData( bulletUserdata )
 
 	end
 
 	function self.updatePosition( xn, yn )
-		x = bullet:getBody( ):getX( )
-		y = bullet:getBody( ):getY( )
-		r = bullet:getBody( ):getAngle( )
+		x = self.bullet:getBody( ):getX( )
+		y = self.bullet:getBody( ):getY( )
+		r = self.bullet:getBody( ):getAngle( )
 
 		bufferBatch.x = x
 		bufferBatch.y = y
@@ -192,28 +230,15 @@ function bullet.new( map, x, y, z )
 			end
 		end
 		self.bounces = self.bounces + 1
-		if self.bounces > self.maxBounces then
-			
+		if self.bounces > self.weaponProperties.nrBounces then
 			if self.blastRadius > 0 then
-				---[[
-				--bullet.blast = love.physics.newFixture(bullet:getBody(), love.physics.newCircleShape( 1),1)
-				print( "Blast! Size::", self.blastRadius)
-				local blast = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
-			--	blast:setGroupIndex( -1 )
-			--	blast:setCategory( 2 )
-			--	blast:setMask( 2 )
-			--	blast:setUserData( bulletUserdata )
-				--blast:setRestitution( 0.90 )
-				--blast:setSensor(true)
-				--blast:getBody( ):setFixedRotation( false )
-			--	blast:getBody( ):setLinearDamping( 0.3 )
-				--blast:getBody( ):setMass( 0.01 )
-			--	blast:getBody( ):setInertia( 0.2 )
-			--	blast:getBody( ):setGravityScale( 0.1 )
-			--	blast:getBody( ):setBullet( true )
-				--]]
+				contact:setRestitution( 0 )
+				blastPosX, blastPosY, dummy, dummy = contact:getPositions( )
+				self.doBlast = true
+				self.isDestroyed = true
+			else
+				self.isDestroyed = true
 			end
-			self.destroy()
 		end
 	end
 	function self.endContact( a, b, contact )
@@ -265,7 +290,7 @@ function bullet.new( map, x, y, z )
 
 	function self.destroy( )
 		if not self.destroyed then
-			bullet:getBody():destroy()
+			self.bullet:getBody():destroy()
 			self.destroyed = true
 			self.trail.isDestroyed = true
 		end
