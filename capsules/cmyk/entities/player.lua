@@ -9,8 +9,6 @@ function player.new( map, x, y, z )
 	self.forces.forceAdjuster = 1
 	self.lives = 3
 
-	self.bulletId = 0
-
 	self.x = x
 	self.y = y
 	self.z = z
@@ -20,7 +18,6 @@ function player.new( map, x, y, z )
 	self.bodyUserdata.type = "player"
 	self.bodyUserdata.properties = {}
 	self.bodyUserdata.callbacks = {}
-
 
 	self.feetUserdata = {}
 	self.feetUserdata.name = "Unnamed"
@@ -46,27 +43,15 @@ function player.new( map, x, y, z )
 	self.swordUserdata.name = 		"Unnamed"
 	self.swordUserdata.type = 		"melee"
 
-	self.weaponList = 				{}
-	self.weaponList.bouncer =		{}
-	self.weaponList.shotgun =		{}
-	self.weaponList.rpg = 			{}
-	self.weaponList.grenadier=		{}
+	self.weaponList = yama.capsule.weaponconfig
+	--self.weaponList.bouncer = {}
+	--self.weaponList.shotgun = {}
+	--self.weaponList.rpg = {}
+	--self.weaponList.mg = {}
 
 	self.weapon = {}
 	self.weapon.type = ''
 	self.weapon.properties = {}
-	self.weapon.aim = nil
-	self.weapon.properties.rps = 0.1
-	self.weapon.properties.damageBody = 6
-	self.weapon.properties.damageShield = 18
-	self.weapon.properties.impulseForce = 900
-	self.weapon.properties.nrBulletsPerShot = 1
-	self.weapon.properties.magCapacity = 50
-	self.weapon.properties.spread = 0
-	self.weapon.properties.nrBounces = 1
-	self.weapon.properties.blastRadius = 1
-	self.weapon.properties.blastDamageFallof = 1
-	self.weapon.properties.name = ''
 
 	-- Common variables
 	local width, height = 128, 128
@@ -195,18 +180,27 @@ function player.new( map, x, y, z )
 	-- Physics
 
 	function self.initialize( properties )
+		bullet = map.newEntity( "bullet_one", {0, 0, 0}, self.weapon.properties )
 		self.bodyUserdata.playerId = properties.id
 		self.swordUserdata.playerId = properties.id
 		self.shieldUserdata.playerId = properties.id
 
-		self.weaponSetup()
-		self.setWeapon( 'rpg' )
+		--self.weaponSetup()
+		self.setWeapon( 'bouncer' )
 
 		self.refreshBufferBatch()
 	end
 
 	--self.fixtures.main = love.physics.newFixture( love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( width, height ) )
-	self.fixtures.main = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newPolygonShape(-13,16, -16,13, -16,-13, -13,-16, 13,-16, 16,-13, 16,13, 13,16), self.mass)
+	self.fixtures.main = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newPolygonShape(-13,16, 
+																																			-16,13, 
+																																			-16,-13, 
+																																			-13,-16, 
+																																			13,-16, 
+																																			16,-13, 
+																																			16,13, 
+																																			13,16), 
+																																			self.mass)
 	self.fixtures.main:setGroupIndex( 1 )
 	self.fixtures.main:setCategory( 1 )
 	self.fixtures.main:setMask( 2 )
@@ -247,6 +241,8 @@ function player.new( map, x, y, z )
 	local boostah = 0
 	local jumpTimer = 0
 	function self.update( dt )
+		collectgarbage()
+		collectgarbage()
 		if self.isKilled then
 			self.resetPlayerPos()
 		end
@@ -391,12 +387,14 @@ function player.new( map, x, y, z )
 				local xvector = math.cos( self.weapon.aim )
 				local yvector = math.sin( self.weapon.aim )
 
-				local xPosBulletSpawn = x + 38*xvector * 0.75
-				local yPosBulletSpawn = y + 38*yvector * 0.75
+				local xPosBulletSpawn = x + 38*xvector * 0.9
+				local yPosBulletSpawn = y + 38*yvector * 0.9
+				
 				--print( 'BULLETPOSSPAWN:', xPosBulletSpawn, yPosBulletSpawn )
 				for i = 1, self.weapon.properties.nrBulletsPerShot do
 
-					bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0} )
+					--[[
+					bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0}, self.weapon.properties )
 
 					table.insert( self.bullets, bullet )					
 
@@ -422,9 +420,10 @@ function player.new( map, x, y, z )
 
 					--print( 'Bullet direction X:', self.fxbullet, 'Bullet direction Y:', fybullet )
 
-					bullet.shoot( self.fxbullet, self.fybullet, self.weapon.properties )
-					self.bulletId = self.bulletId + 1
-					bullet.setId( self.bulletId )
+					bullet.shoot( self.fxbullet, self.fybullet )
+					--print('impforce', self.weapon.properties.impulseForce)
+					--print('yvectorspread', math.abs(yvectorspread))
+					--]]
 				end
 			end
 		end
@@ -766,70 +765,11 @@ function player.new( map, x, y, z )
 			self.weapon.properties = self.weaponList.rpg
 		end
 
-		if weapon == 'grenadier' then
-			self.weapon.properties = self.weaponList.grenadier
+		if weapon == 'mg' then
+			self.weapon.properties = self.weaponList.mg
 		end
 	end
 
-	function self.weaponSetup()
-
-		self.weaponList.bouncer.name = 'bouncer'
-		self.weaponList.bouncer.rps = 0.09
-		self.weaponList.bouncer.damageBody = 6
-		self.weaponList.bouncer.damageShield = 17
-		self.weaponList.bouncer.impulseForce = 900
-		self.weaponList.bouncer.nrBulletsPerShot = 1
-		self.weaponList.bouncer.magCapacity = 50
-		self.weaponList.bouncer.spread = 5
-		self.weaponList.bouncer.nrBounces = 2
-		self.weaponList.bouncer.blastRadius = 0
-		self.weaponList.bouncer.lifetime = 2000
-		self.weaponList.bouncer.bulletTravelDistance = 200000
-		self.weaponList.bouncer.bulletWeight = 0.4
-
-		self.weaponList.shotgun.name = 'shotgun'
-		self.weaponList.shotgun.rps = 0.4
-		self.weaponList.shotgun.damageBody = 12
-		self.weaponList.shotgun.damageShield = 12
-		self.weaponList.shotgun.impulseForce = 900
-		self.weaponList.shotgun.nrBulletsPerShot = 20
-		self.weaponList.shotgun.magCapacity = 50
-		self.weaponList.shotgun.spread = 50
-		self.weaponList.shotgun.nrBounces = 0
-		self.weaponList.shotgun.blastRadius = 0
-		self.weaponList.shotgun.lifetime = 0.2
-		self.weaponList.shotgun.bulletTravelDistance = 200
-		self.weaponList.shotgun.bulletWeight = 0.2
-
-		self.weaponList.rpg.name = 'rpg'
-		self.weaponList.rpg.rps = 0.2
-		self.weaponList.rpg.damageBody = 500
-		self.weaponList.rpg.damageShield = 500
-		self.weaponList.rpg.impulseForce = 900
-		self.weaponList.rpg.nrBulletsPerShot = 1
-		self.weaponList.rpg.magCapacity = 1
-		self.weaponList.rpg.spread = 0
-		self.weaponList.rpg.nrBounces = 0
-		self.weaponList.rpg.blastRadius = 50
-		self.weaponList.rpg.lifetime = 2000
-		self.weaponList.rpg.bulletTravelDistance = 200000
-		self.weaponList.rpg.bulletWeight = 0.6
-
-		self.weaponList.grenadier.name = 'grenadier'
-		self.weaponList.grenadier.rps = 0.2
-		self.weaponList.grenadier.damageBody = 500
-		self.weaponList.grenadier.damageShield = 500
-		self.weaponList.grenadier.impulseForce = 1000
-		self.weaponList.grenadier.nrBulletsPerShot = 1
-		self.weaponList.grenadier.magCapacity = 1
-		self.weaponList.grenadier.spread = 0
-		self.weaponList.grenadier.nrBounces = 3
-		self.weaponList.grenadier.blastRadius = 60
-		self.weaponList.grenadier.lifetime = 5
-		self.weaponList.grenadier.bulletTravelDistance = 200000
-		self.weaponList.grenadier.bulletWeight = 4
-
-	end
 
 	function self.draw( )
 		love.graphics.setColorMode( "modulate" )

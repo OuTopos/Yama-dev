@@ -54,7 +54,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt2YFOgzAUheEaQyDBZHv/l/NVlDAit9IwtO09Xf8vabKhOODs3lIMAQAAAACAfn2KDKy8cyAPyzsH8rC8cyAPyzsH8rC8cyAPyzsH8rC8cyAPyzsH8rC8c9jGvfSJNsI7B/KwvHPYxlT6RBvhnQP1YXnnQH1Y3jlQH5Z3DuRheedAv7K8c6A+LO8cqA/LOwfy0LNkQb/SsWRBfeigPrTcA3kooV9poV9pUelXt8TozRQ0+tU9MXqjMn+Qx0rlvMljpd6veptTVL6H08HosWZU7ndT1763mlHpV0f1kRqvXDOvdj6tU+lXWFEfWlTWg1jRr7RQH1pqzB+11wotr01q5FFirZB6Pn8r9Hm11FgPlrg+V9bz42O0wKM+cvSRj8TYr+Hjtfy+hubHUONRH159pIUeVvP+ijzO9bT+2PczVS2sP+aQp99frY9cn3tFr/UxB5/rfUa9n6a0uNZ7Rgv9qidK/epVv/NXKNXHf3pnPB8so8V8leoj91yW4+/F6/nS8/+zx/x28f1fbM88cjk7t6Oa8ubZr96/xxB+voO589jub0vL+WxfoV+Veo5S614+57ErzOel8qhVHzmPfb9WXf5HMETv4/46Jl4P0bYxsX042Bbvl/qdbf8xej2E38cR7xP/7Og8z7bVGgAAAAAAAAAAAAAAAAAAAAAAALEvYyNlfQ==
+   eJzt24FqgzAUhWHHEIUO6vu/3F5lLW0gNzNY1yTnZvk/CLRurrrjvVGp0wQAAAAAwLi+nQw8qHMgD0udA3lY6hzIw1LnQB6WOgfysNQ5kIelzoE8LHUO5GGpcwhjq72jnVDnQB6WOocw1to72gl1DtSHpc6B+rDUOVAfljoH8rDUOdCvLHUO1IelzoH6sNQ5xHlcbmO5jfn5Ory/JGPJvJ6TZUtm+byzLF0v9zth/SV5PU+/tyNdJ/3Z3n4eLWsx7lnQr/y4Z0G/8oP68GWbyMMT+pUv9Ctf6Fe+rBP9yhPmD1/U/eqaGaNS96stM0al3n/ysNTnu+Rhee1Xo84p6uNx3Rkj14zXfjVqzaiPvb36yI0RaobrQV/U/QoW9eFLiz7ceg7uec5vkUeNOTh33+ta6fNaaXE9WOP/c+Y8eXmOHijqo0Qf+cqM+Nw4PUeOayh838kbRX2o+kgPPazl+RV5HBvp+iPuZ171cP0Rf7/1HWfro9TnnjFqfaTfY/bCez/N6fFa7xU99KuReOpX//WYP8NTfbzTO/eebekxX0/1UXouK/H30uv52vP/q9v8cfL9X4R7HqUc7dteTakp+9Xn9Hg+LxyDpfMI57e1lby376Ff1bqP0upcvuS2e5jPa+XRqj5Kbnt8rcrzzvrnnT3MYQAAAAAAAAAAAAAAAAAAAAAAwJ8fCu5pFw==
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Ground" width="100" height="100">
@@ -103,19 +103,19 @@
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1056" y="1152" width="192" height="256">
+  <object type="floor" x="992" y="1248" width="192" height="256">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1248" y="1280" width="160" height="128">
+  <object type="floor" x="1184" y="1376" width="160" height="128">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1408" y="1344" width="160" height="64">
+  <object type="floor" x="1344" y="1440" width="160" height="64">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
@@ -157,13 +157,7 @@
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1024" y="2080" width="128" height="96">
-   <properties>
-    <property name="category" value="1"/>
-    <property name="groupindex" value="1"/>
-   </properties>
-  </object>
-  <object type="floor" x="1088" y="1952" width="64" height="128">
+  <object type="floor" x="1088" y="1952" width="64" height="224">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
@@ -210,7 +204,7 @@
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
    </properties>
-   <polygon points="0,0 32,32 64,32 64,0"/>
+   <polygon points="0,0 32,32 128,32 128,0"/>
   </object>
   <object type="floor" x="288" y="2048" width="32" height="32">
    <properties>
@@ -236,6 +230,13 @@
     <property name="groupindex" value="1"/>
    </properties>
   </object>
+  <object type="floor" x="32" y="928" width="3136" height="32">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
+  <object x="1024" y="2112" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="Walls" width="100" height="100">
   <properties>

@@ -29,11 +29,16 @@ function bullet.new( map, x, y, z )
 	local bulletImpulse = 2
 	local maxSpeed = 100
 	local bulletTimer = 0
-	self.bulletMaxTimer = 7.0
+
+	local fx = 0
+	local fy = 0
+
+	self.isCreated = false
 	local xvb = 0
 	local yvb = 0
+	local xVelScaler = 1.009
+	local yVelScaler = 1.009
 	local blastTimer = 0
-	self.doBlast = false
 	self.firePositionX = 0
 	self.firePositionY = 0
 	self.bulletMaxTravelDistance = 90000
@@ -41,17 +46,11 @@ function bullet.new( map, x, y, z )
 	self.weaponProperties = {}
 	local dummy = nil
 
-	local blastPosX = 0
-	local blastPosY = 0
-
-	self.bulletShieldDeadly = false
-	self.bulletBodyDeadly = false
+	local blastPosX = 0.01
+	local blastPosY = 0.01
 
 	self.bounces = 0
-	self.blastRadius = 0
 	self.isDestroyed = false
-
-	self.trail = map.newEntity( "trail", {self.x, self.y, 0})
 
 	-- BUFFER BATCH
 	local bufferBatch = yama.buffers.newBatch( self.x, self.y, self.z )
@@ -63,43 +62,31 @@ function bullet.new( map, x, y, z )
 
 	table.insert( bufferBatch.data, bulletsprite )
 
-	-- Physics
-	self.bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newCircleShape( 1.5 ) )
-	--local bullet = love.physics.newFixture(love.physics.newBody( map.world, x, y, "dynamic"), love.physics.newRectangleShape( 8, 8 ) )
-	self.bullet:setGroupIndex( -1 )
-	self.bullet:setCategory( 2 )
-	self.bullet:setMask( 2 )
-	self.bullet:setUserData( bulletUserdata )
-	self.bullet:setRestitution( 0.90 )
-	self.bullet:getBody( ):setFixedRotation( false )
-	self.bullet:getBody( ):setLinearDamping( 0.3 )
-	self.bullet:getBody( ):setMass( 0.4 )
-	self.bullet:getBody( ):setInertia( 0.2 )
-	self.bullet:getBody( ):setGravityScale( 1 )
-	self.bullet:getBody( ):setBullet( true )
-
-
-	--[[
-	local ptcTrail = love.graphics.newParticleSystem(  yama.assets.loadImage( "bullet" ), 1000)
-	ptcTrail:setEmissionRate( 600 )
-	ptcTrail:setSpeed( 30, 60 )
-	ptcTrail:setSizes( 1, 3 )
-	ptcTrail:setColors( 255, 255, 255, 170, 255, 255, 255, 20, 255, 255, 255, 0 )
-	ptcTrail:setPosition( x, y )
-	ptcTrail:setEmitterLifetime(200)
-	ptcTrail:setParticleLifetime(0.9)
-	ptcTrail:setSpread( math.rad( 30 ) )
-	ptcTrail:setTangentialAcceleration(0.01)
-	ptcTrail:setRadialAcceleration(0.01)
-	--ptcTrail:stop()
-	local trail = yama.buffers.newDrawable( ptcTrail, 0, 0, 24 )
-	table.insert( bufferBatch.data, trail )
-	--]]
 	function self.initialize( properties )
 
+		self.weaponProperties = properties
+
+		-- Physics
+		
+		self.bullet = love.physics.newFixture(love.physics.newBody( map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape( self.weaponProperties.sizeX ) )
+		self.isCreated = true
+		self.bullet:setGroupIndex( -1 )
+		self.bullet:setCategory( 2 )
+		self.bullet:setMask( 2 )
+		self.bullet:setUserData( bulletUserdata )
+		self.bullet:setRestitution( 0.90 )
+		self.bullet:getBody( ):setFixedRotation( false )
+		self.bullet:getBody( ):setLinearDamping( self.weaponProperties.linearDamping )
+		self.bullet:getBody( ):setMass( self.weaponProperties.bulletWeight )
+		self.bullet:getBody( ):setInertia( self.weaponProperties.inertia )
+		self.bullet:getBody( ):setGravityScale( self.weaponProperties.gravityScale )
+		self.bullet:getBody( ):setBullet( true )
+
+		self.trail = map.newEntity( "trail", {self.x, self.y, 0}, self.weaponProperties)
 	end
 
 	function self.update( dt )
+
 
 		xvb, yvb = self.bullet:getBody():getLinearVelocity()
 		local invaim = math.atan2( -yvb, -xvb )
@@ -118,14 +105,15 @@ function bullet.new( map, x, y, z )
 
 
 		if self.isDestroyed then
-			if self.doBlast then			
+
+			if self.weaponProperties.blastRadius > 0 then			
 				if not self.blast then
-					self.blast = love.physics.newFixture( self.bullet:getBody(), love.physics.newCircleShape( self.blastRadius ), 1 )
-					print( "Blast! Size::", self.blastRadius)
+					self.blast = love.physics.newFixture( self.bullet:getBody(), love.physics.newCircleShape( self.weaponProperties.blastRadius ), 1 )
+					--print( "Blast! Size::", self.weaponProperties.blastRadius )
 					self.blast:setGroupIndex( -1 )
 					self.blast:setCategory( 2 )
 					self.blast:setMask( 2 )
-					self.blast:setSensor( 2 )
+					self.blast:setSensor( true )
 					self.blast:setUserData( bulletUserdata )
 					--blast:setRestitution( 0.90 )
 					--blast:setSensor(true)
@@ -133,64 +121,50 @@ function bullet.new( map, x, y, z )
 				--	bullet.blast:getBody( ):setLinearDamping( 0.3 )
 					self.blast:getBody( ):setMass( 0.01 )
 				--	blast:getBody( ):setInertia( 0.2 )
-				--	blast:getBody( ):setGravityScale( 0.1 )
+					self.blast:getBody( ):setGravityScale( 0.001 )
 					self.blast:getBody( ):setBullet( true )
+					self.bullet:setSensor( true )
 				else
 					if blastTimer <= 0.2 then
 						blastTimer = blastTimer + dt
 						self.bullet:getBody():setLinearVelocity( 0,0 )
 					else
 						blastTimer = 0
-						self.doBlast = false
 						self.destroy()
 					end
 				end
+			else
+				self.destroy()
 			end
 		end
 
-		--[[
-		ptcTrail:setEmissionRate( 500 )
-		ptcTrail:setDirection( invaim )
-		ptcTrail:setPosition( self.x, self.y )
-		--ptcTrail:update(dt)
-		--]]
-
-
-		if bulletTimer <= self.bulletMaxTimer then
+		if bulletTimer <= self.weaponProperties.lifetime then
 			bulletTimer = bulletTimer + dt
 		else
+			--print( "bulletTimer ends! killing bullet")
 			bulletTimer = 0
-			self.destroy()
+			self.isDestroyed = true
 		end
 
 		self.bulletTravelDistance = yama.tools.getDistance( self.firePositionX, self.firePositionY, self.x, self.y )
-		if self.bulletTravelDistance > self.bulletMaxTravelDistance then
-			self.destroy()
+
+		if self.weaponProperties.bulletTravelDistance and self.bulletTravelDistance > self.weaponProperties.bulletTravelDistance then
+			--print( "max bullet tracel distance reached!killing bullet")
+			self.isDestroyed = true
 		end
 	end
 	
-	function self.shoot( fx, fy, weaponProperties )
+	function self.shoot( fxx, fyy, weaponProperties )
+		--print('fxx: ',math.abs(fxx))
+		--print('fyy: ',math.abs(fyy))
+
+		fx = fxx
+		fy = fyy
 
 		self.firePositionX = self.x
 		self.firePositionY = self.y
 
-
-		self.weaponProperties = weaponProperties
-
-		self.bullet:getBody( ):setMass( self.weaponProperties.bulletWeight )
-		
-		self.maxBounces = 				weaponProperties.nrBounces
-		self.bulletMaxTimer = 			weaponProperties.lifetime
-		self.type = 					weaponProperties.name
-		self.blastRadius = 				weaponProperties.blastRadius
-		self.bulletMaxTravelDistance = 	weaponProperties.bulletTravelDistance
-
 		self.bullet:getBody( ):applyLinearImpulse( fx, fy )
-	end
-
-	function self.setId( id )
-		bulletUserdata.id = id
-		self.bullet:setUserData( bulletUserdata )
 
 	end
 
@@ -230,13 +204,14 @@ function bullet.new( map, x, y, z )
 			end
 		end
 		self.bounces = self.bounces + 1
-		if self.bounces > self.weaponProperties.nrBounces then
-			if self.blastRadius > 0 then
+		if self.weaponProperties.nrBounces and self.bounces > self.weaponProperties.nrBounces then
+			if self.weaponProperties.blastRadius > 0 then
+				--print( "max bullet bounces reached! Killing bullet ")
 				contact:setRestitution( 0 )
 				blastPosX, blastPosY, dummy, dummy = contact:getPositions( )
-				self.doBlast = true
 				self.isDestroyed = true
 			else
+				--print( "AWEVT&%&¤%/&%")
 				self.isDestroyed = true
 			end
 		end

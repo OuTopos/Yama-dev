@@ -1,16 +1,22 @@
 local capsule = {}
 
+capsule.weaponconfig = require( yama.paths.capsule.."weaponconfig" )
+
+
 function capsule.load()
 	love.window.setTitle("Mattias CMYK")
 	love.window.setMode(1300, 1000, {
 		fullscreen = false,
 		fullscreentype = "desktop",
 		vsync = true,
-		fsaa = 8,
+		fsaa = 4,
 		resizable = true,
 		borderless = false,
 		centered = true,
 	})
+
+	love.graphics.setFont(love.graphics.newImageFont(yama.assets.loadImage("font")," abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`'*#=[]\""))
+
 	capsule.scene = yama.scenes.new()
 	capsule.scene.enablePhysics()
 	
@@ -22,6 +28,8 @@ function capsule.load()
 	--capsule.cam1.follow(capsule.p1)
 	capsule.vp1 = yama.viewports.new()
 	capsule.vp1.connect(capsule.scene, capsule.p1)
+
+
 
 	function love.gamepadpressed(joystick, button)
 		if button == "a" then
@@ -56,7 +64,7 @@ function capsule.load()
 			capsule.p1.setWeapon( 'rpg')
 		end
 		if key == "t" then
-			capsule.p1.setWeapon( 'grenadier')
+			capsule.p1.setWeapon( 'mg')
 		end
 		if key == "j" then
 			if yama.hud.physics then
