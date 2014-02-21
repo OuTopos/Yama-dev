@@ -29,6 +29,8 @@ function capsule.load()
 	capsule.vp1 = yama.viewports.new()
 	capsule.vp1.connect(capsule.scene, capsule.p1)
 
+	local list = {}
+
 
 
 	function love.gamepadpressed(joystick, button)

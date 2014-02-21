@@ -13,6 +13,9 @@ function player.new( map, x, y, z )
 	self.y = y
 	self.z = z
 
+	self.bulletList = {}
+	self.bulletListNotUsed = {}
+
 	self.bodyUserdata = {}
 	self.bodyUserdata.name = "Unnamed"
 	self.bodyUserdata.type = "player"
@@ -180,13 +183,13 @@ function player.new( map, x, y, z )
 	-- Physics
 
 	function self.initialize( properties )
-		bullet = map.newEntity( "bullet_one", {0, 0, 0}, self.weapon.properties )
+
 		self.bodyUserdata.playerId = properties.id
 		self.swordUserdata.playerId = properties.id
 		self.shieldUserdata.playerId = properties.id
 
 		--self.weaponSetup()
-		self.setWeapon( 'bouncer' )
+		self.setWeapon( 'shotgun' )
 
 		self.refreshBufferBatch()
 	end
@@ -241,8 +244,7 @@ function player.new( map, x, y, z )
 	local boostah = 0
 	local jumpTimer = 0
 	function self.update( dt )
-		collectgarbage()
-		collectgarbage()
+
 		if self.isKilled then
 			self.resetPlayerPos()
 		end
@@ -387,16 +389,46 @@ function player.new( map, x, y, z )
 				local xvector = math.cos( self.weapon.aim )
 				local yvector = math.sin( self.weapon.aim )
 
-				local xPosBulletSpawn = x + 38*xvector * 0.9
-				local yPosBulletSpawn = y + 38*yvector * 0.9
-				
-				--print( 'BULLETPOSSPAWN:', xPosBulletSpawn, yPosBulletSpawn )
-				for i = 1, self.weapon.properties.nrBulletsPerShot do
+				local xPosBulletSpawn = x + 38*xvector * 0.75
+				local yPosBulletSpawn = y + 38*yvector * 0.75
 
-					--[[
-					bullet = map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0}, self.weapon.properties )
+				--local dist = yama.tools.getDistance( xPosBulletSpawn, yPosBulletSpawn, x, y )
+				--print( 'Player: bulletSpawn: spawn position to body distance', dist )
 
-					table.insert( self.bullets, bullet )					
+				local k = 1
+				local bulletToUse = 1
+				for i = 1, self.weapon.properties.nrBulletsPerShot do					
+					local found = false
+					
+					--local bulletInList = self.bulletList[k]
+					local lenList = #self.bulletList
+					--print(self.bulletList[k].isOff)
+
+					if #self.bulletList == 0 then
+						--print("Player: bulletSpawn: Creating the FIRST bullet")
+						table.insert(self.bulletList, map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0}, self.weapon.properties ) )
+						found = true
+					end
+					
+					while k <= lenList and found == false do
+						print("Player: bulletSpawn: Going through bulletList", k)
+						if self.bulletList[k].isOff then
+							--print("Player: bulletSpawn: FOUND unused bullet!")
+							found = true
+							bulletToUse = k
+						end
+						k = k + 1
+						--bulletInList = self.bulletList[k]						
+					end
+					
+	
+					if not found then
+						print("Player: bulletSpawn: Creating a NEW bullet")
+						table.insert(self.bulletList, map.newEntity( "bullet", {xPosBulletSpawn, yPosBulletSpawn, 0}, self.weapon.properties ) )
+						bulletToUse = #self.bulletList
+					end
+
+					--print("Player: BulletSpawn: lenBulletList: ", #self.bulletList)
 
 					local spread = love.math.random(0,self.weapon.properties.spread)
 					spread = spread/100
@@ -415,12 +447,15 @@ function player.new( map, x, y, z )
 					local xvectorspread = math.cos( aimSpread )
 					local yvectorspread = math.sin( aimSpread )
 					
-					self.fxbullet = self.weapon.properties.impulseForce * xvectorspread
-					self.fybullet = self.weapon.properties.impulseForce * yvectorspread
+					local fxbullet = self.weapon.properties.impulseForce * xvectorspread
+					local fybullet = self.weapon.properties.impulseForce * yvectorspread
 
-					--print( 'Bullet direction X:', self.fxbullet, 'Bullet direction Y:', fybullet )
+					--print( 'Bullet direction X:', fxbullet, 'Bullet direction Y:', fybullet )
+					--local dist = yama.tools.getDistance( xPosBulletSpawn, yPosBulletSpawn, x, y )
 
-					bullet.shoot( self.fxbullet, self.fybullet )
+					--print( 'Player: bulletSpawn: spawn position to body distance', dist )
+					self.bulletList[bulletToUse].shoot( xPosBulletSpawn, yPosBulletSpawn, fxbullet, fybullet, self.weapon.properties )
+					
 					--print('impforce', self.weapon.properties.impulseForce)
 					--print('yvectorspread', math.abs(yvectorspread))
 					--]]

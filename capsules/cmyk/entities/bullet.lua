@@ -3,6 +3,8 @@ local bullet = {}
 function bullet.new( map, x, y, z )
 	local self = {}
 
+
+
 	local bulletUserdata = {}
 	bulletUserdata.name = "Unnamed"
 	bulletUserdata.type = "bullet"
@@ -21,6 +23,8 @@ function bullet.new( map, x, y, z )
 	local sx, sy = 1, 1
 	local r = 0
 	self.type = "brick"
+
+	local garbageTime = 0
 	
 	local aim = 0
 	local direction = 0
@@ -51,6 +55,7 @@ function bullet.new( map, x, y, z )
 
 	self.bounces = 0
 	self.isDestroyed = false
+	self.isOff = false
 
 	-- BUFFER BATCH
 	local bufferBatch = yama.buffers.newBatch( self.x, self.y, self.z )
@@ -63,6 +68,8 @@ function bullet.new( map, x, y, z )
 	table.insert( bufferBatch.data, bulletsprite )
 
 	function self.initialize( properties )
+
+		print("CREATED")
 
 		self.weaponProperties = properties
 
@@ -87,82 +94,123 @@ function bullet.new( map, x, y, z )
 
 	function self.update( dt )
 
-
-		xvb, yvb = self.bullet:getBody():getLinearVelocity()
-		local invaim = math.atan2( -yvb, -xvb )
-		xvb = math.abs( xvb )
-		yvb = math.abs( yvb )
-
-		self.trail.x = x
-		self.trail.y = y
-		self.trail.invaim = invaim
-
-		self.x = x
-		self.y = y
-		self.z = z
-		
 		self.updatePosition( )
 
+		if not self.isOff then
 
-		if self.isDestroyed then
+			xvb, yvb = self.bullet:getBody():getLinearVelocity()
+			local invaim = math.atan2( -yvb, -xvb )
+			xvb = math.abs( xvb )
+			yvb = math.abs( yvb )
 
-			if self.weaponProperties.blastRadius > 0 then			
-				if not self.blast then
-					self.blast = love.physics.newFixture( self.bullet:getBody(), love.physics.newCircleShape( self.weaponProperties.blastRadius ), 1 )
-					--print( "Blast! Size::", self.weaponProperties.blastRadius )
-					self.blast:setGroupIndex( -1 )
-					self.blast:setCategory( 2 )
-					self.blast:setMask( 2 )
-					self.blast:setSensor( true )
-					self.blast:setUserData( bulletUserdata )
-					--blast:setRestitution( 0.90 )
-					--blast:setSensor(true)
-					--blast:getBody( ):setFixedRotation( false )
-				--	bullet.blast:getBody( ):setLinearDamping( 0.3 )
-					self.blast:getBody( ):setMass( 0.01 )
-				--	blast:getBody( ):setInertia( 0.2 )
-					self.blast:getBody( ):setGravityScale( 0.001 )
-					self.blast:getBody( ):setBullet( true )
-					self.bullet:setSensor( true )
-				else
-					if blastTimer <= 0.2 then
-						blastTimer = blastTimer + dt
-						self.bullet:getBody():setLinearVelocity( 0,0 )
-					else
-						blastTimer = 0
-						self.destroy()
-					end
-				end
+			self.trail.x = x
+			self.trail.y = y
+			self.trail.invaim = invaim
+
+			self.x = x
+			self.y = y
+			self.z = z
+
+			if bulletTimer <= self.weaponProperties.lifetime then
+				bulletTimer = bulletTimer + dt
 			else
-				self.destroy()
+				--print( "bulletTimer ends! killing bullet")
+				bulletTimer = 0
+				self.isDestroyed = true
+				print("Bullet: update: lifetime run out!")
 			end
-		end
 
-		if bulletTimer <= self.weaponProperties.lifetime then
-			bulletTimer = bulletTimer + dt
-		else
-			--print( "bulletTimer ends! killing bullet")
-			bulletTimer = 0
-			self.isDestroyed = true
-		end
+			self.bulletTravelDistance = yama.tools.getDistance( self.firePositionX, self.firePositionY, x, y )
 
-		self.bulletTravelDistance = yama.tools.getDistance( self.firePositionX, self.firePositionY, self.x, self.y )
+			if self.weaponProperties.bulletTravelDistance and self.bulletTravelDistance > self.weaponProperties.bulletTravelDistance then
 
-		if self.weaponProperties.bulletTravelDistance and self.bulletTravelDistance > self.weaponProperties.bulletTravelDistance then
-			--print( "max bullet tracel distance reached!killing bullet")
-			self.isDestroyed = true
+				--print("Bullet: update: max travel distance!", self.bulletTravelDistance)
+				self.isDestroyed = true
+				if garbageTime <= 0.002 then
+					garbageTime = garbageTime + dt
+					collectgarbage()
+				else
+					print("zero")
+					garbageTime = 0
+				end
+			end
+
+			if self.isDestroyed then
+
+				if self.weaponProperties.blastRadius > 0 then			
+					if not self.blast then
+						self.blast = love.physics.newFixture( self.bullet:getBody(), love.physics.newCircleShape( self.weaponProperties.blastRadius ), 1 )
+						--print( "Blast! Size::", self.weaponProperties.blastRadius )
+						self.blast:setGroupIndex( -1 )
+						self.blast:setCategory( 2 )
+						self.blast:setMask( 2 )
+						self.blast:setSensor( true )
+						self.blast:setUserData( bulletUserdata )
+						--blast:setRestitution( 0.90 )
+						--blast:setSensor(true)
+						--blast:getBody( ):setFixedRotation( false )
+					--	bullet.blast:getBody( ):setLinearDamping( 0.3 )
+						self.blast:getBody( ):setMass( 0.01 )
+					--	blast:getBody( ):setInertia( 0.2 )
+						self.blast:getBody( ):setGravityScale( 0.001 )
+						self.blast:getBody( ):setBullet( true )
+						self.bullet:setSensor( true )
+					else
+						if blastTimer <= 0.2 then
+							blastTimer = blastTimer + dt
+							self.bullet:getBody():setLinearVelocity( 0,0 )
+						else
+							print("removing blast")
+							blastTimer = 0
+							self.blast:destroy()
+							self.destroy()
+							self.blast = false
+						end
+					end
+				else
+					print("destroy")
+					self.destroy()
+				end
+				if garbageTime <= 0.005 then
+					garbageTime = garbageTime + dt
+					--collectgarbage()
+				else
+					print("zero")
+					garbageTime = 0
+				end
+			end
 		end
 	end
 	
-	function self.shoot( fxx, fyy, weaponProperties )
-		--print('fxx: ',math.abs(fxx))
-		--print('fyy: ',math.abs(fyy))
+	function self.shoot( xpos, ypos, fxx, fyy, props )
+		self.weaponProperties = props
+		self.trail.setParticles(self.weaponProperties)
+		self.trail.isDestroyed = false
+		self.trail.x = xpos
+		self.trail.y = ypos
+		--self.trail.invaim = invaim
+		print("Bullet: shoot!")
+		bulletTimer = 0
+		self.isOff = false
 
+		
+
+		self.bullet:setUserData( bulletUserdata )
+		self.bullet:getBody( ):setLinearDamping( self.weaponProperties.linearDamping )
+		self.bullet:getBody( ):setMass( self.weaponProperties.bulletWeight )
+		self.bullet:getBody( ):setInertia( self.weaponProperties.inertia )
+		self.bullet:getBody( ):setGravityScale( self.weaponProperties.gravityScale )
+		self.bullet:getBody( ):setPosition( xpos, ypos )
+
+		self.updatePosition()
+
+		
 		fx = fxx
 		fy = fyy
 
-		self.firePositionX = self.x
-		self.firePositionY = self.y
+		self.firePositionX = xpos
+		self.firePositionY = ypos
+
 
 		self.bullet:getBody( ):applyLinearImpulse( fx, fy )
 
@@ -197,10 +245,12 @@ function bullet.new( map, x, y, z )
 			--print( a:getUserData().type, userdata.type )
 			if userdata.type == 'shield' then  
 				--print('bullet: shield hit!')
-				self.destroy()
+				self.isDestroyed = true
+				print("CONTACKDESTORYED")
 			elseif userdata.type == 'player' then
 				--print('bullet: body hit!')
-				self.destroy()
+				self.isDestroyed = true
+				print("CONTACKDESTORYED")
 			end
 		end
 		self.bounces = self.bounces + 1
@@ -231,13 +281,15 @@ function bullet.new( map, x, y, z )
 	end
 
 	function self.draw( )
-		love.graphics.setColorMode( "modulate" )
+		if self.isOff then
+			love.graphics.setColorMode( "modulate" )
 
-		love.graphics.setColor( 255, 255, 255, 255 );
-		love.graphics.setBlendMode( "alpha" )
+			love.graphics.setColor( 255, 255, 255, 255 );
+			love.graphics.setBlendMode( "alpha" )
 
-		if hud.enabled then
-			physics.draw( bullet, { 0, 255, 0, 102 } )
+			if hud.enabled then
+				physics.draw( bullet, { 0, 255, 0, 102 } )
+			end
 		end
 	end
 
@@ -264,12 +316,22 @@ function bullet.new( map, x, y, z )
 	end
 
 	function self.destroy( )
-		if not self.destroyed then
-			self.bullet:getBody():destroy()
-			self.destroyed = true
+
+			print("Bullet: Destroy!")
+			self.isOff = true
+			self.bullet:getBody( ):setLinearVelocity( 0, 0 )
+			self.bullet:getBody( ):setPosition( 0, 0 )
+			self.bullet:getBody( ):setAwake( false )
+			
+			self.bulletTravelDistance = 0
+			self.bounces = 0
+			self.isDestroyed = false
+			--self.bullet:getBody():destroy()
+			--self.destroyed = true
+			
 			self.trail.isDestroyed = true
-		end
 	end
+
 
 	return self
 end

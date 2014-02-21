@@ -13,18 +13,18 @@ weapons.bouncer.damageShield = 17
 weapons.bouncer.impulseForce = 900
 weapons.bouncer.nrBulletsPerShot = 1
 weapons.bouncer.magCapacity = 50
-weapons.bouncer.spread = 5
+weapons.bouncer.spread = 3.5
 weapons.bouncer.nrBounces = 2
 weapons.bouncer.blastRadius = 0
 weapons.bouncer.lifetime = 2000
 weapons.bouncer.bulletTravelDistance = false
 weapons.bouncer.bulletWeight = 0.4
-weapons.bouncer.sizeX = 1.5
+weapons.bouncer.sizeX = 5
 weapons.bouncer.linearDamping = 0.5
 weapons.bouncer.inertia = 0.2
 weapons.bouncer.gravityScale = 1
-weapons.bouncer.ptclSpriteSizes = { 1,2.3 }
 
+weapons.bouncer.ptclSpriteSizes = { 1,2.3 }
 weapons.bouncer.ptclEmissionRate = 600
 weapons.bouncer.ptclEmitterLifetime = 200
 weapons.bouncer.ptclBufferSize = 9000
@@ -54,37 +54,31 @@ weapons.shotgun.magCapacity = 50
 weapons.shotgun.spread = 50
 weapons.shotgun.nrBounces = 0
 weapons.shotgun.blastRadius = 0
-weapons.shotgun.lifetime = 0.2
+weapons.shotgun.lifetime = 2000
 weapons.shotgun.bulletTravelDistance = 200
-weapons.shotgun.bulletWeight = 0.2
+weapons.shotgun.bulletWeight = 0.4
 weapons.shotgun.sizeX = 0.5
 weapons.shotgun.linearDamping = 0.03
 weapons.shotgun.inertia = 0.2
 weapons.shotgun.gravityScale = 1
 
-weapons.shotgun.ptclSpriteSizes = {1,3}
-weapons.shotgun.ptclEmissionRate = 700
+weapons.shotgun.ptclSpriteSizes = {0.8,1.3}
+weapons.shotgun.ptclEmissionRate = 600
 weapons.shotgun.ptclEmitterLifetime = 200
 weapons.shotgun.ptclBufferSize = 50000
-weapons.shotgun.ptclSpeed = {30, 60}
+weapons.shotgun.ptclSpeed = {10, 15}
 weapons.shotgun.ptclLinearAcceleration = { 0,0,0,0 }
-weapons.shotgun.ptclSpriteLifetime = 1.5
-weapons.shotgun.ptclTangentialAcceleration = 0.4
+weapons.shotgun.ptclSpriteLifetime = 0.5
+weapons.shotgun.ptclTangentialAcceleration = 0.1
 weapons.shotgun.ptclRadialAcceleration = { 0.1, 0.4 } -- Set the radial acceleration (away from the emitter).
-weapons.shotgun.ptclAreaSpread = { 'normal', 2, 2} -- TYPE, The maximum spawn distance X, The maximum spawn distance Y
+weapons.shotgun.ptclAreaSpread = { 'normal', 1, 1} -- TYPE, The maximum spawn distance X, The maximum spawn distance Y
                                                    -- Sets area-based spawn parameters for the particles. 
                                                    -- Newly created particles will spawn in an area around the emitter based on the parameters to this function
 weapons.shotgun.ptclSpread =  0.01 -- The amount of spread (radians)
 weapons.shotgun.ptclSpin = {0.2, 1, 0.3}
-weapons.shotgun.ptclColors = {255, 255, 120, 170,
-							255, 255, 0, 170,
-							255, 128, 128, 160,
-							0, 0, 0, 130, 
-							0, 0, 0, 70, 
-							10, 10, 10, 15, 
-							175, 175, 175, 10, 
-							255, 255, 255, 0
-							}
+weapons.shotgun.ptclColors ={180, 180, 180, 190,
+							180, 180, 180, 100,
+							180, 180, 180, 0}
 
 
 -- RPG --
