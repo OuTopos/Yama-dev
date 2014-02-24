@@ -7,30 +7,30 @@ weapons.rpg = {}
 weapons.mg = {}
 -- BOUNCER --
 weapons.bouncer.name = 'bouncer'
-weapons.bouncer.rps = 0.12
+weapons.bouncer.rps = 0.2
 weapons.bouncer.damageBody = 6
 weapons.bouncer.damageShield = 17
 weapons.bouncer.impulseForce = 900
 weapons.bouncer.nrBulletsPerShot = 1
 weapons.bouncer.magCapacity = 50
-weapons.bouncer.spread = 3.5
+weapons.bouncer.spread = 1.5
 weapons.bouncer.nrBounces = 2
 weapons.bouncer.blastRadius = 0
 weapons.bouncer.lifetime = 2000
 weapons.bouncer.bulletTravelDistance = false
 weapons.bouncer.bulletWeight = 0.4
-weapons.bouncer.sizeX = 5
+weapons.bouncer.sizeX = 1
 weapons.bouncer.linearDamping = 0.5
 weapons.bouncer.inertia = 0.2
 weapons.bouncer.gravityScale = 1
 
-weapons.bouncer.ptclSpriteSizes = { 1,2.3 }
-weapons.bouncer.ptclEmissionRate = 600
+weapons.bouncer.ptclSpriteSizes = { 1,3 }
+weapons.bouncer.ptclEmissionRate = 900
 weapons.bouncer.ptclEmitterLifetime = 200
 weapons.bouncer.ptclBufferSize = 9000
-weapons.bouncer.ptclSpeed = {10, 20}
+weapons.bouncer.ptclSpeed = {20, 40}
 weapons.bouncer.ptclLinearAcceleration = { 0,0,0,0 }
-weapons.bouncer.ptclSpriteLifetime = 0.5
+weapons.bouncer.ptclSpriteLifetime = 0.9
 weapons.bouncer.ptclTangentialAcceleration = 0.1
 weapons.bouncer.ptclRadialAcceleration = { 0, 0 } -- Set the radial acceleration (away from the emitter).
 weapons.bouncer.ptclAreaSpread = { 'normal', 1, 1} -- TYPE, The maximum spawn distance X, The maximum spawn distance Y
@@ -45,7 +45,7 @@ weapons.bouncer.ptclColors = {180, 180, 180, 190,
 
 -- SHOTGUN --
 weapons.shotgun.name = 'shotgun'
-weapons.shotgun.rps = 0.4
+weapons.shotgun.rps = 0.3
 weapons.shotgun.damageBody = 12
 weapons.shotgun.damageShield = 12
 weapons.shotgun.impulseForce = 900
@@ -62,15 +62,15 @@ weapons.shotgun.linearDamping = 0.03
 weapons.shotgun.inertia = 0.2
 weapons.shotgun.gravityScale = 1
 
-weapons.shotgun.ptclSpriteSizes = {0.8,1.3}
-weapons.shotgun.ptclEmissionRate = 600
+weapons.shotgun.ptclSpriteSizes = {0.8,2}
+weapons.shotgun.ptclEmissionRate = 1200
 weapons.shotgun.ptclEmitterLifetime = 200
 weapons.shotgun.ptclBufferSize = 50000
-weapons.shotgun.ptclSpeed = {10, 15}
+weapons.shotgun.ptclSpeed = {25, 45}
 weapons.shotgun.ptclLinearAcceleration = { 0,0,0,0 }
-weapons.shotgun.ptclSpriteLifetime = 0.5
+weapons.shotgun.ptclSpriteLifetime = 0.9
 weapons.shotgun.ptclTangentialAcceleration = 0.1
-weapons.shotgun.ptclRadialAcceleration = { 0.1, 0.4 } -- Set the radial acceleration (away from the emitter).
+weapons.shotgun.ptclRadialAcceleration = { 0.5, 0.9 } -- Set the radial acceleration (away from the emitter).
 weapons.shotgun.ptclAreaSpread = { 'normal', 1, 1} -- TYPE, The maximum spawn distance X, The maximum spawn distance Y
                                                    -- Sets area-based spawn parameters for the particles. 
                                                    -- Newly created particles will spawn in an area around the emitter based on the parameters to this function
@@ -83,7 +83,7 @@ weapons.shotgun.ptclColors ={180, 180, 180, 190,
 
 -- RPG --
 weapons.rpg.name = 'rpg'
-weapons.rpg.rps = 0.2
+weapons.rpg.rps = 0.4
 weapons.rpg.damageBody = 500
 weapons.rpg.damageShield = 500
 weapons.rpg.impulseForce = 3000
@@ -92,7 +92,7 @@ weapons.rpg.nrBulletsPerShot = 1
 weapons.rpg.magCapacity = 1
 weapons.rpg.spread = 0
 weapons.rpg.nrBounces = 0
-weapons.rpg.blastRadius = 50
+weapons.rpg.blastRadius = 70
 weapons.rpg.lifetime = 10
 weapons.rpg.bulletTravelDistance = false
 weapons.rpg.bulletWeight = 4
@@ -102,12 +102,12 @@ weapons.rpg.inertia = 500
 weapons.rpg.gravityScale = 0.001
 
 weapons.rpg.ptclSpriteSizes = {1,3}
-weapons.rpg.ptclEmissionRate = 700
+weapons.rpg.ptclEmissionRate = 300
 weapons.rpg.ptclEmitterLifetime = 200
 weapons.rpg.ptclBufferSize = 50000
 weapons.rpg.ptclSpeed = {30, 60}
 weapons.rpg.ptclLinearAcceleration = { 0,0,0,0 }
-weapons.rpg.ptclSpriteLifetime = 1.5
+weapons.rpg.ptclSpriteLifetime = 2.5
 weapons.rpg.ptclTangentialAcceleration = 0.4
 weapons.rpg.ptclRadialAcceleration = { 0.1, 0.4 } -- Set the radial acceleration (away from the emitter).
 weapons.rpg.ptclAreaSpread = { 'normal', 2, 2} -- TYPE, The maximum spawn distance X, The maximum spawn distance Y

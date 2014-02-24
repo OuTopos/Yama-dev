@@ -77,11 +77,11 @@ function trail.new(scene, x, y, z)
 
 	function self.setParticles(properties)
 
+		self.ptcTrail:setPosition( x, y )
+
 		self.properties = properties
 
-		self.ptcTrail:setImage(yama.assets.loadImage( self.properties.name ) )
-
-		self.ptcTrail:setPosition( x, y )
+		self.ptcTrail:setImage(yama.assets.loadImage( self.properties.name ) )		
 		
 		self.ptcTrail:setSizes(	unpack( self.properties.ptclSpriteSizes ) )
 		

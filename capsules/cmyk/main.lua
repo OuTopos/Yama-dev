@@ -8,7 +8,7 @@ function capsule.load()
 	love.window.setMode(1300, 1000, {
 		fullscreen = false,
 		fullscreentype = "desktop",
-		vsync = true,
+		vsync = false,
 		fsaa = 4,
 		resizable = true,
 		borderless = false,
@@ -37,6 +37,9 @@ function capsule.load()
 		if button == "a" then
 			capsule.p1.gamepadpressed( button )
 		end
+		if button == "y" then
+			capsule.p1.gamepadpressed( button )
+		end
 	end
 
 	function love.gamepadreleased(joystick, button)
@@ -57,16 +60,18 @@ function capsule.load()
 			end
 		end
 		if key == "q" then
-			capsule.p1.setWeapon( 'bouncer')
+			capsule.p1.pickUpWeapon('bouncer')
+		end
+		if key == "w" then
+			capsule.p1.pickUpWeapon('shotgun')
 		end
 		if key == "e" then
-			capsule.p1.setWeapon( 'shotgun')
+			capsule.p1.pickUpWeapon('rpg')
+
 		end
 		if key == "r" then
-			capsule.p1.setWeapon( 'rpg')
-		end
-		if key == "t" then
-			capsule.p1.setWeapon( 'mg')
+			capsule.p1.pickUpWeapon('mg')
+
 		end
 		if key == "j" then
 			if yama.hud.physics then

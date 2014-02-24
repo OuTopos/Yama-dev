@@ -55,6 +55,9 @@ function player.new( map, x, y, z )
 	self.weapon = {}
 	self.weapon.type = ''
 	self.weapon.properties = {}
+	self.weapon.main = 'bouncer'
+	self.weapon.second = 'rpg'
+
 
 	-- Common variables
 	local width, height = 128, 128
@@ -189,7 +192,7 @@ function player.new( map, x, y, z )
 		self.shieldUserdata.playerId = properties.id
 
 		--self.weaponSetup()
-		self.setWeapon( 'shotgun' )
+		self.setWeapon( self.weapon.main )
 
 		self.refreshBufferBatch()
 	end
@@ -359,11 +362,32 @@ function player.new( map, x, y, z )
 		if button == "a" then
 			self.beginJump()
 		end
+		if button == "y" then
+			self.toggleWeapon()
+		end
 	end
 	function self.gamepadreleased( button )
 		if button == "a" then
 			self.jumpTimer = 1
 			self.endJump()
+		end
+	end
+
+	function self.toggleWeapon( )
+		print( "Player: toggle weapon")
+		local temp = self.weapon.main
+		self.weapon.main = self.weapon.second 
+		self.weapon.second = temp
+		self.setWeapon(self.weapon.main)
+	end
+
+	function self.pickUpWeapon( w )
+		local weapon = w
+		if weapon == self.weapon.main or weapon == self.weapon.second then
+			print("Player: pickUpWeapon: has weapon!")
+		else
+			self.weapon.main = weapon
+			self.setWeapon(self.weapon.main)
 		end
 	end
 
@@ -420,7 +444,6 @@ function player.new( map, x, y, z )
 						k = k + 1
 						--bulletInList = self.bulletList[k]						
 					end
-					
 	
 					if not found then
 						print("Player: bulletSpawn: Creating a NEW bullet")

@@ -136,7 +136,7 @@ function bullet.new( map, x, y, z )
 			end
 
 			if self.isDestroyed then
-
+				self.bullet:getBody():setLinearVelocity( 0,0 )
 				if self.weaponProperties.blastRadius > 0 then			
 					if not self.blast then
 						self.blast = love.physics.newFixture( self.bullet:getBody(), love.physics.newCircleShape( self.weaponProperties.blastRadius ), 1 )
@@ -158,10 +158,10 @@ function bullet.new( map, x, y, z )
 					else
 						if blastTimer <= 0.2 then
 							blastTimer = blastTimer + dt
-							self.bullet:getBody():setLinearVelocity( 0,0 )
 						else
 							print("removing blast")
 							blastTimer = 0
+							self.bullet:setSensor( false )
 							self.blast:destroy()
 							self.destroy()
 							self.blast = false
@@ -171,9 +171,9 @@ function bullet.new( map, x, y, z )
 					print("destroy")
 					self.destroy()
 				end
-				if garbageTime <= 0.005 then
+				if garbageTime <= 0.007 then
 					garbageTime = garbageTime + dt
-					--collectgarbage()
+					collectgarbage()
 				else
 					print("zero")
 					garbageTime = 0
@@ -191,9 +191,7 @@ function bullet.new( map, x, y, z )
 		--self.trail.invaim = invaim
 		print("Bullet: shoot!")
 		bulletTimer = 0
-		self.isOff = false
-
-		
+		self.isOff = false		
 
 		self.bullet:setUserData( bulletUserdata )
 		self.bullet:getBody( ):setLinearDamping( self.weaponProperties.linearDamping )
