@@ -26,7 +26,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1aERwDAQA0F//02HhBqEnePdGVVwQGsBAAAAAAAAAAAAAAAAAAAAAAAAX8w7GvRo0aNFjxY9WvRo0aNFDwA4nz9v0aNFjxY9WvRo0aNFjxY9Wv7UY8xsOwAAAAAAAAAAAACAWz3WJwDr
+   eJzt1aEOwCAQBUH4/59GIyqqWNqZ5PlLVtwYAAAAAAAAAAAAAAAAAAAAAAAAwBvz9AFs9GjRo0WPFj1a9GjRo0UPALiff96iR4seLXq06NGiR4seLXq0fKnHNLPHAQAAAAAAAAAAAAD81QKKswDa
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Ground" width="100" height="100">
@@ -39,13 +39,13 @@
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1568" y="1920" width="64" height="288">
+  <object type="floor" x="1568" y="1920" width="32" height="288">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1568" y="1536" width="64" height="256">
+  <object type="floor" x="1568" y="1536" width="32" height="256">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
@@ -56,9 +56,9 @@
   <properties>
    <property name="type" value="locations"/>
   </properties>
-  <object name="start" x="512" y="2112" width="32" height="32">
+  <object name="start" x="1376" y="2112" width="32" height="32">
    <properties>
-    <property name="z" value="0"/>
+    <property name="z" value="1"/>
    </properties>
    <ellipse/>
   </object>
