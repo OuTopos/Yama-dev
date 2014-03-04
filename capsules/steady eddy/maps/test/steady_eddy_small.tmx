@@ -26,20 +26,26 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1aEOwCAQBUH4/59GIyqqWNqZ5PlLVtwYAAAAAAAAAAAAAAAAAAAAAAAAwBvz9AFs9GjRo0WPFj1a9GjRo0UPALiff96iR4seLXq06NGiR4seLXq0fKnHNLPHAQAAAAAAAAAAAAD81QKKswDa
+   eJzt3DGKQ0EQxNDv+196qaAjJws2SGA9mLhEH2CeJ0mSJEmSJEmSJEmSJEmSJEmS5LtevbdHovdt6HvQ+zb0Peh9G/oe9L4NfQ9634a+B71vQ9+D3reh70Hv29D3oPdt6HvQ+zb0Peh9G/oe9L4NfQ9634a+B71vQ9+D3reh70Hv29D3oPfH0HDoFnp/DA2HbqH3x9Bw6BZ6fwwNh26h98fQcOgWen8MDYduoffH0HDoFnp/DA2HbqH3beh70Ps29D3ofRv6HvS+DX0Pen8MDYduoffH0HDoFnp/DA2HbqH3x9Bw6BZ6fwwNh26h98fQcOgWen8MDYduoffH0HDoFnp/DA2HbqH3x9Bw6BZ6fwwNh26h98fQcOgWen8MDYduoffH0HDoFnp/DA2HbqH3x9Bw6BZ6fwwNh26h98fQcD5t+e8fQr3eL74kSZIkSZIkSZIkSfI8fyOKAYQ=
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Ground" width="100" height="100">
   <properties>
    <property name="type" value="collision"/>
   </properties>
-  <object type="floor" x="0" y="2208" width="3200" height="64">
+  <object type="floor" x="0" y="2496" width="3200" height="64">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1568" y="1920" width="32" height="288">
+  <object type="floor" x="1568" y="1920" width="32" height="576">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
+  <object type="floor" x="544" y="992" width="2176" height="32">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
@@ -51,12 +57,24 @@
     <property name="groupindex" value="1"/>
    </properties>
   </object>
+  <object type="floor" x="512" y="992" width="32" height="1504">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
+  <object type="floor" x="2688" y="1024" width="32" height="1472">
+   <properties>
+    <property name="category" value="1"/>
+    <property name="groupindex" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ffff00" name="Spawns" width="100" height="100">
   <properties>
    <property name="type" value="locations"/>
   </properties>
-  <object name="start" x="1376" y="2112" width="32" height="32">
+  <object name="start" x="1408" y="2208" width="32" height="32">
    <properties>
     <property name="z" value="1"/>
    </properties>

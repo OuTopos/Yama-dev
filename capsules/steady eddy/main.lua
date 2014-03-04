@@ -2,7 +2,7 @@ local capsule = {}
 
 function capsule.load()
 	love.window.setTitle("Steady Eddy")
-	love.window.setMode(1300, 1300, {
+	love.window.setMode(1800, 1200, {
 		fullscreen = false,
 		fullscreentype = "desktop",
 		vsync = false,
@@ -50,7 +50,11 @@ function capsule.load()
 			capsule.p1.gamepadreleased( button )
 		end
 	end
-
+	function love.mousepressed(x, y, button)
+	   if button == "wu" or button == "wd" then
+	   		capsule.p1.mouseWheel( button )
+	   end
+	end
 	function love.keypressed(key)
 		if key == "escape" then
 			love.event.push("quit")

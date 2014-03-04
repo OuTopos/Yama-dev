@@ -14,7 +14,6 @@ function player.new( map, x, y, z )
 	self.bodyUserdata.properties = {}
 	self.bodyUserdata.callbacks = {}
 
-
 	-- Common variables
 	self.mx, self.my = self.x, self.y
 
@@ -28,21 +27,17 @@ function player.new( map, x, y, z )
 
 	self.cursor = nil
 	self.distance = nil
-	local dx = nil
-	local dy = nil
-	local move = nil
-	local direction = nil
-	local fx = 1
-	local fy = 1
-	local velocity = 10
+
 
 
 
 	-- BUFFER BATCH
 	self.bufferBatch = yama.buffers.newBatch(self.x, self.y, 1)
 	local spritePlatform = yama.buffers.newDrawable(yama.assets.loadImage("platform"),self.x, self.y, self.z, 1, 1, 1, ox, oy )
+	local spriteBall = yama.buffers.newDrawable(yama.assets.loadImage("ball"),self.x, self.y, self.z, 1, 1, 1, 20, 20 )
 	
 	table.insert( self.bufferBatch.data, spritePlatform )
+	table.insert( self.bufferBatch.data, spriteBall )
 
 	--love.mouse.setPosition( x, y )
 	-- Physics
@@ -57,17 +52,18 @@ function player.new( map, x, y, z )
 	self.fixtures.main:setCategory( 1 )
 	self.fixtures.main:setMask( 2 )
 	self.fixtures.main:setUserData( self.bodyUserdata )
-	self.fixtures.main:setRestitution( 0 )
+	self.fixtures.main:setRestitution( 0.7 )
 	self.fixtures.main:getBody():setFixedRotation( true )
 	self.fixtures.main:getBody():setLinearDamping( 1 )
 	self.fixtures.main:getBody():setMass( 1 )
-	self.fixtures.main:getBody():setInertia( 1 )
-	self.fixtures.main:getBody():setGravityScale( 9 )
+	self.fixtures.main:getBody():setInertia( 0.01 )
+	self.fixtures.main:getBody():setGravityScale( 1 )
 	self.fixtures.main:getBody():setBullet( true )
+
 	
 	self.fixtures.ball = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape(20))
 	self.fixtures.ball:getBody():setMass( 0.3 )
-	self.fixtures.ball:getBody():setGravityScale( 6 )
+	self.fixtures.ball:getBody():setGravityScale( 5 )
 	--self.fixtures.ball:setSensor( true )
 
 	self.platformGrabberJoint = love.physics.newMouseJoint( self.fixtures.main:getBody(), self.x, self.y )
@@ -83,8 +79,16 @@ function player.new( map, x, y, z )
 		self.platformGrabberJoint:setTarget(self.cursor.x, self.cursor.y )
 
 		self.updatePosition()
+	end
 
-
+	function self.mouseWheel( button )
+		if button == "wu" then
+			self.fixtures.main:getBody():setAngle( self.fixtures.main:getBody():getAngle() -0.25 )
+		end
+		if button == "wd" then
+			print("DSFSDS")
+			self.fixtures.main:getBody():setAngle( self.fixtures.main:getBody():getAngle() +0.25 )
+		end
 	end
 	
 	function self.gamepadpressed( button )
@@ -110,6 +114,7 @@ function player.new( map, x, y, z )
 		self.bufferBatch = yama.buffers.newBatch(x, y, z)
 
 		table.insert( self.bufferBatch.data, spritePlatform )
+		table.insert( self.bufferBatch.data, spriteBall )
 	end
 
 
@@ -117,6 +122,11 @@ function player.new( map, x, y, z )
 		self.x = self.fixtures.main:getBody():getX()
 		self.y = self.fixtures.main:getBody():getY()
 		self.r = self.fixtures.main:getBody():getAngle()
+
+		spriteBall.x = self.fixtures.ball:getBody():getX()
+		spriteBall.y = self.fixtures.ball:getBody():getY()
+		--spriteBall.z = self.0
+		spriteBall.r = self.fixtures.ball:getBody():getAngle()
 
 		spritePlatform.x = self.x
 		spritePlatform.y = self.y
