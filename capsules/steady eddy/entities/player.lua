@@ -18,7 +18,7 @@ function player.new( map, x, y, z )
 	-- Common variables
 	self.mx, self.my = self.x, self.y
 
-	local width, height = 128, 32
+	local width, height = 180, 10
 	local ox, oy = width/2, height/2
 	local sx, sy = 1, 1
 	local r = 0
@@ -26,10 +26,21 @@ function player.new( map, x, y, z )
 	self.radius = yama.tools.getDistance( self.cx, self.cy, x - ox, y - oy)
 	self.type = "player"
 
+	self.cursor = nil
+	self.distance = nil
+	local dx = nil
+	local dy = nil
+	local move = nil
+	local direction = nil
+	local fx = 1
+	local fy = 1
+	local velocity = 10
+
+
 
 	-- BUFFER BATCH
 	self.bufferBatch = yama.buffers.newBatch(self.x, self.y, 1)
-	local spritePlatform = yama.buffers.newDrawable(yama.assets.loadImage("platform"),self.x, self.y, self.z, 1, 1, 1, 1, 1 )
+	local spritePlatform = yama.buffers.newDrawable(yama.assets.loadImage("platform"),self.x, self.y, self.z, 1, 1, 1, ox, oy )
 	
 	table.insert( self.bufferBatch.data, spritePlatform )
 
@@ -38,6 +49,7 @@ function player.new( map, x, y, z )
 
 	function self.initialize( properties )
 
+		self.cursor = properties.cursor
 	end
 	---[[ 
 	self.fixtures.main = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newRectangleShape(180,10), 1)
@@ -52,14 +64,27 @@ function player.new( map, x, y, z )
 	self.fixtures.main:getBody():setInertia( 1 )
 	self.fixtures.main:getBody():setGravityScale( 9 )
 	self.fixtures.main:getBody():setBullet( true )
+	
+	self.fixtures.ball = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape(20))
+	self.fixtures.ball:getBody():setMass( 0.3 )
+	self.fixtures.ball:getBody():setGravityScale( 6 )
+	--self.fixtures.ball:setSensor( true )
+
+	self.platformGrabberJoint = love.physics.newMouseJoint( self.fixtures.main:getBody(), self.x, self.y )
+
 	--]]
 
 	function self.update( dt )
 		--love.mouse.setPosition( self.x, self.y )
 		--self.mx, self.my = love.mouse.getPosition( )
-		--self.fixtures.main:getBody():setPosition(self.mx, self.my)
+		--self.fixtures.main:getBody():setPosition(self.cursor.x, self.cursor.y)
+		--self.fixtures.grabber:getBody():setPosition(self.cursor.x, self.cursor.y)
+
+		self.platformGrabberJoint:setTarget(self.cursor.x, self.cursor.y )
 
 		self.updatePosition()
+
+
 	end
 	
 	function self.gamepadpressed( button )

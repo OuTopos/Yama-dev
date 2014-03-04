@@ -182,11 +182,15 @@ function viewports.new()
 		self.cursor.x = love.mouse.getX() + self.camera.x
 		self.cursor.y = love.mouse.getY() + self.camera.y
 
-		if self.cursor.x > self.x and self.cursor.x < self.width * self.sx and self.cursor.y > self.y and self.cursor.y < self.height * self.sy then
+		if self.cursor.x > self.camera.x and self.cursor.x < self.width * self.sx and self.cursor.y > self.camera.y and self.cursor.y < self.height * self.sy then
 			self.cursor.active = true
 		else
 			self.cursor.active = false
 		end
+	end
+
+	function self.getCursorPosition()
+		return self.cursor.x, self.cursor.y
 	end
 
 	function self.addToBuffer(object)
