@@ -14,10 +14,16 @@ function player.new( map, x, y, z )
 	self.bodyUserdata.properties = {}
 	self.bodyUserdata.callbacks = {}
 
+	self.ballUserdata = {}
+	self.ballUserdata.name = "balle"
+	self.ballUserdata.type = "ball"
+	self.ballUserdata.properties = {}
+	self.ballUserdata.callbacks = {}
+
 	-- Common variables
 	self.mx, self.my = self.x, self.y
 
-	local width, height = 180, 10
+	local width, height = 136, 10
 	local ox, oy = width/2, height/2
 	local sx, sy = 1, 1
 	local r = 0
@@ -29,12 +35,10 @@ function player.new( map, x, y, z )
 	self.distance = nil
 
 
-
-
 	-- BUFFER BATCH
 	self.bufferBatch = yama.buffers.newBatch(self.x, self.y, 1)
 	local spritePlatform = yama.buffers.newDrawable(yama.assets.loadImage("platform"),self.x, self.y, self.z, 1, 1, 1, ox, oy )
-	local spriteBall = yama.buffers.newDrawable(yama.assets.loadImage("ball"),self.x, self.y, self.z, 1, 1, 1, 20, 20 )
+	local spriteBall = yama.buffers.newDrawable(yama.assets.loadImage("ball"),self.x, self.y, self.z, 1, 1, 1, 16, 16 )
 	
 	table.insert( self.bufferBatch.data, spritePlatform )
 	table.insert( self.bufferBatch.data, spriteBall )
@@ -47,23 +51,31 @@ function player.new( map, x, y, z )
 		self.cursor = properties.cursor
 	end
 	---[[ 
-	self.fixtures.main = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newRectangleShape(180,10), 1)
+	self.fixtures.main = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newRectangleShape( 136,5 ), 1 )
 	self.fixtures.main:setGroupIndex( 1 )
 	self.fixtures.main:setCategory( 1 )
 	self.fixtures.main:setMask( 2 )
+	self.fixtures.main:setFriction( 1 )
 	self.fixtures.main:setUserData( self.bodyUserdata )
 	self.fixtures.main:setRestitution( 0.7 )
 	self.fixtures.main:getBody():setFixedRotation( true )
 	self.fixtures.main:getBody():setLinearDamping( 1 )
-	self.fixtures.main:getBody():setMass( 1 )
+	self.fixtures.main:getBody():setMass( 3 )
 	self.fixtures.main:getBody():setInertia( 0.01 )
-	self.fixtures.main:getBody():setGravityScale( 1 )
+	self.fixtures.main:getBody():setGravityScale( 1 )	
 	self.fixtures.main:getBody():setBullet( true )
 
+	self.fixtures.stahp1 = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape( -68,-5, -68,-7, -63,-7, -63,-5 ),1)
+	self.fixtures.stahp2 = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape( 68,-5, 68,-7, 63,-7, 63,-5 ),1)
+	self.fixtures.main:getBody():setMass( 3 )
+
 	
-	self.fixtures.ball = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape(20))
-	self.fixtures.ball:getBody():setMass( 0.3 )
+	self.fixtures.ball = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape(16))
+	self.fixtures.ball:getBody():setMass( 2 )
 	self.fixtures.ball:getBody():setGravityScale( 5 )
+	self.fixtures.ball:setRestitution( 0.7 )
+	self.fixtures.ball:getBody():setLinearDamping( 0.1 )
+	self.fixtures.ball:getBody():setAngularDamping( 3 )
 	--self.fixtures.ball:setSensor( true )
 
 	self.platformGrabberJoint = love.physics.newMouseJoint( self.fixtures.main:getBody(), self.x, self.y )
@@ -76,18 +88,17 @@ function player.new( map, x, y, z )
 		--self.fixtures.main:getBody():setPosition(self.cursor.x, self.cursor.y)
 		--self.fixtures.grabber:getBody():setPosition(self.cursor.x, self.cursor.y)
 
-		self.platformGrabberJoint:setTarget(self.cursor.x, self.cursor.y )
+		self.platformGrabberJoint:setTarget( self.cursor.x, self.cursor.y )
 
 		self.updatePosition()
 	end
 
 	function self.mouseWheel( button )
 		if button == "wu" then
-			self.fixtures.main:getBody():setAngle( self.fixtures.main:getBody():getAngle() -0.25 )
+			self.fixtures.main:getBody():setAngle( self.fixtures.main:getBody():getAngle() -math.rad(15) )
 		end
 		if button == "wd" then
-			print("DSFSDS")
-			self.fixtures.main:getBody():setAngle( self.fixtures.main:getBody():getAngle() +0.25 )
+			self.fixtures.main:getBody():setAngle( self.fixtures.main:getBody():getAngle() +math.rad(15) )
 		end
 	end
 	
@@ -102,6 +113,13 @@ function player.new( map, x, y, z )
 	function self.bodyUserdata.callbacks.beginContact( a, b, contact )
 		local userdata = a:getUserData()
 		local userdata2 = b:getUserData()
+		if userdata and userdata2 then
+			if userdata.type == "player" and userdata2.type == "floor" then
+				contact:setFriction(0.1)
+			elseif userdata.type == "player" and userdata2.type == "ball" then
+				contact:setFriction(100)
+			end
+		end
 	end
 
 	function self.bodyUserdata.callbacks.endContact( a, b, contact )
