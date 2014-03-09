@@ -37,7 +37,7 @@ function player.new( map, x, y, z )
 
 	-- BUFFER BATCH
 	self.bufferBatch = yama.buffers.newBatch(self.x, self.y, 1)
-	local spritePlatform = yama.buffers.newDrawable(yama.assets.loadImage("platform"),self.x, self.y, self.z, 1, 1, 1, ox, oy )
+	local spritePlatform = yama.buffers.newDrawable(yama.assets.loadImage("platform"),self.x, self.y, self.z, 1, 1, 1, ox, 7.5 )
 	local spriteBall = yama.buffers.newDrawable(yama.assets.loadImage("ball"),self.x, self.y, self.z, 1, 1, 1, 16, 16 )
 	
 	table.insert( self.bufferBatch.data, spritePlatform )
@@ -57,35 +57,47 @@ function player.new( map, x, y, z )
 	self.fixtures.main:setMask( 2 )
 	self.fixtures.main:setFriction( 1 )
 	self.fixtures.main:setUserData( self.bodyUserdata )
-	self.fixtures.main:setRestitution( 0.7 )
+	self.fixtures.main:setRestitution( 1 )
 	self.fixtures.main:getBody():setFixedRotation( true )
 	self.fixtures.main:getBody():setLinearDamping( 1 )
-	self.fixtures.main:getBody():setMass( 3 )
+	self.fixtures.main:getBody():setMass( 10 )
 	self.fixtures.main:getBody():setInertia( 0.01 )
 	self.fixtures.main:getBody():setGravityScale( 1 )	
 	self.fixtures.main:getBody():setBullet( true )
 
-	self.fixtures.stahp1 = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape( -68,-5, -68,-7, -63,-7, -63,-5 ),1)
-	self.fixtures.stahp2 = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape( 68,-5, 68,-7, 63,-7, 63,-5 ),1)
-	self.fixtures.main:getBody():setMass( 3 )
+	self.fixtures.stahp1 = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape( -68,-2.5, -68,-7.5, -63,-7.5, -63,-2.5 ),1)
+	self.fixtures.stahp2 = love.physics.newFixture(self.fixtures.main:getBody(), love.physics.newPolygonShape( 68,-2.5, 68,-7.5, 63,-7.5, 63,-2.5 ),1)
+	self.fixtures.main:getBody():setMass( 1 )
 
 	
 	self.fixtures.ball = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape(16))
-	self.fixtures.ball:getBody():setMass( 2 )
+	self.fixtures.ball:getBody():setMass( 3 )
 	self.fixtures.ball:getBody():setGravityScale( 5 )
-	self.fixtures.ball:setRestitution( 0.7 )
-	self.fixtures.ball:getBody():setLinearDamping( 0.1 )
+	self.fixtures.ball:setRestitution( 0.9 )
+	self.fixtures.ball:getBody():setLinearDamping( 0.8 )
 	self.fixtures.ball:getBody():setAngularDamping( 3 )
 	--self.fixtures.ball:setSensor( true )
+	
+	--self.fixtures.mainGrabber = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newRectangleShape( 5,5 ), 1 )
+	--self.fixtures.mainGrabber:setSensor( true )
+	--self.fixtures.mainGrabber:getBody():setFixedRotation( true )
 
-	self.platformGrabberJoint = love.physics.newMouseJoint( self.fixtures.main:getBody(), self.x, self.y )
+	--self.dasJoint = love.physics.newWeldJoint( self.fixtures.main:getBody(), self.fixtures.mainGrabber:getBody(), self.fixtures.mainGrabber:getBody():getX(), self.fixtures.mainGrabber:getBody():getY(), self.fixtures.main:getBody():getX(), self.fixtures.main:getBody():getY(), false )
+	--self.dasJoint:setDampingRatio(0.1)
+	--self.dasJoint:setFrequency(10)
+	--self.dasJoint:setLength(0.001)
+
+	self.platformGrabberJoint = love.physics.newMouseJoint( self.fixtures.main:getBody(), self.x, self.y+2.5 )
+	self.platformGrabberJoint:setDampingRatio(1)
+	self.platformGrabberJoint:setFrequency(10)
+	self.platformGrabberJoint:setMaxForce(10000000000000)
 
 	--]]
 
 	function self.update( dt )
 		--love.mouse.setPosition( self.x, self.y )
 		--self.mx, self.my = love.mouse.getPosition( )
-		--self.fixtures.main:getBody():setPosition(self.cursor.x, self.cursor.y)
+		--self.fixtures.mainGrabber:getBody():setPosition(self.cursor.x, self.cursor.y)
 		--self.fixtures.grabber:getBody():setPosition(self.cursor.x, self.cursor.y)
 
 		self.platformGrabberJoint:setTarget( self.cursor.x, self.cursor.y )
