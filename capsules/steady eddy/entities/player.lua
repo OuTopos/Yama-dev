@@ -20,6 +20,9 @@ function player.new( map, x, y, z )
 	self.ballUserdata.properties = {}
 	self.ballUserdata.callbacks = {}
 
+	self.posBallStartX = nil
+	self.posBallStartY = nil
+
 	-- Common variables
 	self.mx, self.my = self.x, self.y
 
@@ -46,10 +49,6 @@ function player.new( map, x, y, z )
 	--love.mouse.setPosition( x, y )
 	-- Physics
 
-	function self.initialize( properties )
-
-		self.cursor = properties.cursor
-	end
 	---[[ 
 	self.fixtures.main = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newRectangleShape( 136,5 ), 1 )
 	self.fixtures.main:setGroupIndex( 1 )
@@ -70,12 +69,7 @@ function player.new( map, x, y, z )
 	self.fixtures.main:getBody():setMass( 1 )
 
 	
-	self.fixtures.ball = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newCircleShape(16))
-	self.fixtures.ball:getBody():setMass( 3 )
-	self.fixtures.ball:getBody():setGravityScale( 5 )
-	self.fixtures.ball:setRestitution( 0.9 )
-	self.fixtures.ball:getBody():setLinearDamping( 0.8 )
-	self.fixtures.ball:getBody():setAngularDamping( 3 )
+
 	--self.fixtures.ball:setSensor( true )
 	
 	--self.fixtures.mainGrabber = love.physics.newFixture(love.physics.newBody(  map.world, self.x, self.y, "dynamic"), love.physics.newRectangleShape( 5,5 ), 1 )
@@ -93,6 +87,26 @@ function player.new( map, x, y, z )
 	self.platformGrabberJoint:setMaxForce(10000000000000)
 
 	--]]
+
+
+	function self.initialize( properties )
+
+		self.cursor = properties.cursor
+
+		self.posBallStartX = properties.posBallStartX
+		self.posBallStartY = properties.posBallStartY
+
+		self.fixtures.ball = love.physics.newFixture(love.physics.newBody(  map.world, self.posBallStartX, self.posBallStartY, "dynamic"), love.physics.newCircleShape(16))
+		self.fixtures.ball:getBody():setMass( 3 )
+		self.fixtures.ball:getBody():setGravityScale( 5 )
+		self.fixtures.ball:setRestitution( 0.9 )
+		self.fixtures.ball:getBody():setLinearDamping( 0.8 )
+		self.fixtures.ball:getBody():setAngularDamping( 3 )
+
+		
+
+
+	end
 
 	function self.update( dt )
 		--love.mouse.setPosition( self.x, self.y )

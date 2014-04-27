@@ -5,7 +5,7 @@ function capsule.load()
 	love.window.setMode(1800, 1200, {
 		fullscreen = false,
 		fullscreentype = "desktop",
-		vsync = false,
+		vsync = true,
 		fsaa = 4,
 		resizable = true,
 		borderless = false,
@@ -21,12 +21,17 @@ function capsule.load()
 	love.physics.setMeter(32)
 	capsule.scene.loadMap("test/steady_eddy_16")
 	capsule.vp1 = yama.viewports.new()
-	
-	capsule.p1 = capsule.scene.newEntity("player", "start", {cursor = capsule.vp1.cursor})
+
+	local mapProperties = {}
+	mapProperties.cursor = capsule.vp1.cursor
+	mapProperties.posBallStartX = capsule.scene.locations["ballStart"].x
+	mapProperties.posBallStartY = capsule.scene.locations["ballStart"].y
+	capsule.p1 = capsule.scene.newEntity("player", "start", mapProperties)
 	--capsule.vp1.connect(capsule.scene, capsule.p1)
 	capsule.vp1.connect(capsule.scene)
-	capsule.vp1.camera.cx = capsule.scene.locations["start"].x
-	capsule.vp1.camera.cy = capsule.scene.locations["start"].y
+	capsule.vp1.camera.cx = capsule.scene.locations["camera"].x
+	capsule.vp1.camera.cy = capsule.scene.locations["camera"].y
+
 
 	--capsule.cam1 = capsule.map.spawn("camera", "start")
 	--capsule.cam1.follow(capsule.p1)

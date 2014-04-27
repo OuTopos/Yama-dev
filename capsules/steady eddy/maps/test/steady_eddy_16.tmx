@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="16" tileheight="16" backgroundcolor="#ffffff">
  <tileset firstgid="1" name="sky32" tilewidth="16" tileheight="16">
   <image source="../../images/sky32.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="5" name="wallpink32" tilewidth="16" tileheight="16">
   <image source="../../images/wallpink32.png" width="32" height="32"/>
  </tileset>
+ <tileset firstgid="9" name="bg32" tilewidth="16" tileheight="16">
+  <image source="../../images/bg32.png" width="32" height="32"/>
+ </tileset>
  <layer name="-1" width="100" height="100">
   <properties>
    <property name="z" value="-1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztmtmW2yAQRC1L///NeQknpKeX6k0gjx84Y2sD6lJFy8nxer2OovYmn9+Fz9baqTTtOmkOb+V8tQbX36aNabem6e1hIGk/t6HPodzXzcQzvxX6escnnZO0nxvVdFcmK5uXr8RA0l7SJ8MkymOH9Zztn9OCY+Dpa2h0Tsd38YdXv2q+yNwjDLi+uPsyGnTUOKv9we27kRyStOfaOfVNfdPJxJprR82K9GntuxEPWM+5yLXj7517OzJGr35ZfT16ZxhoHp77vntvt5pXv2p9PfprDLy5Oo/1zr1994boVsmA3kfHEpkDyuQJ9ZXXf5nn0jFW7e0oj8r5denbpb+m30Xu4fb2VTxWtyr2Xh9TJuNYJP8r82onfbsZSPrMz5ozbAWP3Zsnh6I8Ros+55N4WH6r1F/KrPMV84WHxehv9/28U28Pk1mPLh7oeCrban2zTFay+LZ/LbKHfHl8efyW1p1VT83yp7Qvj31a57+f/6aWfe/78shrz7UVLE7w+k9pyLvqfO0KHug9T21RD2R8kuUx3/cJXKoyqPu3KsqC9vdUJl37QKR18diJiff3ylXjzLLg6qs7/v9V9e/Fq9fL3TzeDRo+Ue9uFtL7h/Z/2T5dX2mdruRhMVmt2S4MqllEeTydSVb/u1lYTOg4dmsevbP5uQOPuz3SrW90b7uThcVknEPmcKeeWu3I6ZOpNXbiMffPzSebA556jZuP1n9FjdfFAskdi4m0xpB1t6t3OpgMLhqTLI9xHmFirfGIB6I5tbMvKjzC6ROZ7zen8kwkj3xaTt25Z3R55CTHM3p0emcnFpUeQfS0tLnLOzvyqK63pHUcWePcPn8Zz6r2xd3eqKyBx3FJWy+TO2uuHVhU89A8Qv+93tN+077R9Z6orXNN9+59Y2cWR+I+jck4LuX/TjXXb+Ah5VYmx7u9U8VkcIkyybBEmETW6irtowwqfyvs5qExmXMrq6GVVU/h0f0bMHc/1cf6Ts91emcli3fTMyUu0po+yF/P/sx9f9L7hnTNKiaUTYaF9Kwn8uhmgtwXZZGta3dhwV3X7ZNZe+6zpyHsns6jkwnXL7Ke76h/d2XRzQSZd1X9+zQe6F7bvRY4z6C5k62nduSxehzcuCr29i+P+Di4e5HxRDy1M4/IWMZ4KsYicZFqgKp82o3F+Ew9f5Fn0ezwjquKiXe9PJHFvN7o+8D82wNdn11crPyyro14ZwceXE4dpI9zOnaRY+/XTybIWKu9EtFzVx5cHSP5ZLSZw3xvB5eIV9Dju/OY9ac+uchnymS+vosLd61nX5HqyR15zBxmT9C/VMeT6dviIs3DwyVzncZw9V7O7YXafshpp3mF4/Iu4IIysbyC6HOXN+bvFgdtzIhXpPeyaI55mHmZSPfM2nVmFd3PrSbVPSgXrk6Ozk3aV7xcIh4ac13N4xD658bKcTleP7l4M4C+02SzzlubUf0q9w4vD4kRfS43No4L9QryTknnH33HyXhI24sze0eEB32uta658XM+Gdpaz6PHPLkRzTbNK/SzVadp3sjyoGsa8Q6dA5dfGhN6zJt12WxD9OU8gHhjXqeWpla9xI3Tyh56LcJEY4RkXVe2Sf6w/CD5w1Pv0ppKq2k9z5xrBklbzTeWT6qzTWPFMdGa1KekLZ3L+C5lEXc/kmUWE+47yiRSx0W5RLyBajf7Z9aAmxfqHSRbuGve5Jgn647X/xyRbKvwkMcrkvbSMeoX6ZjHO9b6ovqPdpFrUA9UZxvKBvEKyoMepzUn5RPxjpVl0lr2ZF1VtqEeQtabxUPzCPV71jveLKPMIlmHaJ7xkDcPMjw47TgdUe+gexl6HMk6NNus8xqriGc8PObvkm5e78zsvFlm8eGyzltbW+et+yJZJrFArot6J5Nl1pw8GmnZhvCyWElZ5vWNpjfCQfIO7T+aZbROQT2j5YRWR0u6R3gczPd5Dt6s4vaVqHeiWXYZ562sQ7IN8ZDGCvEpVwMgLBAPRL3jzTLqJU/WebIN9VDEO1p/Fgtvpnm9o/mHyzLKyZN1nmzzeoiyimaZlVHIGpvXCnfeWpvRLPNmXSbbtDUtsYpkmcbCo+8dWTbfx+lvZV0m27ysrNpNyzFJJ0+2WAyyWSb17ck6T7Z5PCQd82aZpZG133jWelWWIWtY8omUCVy2IR5CuEi/wUk8JI29jDR90BxAONBrkedKNaOWbYiHor/Bab7J6FjpnUyOoVnnyTbEQ1beaT6SfBPR+A7voPpr+iJzk3yC1gda3klZJnmCvqd7ap5O73AZY+nv4aCNj6vzNQ9JrJDajZvTH/FiSG8=
+   eJztnduO6yAMRdu0L3P5/+89GumgsTy28RWcNg9W2zQQ2IttCHnI5+12+3yR+GjQBhjfytjdTtzWDvXs4NCJS0ZbuvUpwgK2v4vPNXp2HWNRDiM+mvHgNO3s+SwWP/H1PzLr3BVn0l3isVvHXeO6E4dO4c1hF4c1PDp45+e6XXLHFb+xmsn9BPGYxFOIWVmuLngMt8XThwN9P5jzNG1cra9F7wgDqixu46gPaurRRcsjs39V+lbpL+n3RGXGd8hkF4/dkcXe6mPMZBzjtFyVrzrpW82A0wfWBXPYDh7dw5KHvDxGeOt5JR4zv2Xqz+Wsx83nCwuLcb3u83ml3hYmUI8qHtr2ZMZufaNMdrK44jc8c8jF4+LxLlGdq86ay88SF48+4WFx8fgb0fu+i0dceyp2sHgoz3+V0NyrwnN38NCWOWt4PRDxSZQHLPcKXLJyUPVeFWaBr3dWJlXzgCeqeHRiYt2v3NXOKAtqfYWZVHDJ3i/ePV5W8zgKNDyj3tUsuPsPjkkWl93aScGN0508Zkx2a9aFQTYLL4+zM4nqv5rFjAluR7ew6B3Nnx14rPZItb7euW0lixmT8Z+mDyv1lNaOlD6RtUYnHvD6VH+iecCyXqP6I10/Y41XxUKTd2ZMuDGmGXddvVPBZHCRmER5jP81TGZj3OMBb57q7IsMj1D6ePp75ak4E84jr5anVs4ZVR55oOMRPSq904lFpkc0es60WeWdjjyy11vcOPaMcWqef07qyvbFam9kroHHcU5bK5OVa64OLLJ5SB7Bz+st8U7zRtV9ojTOJd2r543OLO6BchKTcZzL/53WXO/Ag8tbkTxe7Z0sJoOLl0mEpYaJZ6zu0t7LIHOvsJqHxATmraiGs1x1Fh7Ve8BUeazP7Df+r9I7O1kcRXVyXLgxfUeflvmZ+n2m+w3unF1MMJsIC66uM/KoZqIp52URXdd2YUGdV+0TqD313RIadmfnUcmEuq5mPK9Y/3ZlUc1E0++s9e/ZeGjn2uqxQHlGm3ei66mOPHa3g2pXxtx+8fC3gyqraY/HU515eNoy2pPRFo4LtwbIyk/dWIzv2PNPVBfOHdZ2ZTGxjpczsoDjDd8PwL0HPD6ruMzy1+xcj3c68KDy1B1d4wGOPdGx4/aXiaat2V7x6NmVB7WO4XwyAnKAZSu4eLyiPd6dB9Qf++SJvmMm8PwqLtS5lnmFW0925AE5QE/gT6zjg7j2jAvXDwuXyHkSw91zOTUXSvMhpZ3kFYrLkcBFy2TmFY0+q7wBf884SG3WeIW7L/PmMQszKxOuDNSuMlfh+XwW3LpHy4VaJ3v7xs0rVi4eD42+7uZxZ65PtZXicr/95WLNAfieJprrrGszrF/m3GHlwTHC9VJto7hgr2juKXH/vfc4EQ9Jc3Fk7vDwwPXOxjXVfsonQ9tZffiYJW94c5vkFfx9tk6TvBHlgce0xju4D1T+kpjgY9ZcF81tGn0pD2i88fM7411kXd7v+QrxwcTFgw/qvWhZdX8RwTGSYrdGO1lk8uHeuWeJi4ePTdU7DN/FI7vfTWl5h+XFo1d0edfrxaOndhePfC5d2vFuPLAWu9siMaq+Xpe8D+PZtF0rgtp3wntSeI/IuudF7THCuqhjsNzxRnw0LDTPDu9MXZZycH+SYoT/x20ee4Xa/UJYHt7fduFBsdBq7/WO5B/sIYoT/h/u4Vr22/E+82yPGj+XoZ4ZcvvO0l70LEdpxtjoP6frbGx6c5k213Gf1DMEjovm+Q5mxTGR6pRYWPRdkctgOUr/Wa6L5DYrq+Nm50E9T8KstLllxiCay7hrW3KdJbdZPMQds+aymUZSX61jPSuXacYw5xMuJ1C5TeMhDRcql0k8OI2tjCR9tHlAwwGfq6mXWzNKuU3jIQ0rbt7hfBPRMdM7kTymzXWW3Kbx0CzfST7ifOPReIV3tPpL+mr6xvlEuz6Q8h2XyzhPHMS1tD6o9A6VY2b6WzhI7aPW+ZKHOFaatRvVp385wZRk
   </data>
  </layer>
  <layer name="0" width="100" height="100">
@@ -19,26 +22,26 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt2kEKgzAUQEE33v/KPUBBrDTyvs5AdoIxbyHR7Nu27UZq0KBHix4terT80sM7aD1r2aJHix4terTo0aJHix4terS8vUftm+zbe9To0aJHix4td/XQ/Bw9WvRo0aNFj5YVe0vnja6zHi16tOjRokeLHi16tOjRokeLHi3Tejx9zz957kemPpMeLXq06NGiR4seLXq06HGPs/PR4x56tEzpsereelyjx/d1eqynR8vbe9To0aJHix4terTo0aJHix4z6dHyzx6/nI2afk5qFWvSokeLHi16tDy1x9Rn0qNFjxY9WvRo0aNFjxY9WvRo0aNFjxY9WvRo0aPl6j9WY90AAAAAAAAAAIAjH8nTCVw=
+   eJzt2bENgDAMAEGa7L8yGyAkEHySO8m9nS9zHAAAAMDfhslNRWmXP+jRokeLHi16tOjRokeLHi16tOjRokeLHi16tNR67E6Plqc9tHyXHi16tOjRokfLSn/vK/CmLXq06NGyao9Zb9KjRY8WPVr0aNGjRY8WPb5xdx89vqFHix4terTo0aJHy+49avRo0aNFjxY9WvRo0aNFjznp0aJHix4terTo0aJHix4terTo0aJHix4tq/aY9SY9WvRo0aNFjxY9WvRo0aNFj5ZhcgMAAAAAAAAAAFdOcNMH2w==
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Ground" width="100" height="100">
   <properties>
    <property name="type" value="collision"/>
   </properties>
-  <object type="floor" x="0" y="0" width="16" height="1248">
+  <object type="floor" x="0" y="160" width="16" height="1088">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1584" y="0" width="16" height="1248">
+  <object type="floor" x="1584" y="160" width="16" height="1088">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="16" y="0" width="1568" height="16">
+  <object type="floor" x="16" y="160" width="1568" height="16">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
@@ -50,25 +53,13 @@
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="160" y="80" width="128" height="16">
+  <object type="floor" x="240" y="416" width="16" height="80">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="1008" y="224" width="304" height="16">
-   <properties>
-    <property name="category" value="1"/>
-    <property name="groupindex" value="1"/>
-   </properties>
-  </object>
-  <object type="floor" x="400" y="304" width="16" height="80">
-   <properties>
-    <property name="category" value="1"/>
-    <property name="groupindex" value="1"/>
-   </properties>
-  </object>
-  <object type="floor" x="288" y="384" width="240" height="16">
+  <object type="floor" x="16" y="496" width="240" height="16">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
@@ -80,19 +71,7 @@
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="688" y="544" width="176" height="16">
-   <properties>
-    <property name="category" value="1"/>
-    <property name="groupindex" value="1"/>
-   </properties>
-  </object>
-  <object type="floor" x="496" y="720" width="16" height="208">
-   <properties>
-    <property name="category" value="1"/>
-    <property name="groupindex" value="1"/>
-   </properties>
-  </object>
-  <object type="floor" x="288" y="928" width="224" height="16">
+  <object type="floor" x="560" y="176" width="16" height="208">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
@@ -104,7 +83,7 @@
     <property name="groupindex" value="1"/>
    </properties>
   </object>
-  <object type="floor" x="848" y="1008" width="16" height="224">
+  <object type="floor" x="848" y="1088" width="16" height="144">
    <properties>
     <property name="category" value="1"/>
     <property name="groupindex" value="1"/>
@@ -115,7 +94,19 @@
   <properties>
    <property name="type" value="locations"/>
   </properties>
-  <object name="start" x="384" y="704" width="16" height="16">
+  <object name="start" x="512" y="944" width="32" height="32">
+   <properties>
+    <property name="z" value="1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object name="ballStart" x="112" y="592" width="32" height="32">
+   <properties>
+    <property name="z" value="1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object name="camera" x="768" y="640" width="32" height="32">
    <properties>
     <property name="z" value="1"/>
    </properties>
